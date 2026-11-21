@@ -122,6 +122,20 @@ describe('cooking stats', () => {
 });
 
 describe('arrangeInventory', () => {
+  it.each([false, true])('keeps Big Lollipop over a spare Piton (Energy Drink: %s)', (withDrink) => {
+    const inventory = [
+      c('piton'), c('first-aid-kit'), c('fortified-milk'), c('chain-launcher'),
+      c('medicinal-root'), c('rescue-claw'), c('rope-cannon'), c('big-lollipop'),
+    ];
+    if (withDrink) inventory.push(c('energy-drink'));
+    const a = advise(state({ inventory, ascent: 1 }));
+    const kept = a.arrangement.kept.map((entry) => entry.itemId);
+    expect(kept).toEqual(expect.arrayContaining(['first-aid-kit', 'fortified-milk', 'chain-launcher', 'big-lollipop']));
+    if (withDrink) expect(kept).toContain('energy-drink');
+    expect(a.actions).toContainEqual(expect.objectContaining({ action: 'drop', itemId: 'piton' }));
+    expect(a.campfire?.cook.map((entry) => entry.itemId)).toContain('big-lollipop');
+  });
+
   it('leaves Rope Spool behind on a solo climb even with open pockets', () => {
     const inventory = [c('rope-spool'), c('rope-cannon'), c('bandages'), c('trail-mix')];
     const a = advise(state({ inventory, atCampfire: true }));
