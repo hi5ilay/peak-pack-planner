@@ -5,10 +5,16 @@ import { AdviceList } from './components/AdviceList';
 import { Footer } from './components/Footer';
 import { Inventory } from './components/Inventory';
 import { ItemPicker } from './components/ItemPicker';
+import { LiveInventory } from './components/LiveInventory';
 import { StaminaBar } from './components/StaminaBar';
 import styles from './App.module.css';
 
 export default function App() {
+  const live = window.location.hostname === '127.0.0.1' && new URLSearchParams(window.location.search).has('live');
+  return live ? <LiveInventory /> : <ManualPlanner />;
+}
+
+function ManualPlanner() {
   const { state, send, canUndo } = usePlanner();
   const advice = useMemo(() => advise(state), [state]);
   const empty = state.inventory.length === 0;
