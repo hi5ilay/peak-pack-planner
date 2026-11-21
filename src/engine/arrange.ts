@@ -86,6 +86,9 @@ export function arrangeInventory(
   const capacity = HAND_SLOTS + BAG_SLOTS[bagType];
   const prio = new Map(items.map((e) => [e.uid, keepPriority(e, ascent)]));
   const byPriority = [...items].sort((a, b) => (prio.get(b.uid) ?? 0) - (prio.get(a.uid) ?? 0));
+  const drinks = byPriority.filter((entry) => entry.itemId === 'energy-drink');
+  for (const spare of drinks.slice(1)) prio.set(spare.uid, 25);
+  if (drinks.length > 1) byPriority.sort((a, b) => (prio.get(b.uid) ?? 0) - (prio.get(a.uid) ?? 0));
   const overflow: OverflowEntry[] = byPriority
     .filter((entry) => entry.itemId === 'rope-spool')
     .map((entry) => ({ entry, reason: 'Leave the Rope Spool behind on solo climbs. Save the slot for gear you can use.' }));
@@ -129,9 +132,13 @@ export function arrangeInventory(
     if (healing && healCount >= 2) {
       overflow.push({ entry, reason: 'Already carrying two dedicated heals. Leave space for food and climbing gear.' });
     } else if (rest.length >= spareSlots) {
+      const keepingDrink = entry.itemId === 'energy-drink'
+        && [emergency, ...rest].some((e) => e?.itemId === 'energy-drink');
       const keepingClaw = entry.itemId === 'energy-drink'
         && [emergency, ...rest].some((e) => e?.itemId === 'rescue-claw' && (prio.get(e.uid) ?? 0) > 0);
-      const reason = keepingClaw
+      const reason = keepingDrink
+        ? 'You already have an Energy Drink. Keep the slot for food or climbing gear.'
+        : keepingClaw
         ? 'Your pack is full. Save the slot for a charged Rescue Claw on this solo climb.'
         : overflowReason(entry, bagType, capacity);
       overflow.push({ entry, reason });
