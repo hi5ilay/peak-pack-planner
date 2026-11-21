@@ -149,6 +149,20 @@ describe('cooking stats', () => {
 });
 
 describe('arrangeInventory', () => {
+  it('uses a Balloon Bunch in place of the spare Rescue Claw to lighten the reported pack', () => {
+    const inventory = [
+      c('bandages'), c('first-aid-kit'), c('marshmallow', 1), c('airline-food'),
+      c('scouts-tenacity'), c('rescue-claw'), c('rescue-claw'), c('balloon-bunch'),
+    ];
+    const a = advise(state({ inventory, ascent: 1, status: { hunger: 2.5 } }));
+    expect(a.arrangement.bag.map((slot) => slot?.entry.itemId).sort()).toEqual([
+      'airline-food', 'balloon-bunch', 'first-aid-kit', 'rescue-claw',
+    ]);
+    expect(a.arrangement.overflow.map(({ entry }) => entry.itemId)).toEqual(['rescue-claw']);
+    expect(a.bar.weight).toBe(5);
+    expect(top(a).reason).toContain('22.5 to 5');
+  });
+
   it('keeps both charged Rescue Claws over Energy Drink in the reported solo pack', () => {
     const inventory = [
       c('bandages'), c('first-aid-kit'), c('medicinal-root', 1), c('energy-drink'),
