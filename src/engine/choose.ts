@@ -90,14 +90,9 @@ export function isPoisonousNow(entry: CarriedItem): boolean {
   return adds(entry, 'poison') > 0;
 }
 
-/**
- * The next thing to eat for the given Hunger.
- * Picks the biggest fill that does not go past current Hunger, avoiding poisonous
- * and "always cook first" items when something else works.
- */
-export function bestFood(inventory: CarriedItem[], hunger: number): CarriedItem | null {
+/** Prefer safe, ready-to-eat food and save dedicated stamina boosts for climbing. */
+export function foodCandidates(inventory: CarriedItem[]): CarriedItem[] {
   let foods = inventory.filter((entry) => entry.itemId !== 'medicinal-root' && isEdible(entry));
-  if (!foods.length) return null;
   const safe = foods.filter((e) => !isPoisonousNow(e));
   if (safe.length) foods = safe;
   const notWaitingForFire = foods.filter((e) => !(getItem(e.itemId).tags.alwaysCook && e.cookLevel === 0));
@@ -107,7 +102,13 @@ export function bestFood(inventory: CarriedItem[], hunger: number): CarriedItem 
     const it = getItem(e.itemId);
     return !it.special.infiniteStaminaSeconds && !it.special.speedBoostSeconds && !it.tags.staminaItem;
   });
-  if (plain.length) foods = plain;
+  return plain.length ? plain : foods;
+}
+
+/** Pick the biggest fill that fits current Hunger, or the smallest portion if none fits. */
+export function bestFood(inventory: CarriedItem[], hunger: number): CarriedItem | null {
+  const foods = foodCandidates(inventory);
+  if (!foods.length) return null;
   const fits = foods.filter((e) => hungerFill(e) <= hunger);
   if (fits.length) {
     fits.sort((a, b) => hungerFill(b) - hungerFill(a) || extraOf(b) - extraOf(a));
