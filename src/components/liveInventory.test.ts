@@ -11,6 +11,21 @@ const run: LiveRun = {
 };
 
 describe('live placement advice', () => {
+  it('keeps the cooked cookies and balloons over the spare berry in the reported loadout', () => {
+    const item = (uid: string, name: string, slot: string, cookLevel = 0): LiveItem => ({...food,uid,name,slot,cookLevel});
+    const packed = {
+      ...run, marked:item('spare','Bandages','Marked item'),
+      hands:[item('berry','Purple Kingberry','Hand 1'),item('claw','Rescue Claw','Hand 2'),
+        {...item('cookies','Scout Cookies','Hand 3',1),usesLeft:4}],
+      pockets:[item('lollipop','Big Lollipop','Pocket 1',1),item('balloons','Balloon Bunch','Pocket 2'),
+        item('kit','First Aid Kit','Pocket 3'),item('hotdog','Hot Dog','Pocket 4',1)],
+      stamina:85, extraStamina:100, status:{...emptyStatus(),hunger:5,injury:2.5},
+    };
+    expect(pickupAdvice(packed, 'backpack').swapUid).toBe('berry');
+    const duplicate = {...packed, hands:[item('band','Bandages','Hand 1'),...packed.hands.slice(1)]};
+    expect(pickupAdvice(duplicate, 'backpack')).toMatchObject({action:'leave',text:expect.stringContaining('already have Bandages')});
+  });
+
   it('leaves a second Energy Drink behind and counts all remaining cookie servings', () => {
     const item = (uid: string, name: string, slot: string): LiveItem => ({...food,uid,name,slot});
     const cookies = {...item('cookies', 'Scout Cookies', 'Hand 2'), usesLeft:4};

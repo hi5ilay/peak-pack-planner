@@ -51,7 +51,10 @@ export function keepPriority(entry: CarriedItem, ascent = 0): number {
   if (item.id === 'big-lollipop' || (item.id === 'energy-drink' && entry.cookLevel === 0)) return 75;
   if (item.id === 'piton') return 64;
   if (item.tags.climbingTool) return 66;
-  if (isEdible(entry)) return 55 + Math.min(20, hungerFill(entry) / 4) + Math.min(10, extraOf(entry) / 5);
+  if (isEdible(entry)) {
+    const servings = entry.usesLeft ?? item.uses ?? 1;
+    return 55 + Math.min(20, hungerFill(entry) * servings / 4) + Math.min(10, extraOf(entry) * servings / 5);
+  }
   if (extraOf(entry) > 0 || item.special.infiniteStaminaSeconds) return 58;
   if (item.group === 'Mystical and special') return 50;
   if (item.group === 'Light and utility') return 35;
@@ -130,7 +133,10 @@ export function arrangeInventory(
   for (const entry of candidates) {
     const healing = !getAmulet(entry.itemId) && isHealItem(entry) && !isEdible(entry);
     if (healing && healCount >= 2) {
-      overflow.push({ entry, reason: 'Already carrying two dedicated heals. Leave space for food and climbing gear.' });
+      const duplicateBandages = entry.itemId === 'bandages' && heal?.itemId === 'bandages' && spareKit && rest.includes(spareKit);
+      overflow.push({ entry, reason: duplicateBandages
+        ? 'You already have Bandages for a quick heal and a First Aid Kit for a bigger injury.'
+        : 'Already carrying two dedicated heals. Leave space for food and climbing gear.' });
     } else if (rest.length >= spareSlots) {
       const keepingDrink = entry.itemId === 'energy-drink'
         && [emergency, ...rest].some((e) => e?.itemId === 'energy-drink');
@@ -171,14 +177,17 @@ export function arrangeInventory(
   const usableClaws = equipped.filter((entry) => entry.itemId === 'rescue-claw' && (prio.get(entry.uid) ?? 0) > 0);
   const balloonIndex = overflow.findIndex(({ entry }) => entry.itemId === 'balloon-bunch' && !isBroken(entry));
   const spareClaw = usableClaws.slice(1).reverse().find((entry) => bag.some((slot) => slot?.entry === entry));
-  if (balloonIndex >= 0 && spareClaw) {
+  const spareFood = food && bag.slice().reverse().find((slot) => slot && isEdible(slot.entry)
+    && !isHealItem(slot.entry) && !getItem(slot.entry.itemId).special.infiniteStaminaSeconds)?.entry;
+  const replaceable = spareClaw ?? spareFood;
+  if (balloonIndex >= 0 && replaceable) {
     const balloon = overflow[balloonIndex].entry;
-    const trade = comparePacks(equipped, equipped.map((entry) => entry === spareClaw ? balloon : entry), ascent);
+    const trade = comparePacks(equipped, equipped.map((entry) => entry === replaceable ? balloon : entry), ascent);
     if (trade.current.weight - trade.proposed.weight >= 10) {
-      const pocket = bag.findIndex((slot) => slot?.entry === spareClaw);
+      const pocket = bag.findIndex((slot) => slot?.entry === replaceable);
       bag[pocket] = { entry: balloon, role: 'bag' };
       overflow[balloonIndex] = {
-        entry: spareClaw,
+        entry: replaceable,
         reason: `Carry the Balloon Bunch in this pocket. ${trade.details}.`,
       };
     }

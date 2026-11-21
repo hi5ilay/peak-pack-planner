@@ -317,6 +317,13 @@ describe('arrangeInventory', () => {
 });
 
 describe('advise', () => {
+  it('saves the First Aid Kit for more than minor Injury when stamina is healthy', () => {
+    const inventory = [c('first-aid-kit')];
+    expect(advise(state({ inventory, status: { injury: 2.5 }, extraStamina: 100 })).actions).toEqual([]);
+    const urgent = advise(state({ inventory, status: { injury: 2.5, curse: 70 } }));
+    expect(top(urgent)).toMatchObject({ action: 'use', itemId: 'first-aid-kit' });
+  });
+
   it('keeps cooked Marshmallow and eats surplus Granola Bar for bonus stamina', () => {
     const granola = c('granola-bar');
     const s = state({ inventory: [

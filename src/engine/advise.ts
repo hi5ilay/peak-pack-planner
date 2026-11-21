@@ -63,6 +63,7 @@ export interface Advice {
 
 const HEAVY_WEIGHT = 20;
 const LOW_STAMINA = 30;
+const MIN_ROUTINE_INJURY = 10;
 
 const STATUS_LABEL: Record<ManualStatusKey, string> = {
   hunger: 'Hunger',
@@ -124,7 +125,7 @@ export function advise(state: GameState): Advice {
   // 1. Status fixes, biggest status first.
   const order = [...FIXABLE].filter((k) => sim[k] > 0).sort((a, b) => sim[b] - sim[a]);
   for (const key of order) {
-    if (sim[key] <= 0) continue;
+    if (sim[key] <= 0 || (key === 'injury' && sim.injury < MIN_ROUTINE_INJURY && maxNow() > LOW_STAMINA)) continue;
     const pool = carried.filter((e) => !usedUids.has(e.uid));
     const fix = bestFix(pool, key, sim);
     if (!fix) continue;
