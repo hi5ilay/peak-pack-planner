@@ -1,6 +1,6 @@
 import { getAmulet } from './amulets';
 import { getItem } from './data';
-import { bestBoost, bestFix, bestFood, canHealInjury, FIXABLE, healPower, isHealItem, usable } from './choose';
+import { bestBoost, bestFix, canHealInjury, FIXABLE, foodCandidates, healPower, isHealItem, usable } from './choose';
 import { BAG_NAMES, BAG_SLOTS, extraOf, HAND_SLOTS, hungerFill, isBroken, isEdible } from './stats';
 import type { BagType, CarriedItem, ManualStatus } from './types';
 
@@ -98,8 +98,8 @@ export function arrangeInventory(
   const statusHeal = worst.map((k) => bestFix(heals, k, status)?.entry).find(Boolean);
   const heal = take(bandages ?? firstAid ?? heals.find(canHealInjury) ?? statusHeal ?? heals[0]);
 
-  const food = take(bestFood(pool.filter((e) => !isHealItem(e)), Math.max(status.hunger, 15))
-    ?? bestFood(pool, Math.max(status.hunger, 15)));
+  // The pool is ranked for carrying value. Hunger determines what to eat later.
+  const food = take(foodCandidates(pool.filter((e) => !isHealItem(e)))[0] ?? foodCandidates(pool)[0]);
 
   // On Ascent 4+ the Flare is required to finish, so reserve it even with no bag.
   const objective = ascent >= 4 ? take(pool.find((e) => getItem(e.itemId).tags.objective && usable(e))) : null;
