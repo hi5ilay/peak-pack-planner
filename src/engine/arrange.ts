@@ -1,5 +1,5 @@
 import { getItem } from './data';
-import { bestBoost, bestFix, bestFood, FIXABLE, healPower, isHealItem, usable } from './choose';
+import { bestBoost, bestFix, bestFood, canHealInjury, FIXABLE, healPower, isHealItem, usable } from './choose';
 import { BAG_NAMES, BAG_SLOTS, extraOf, HAND_SLOTS, hungerFill, isBroken, isEdible } from './stats';
 import type { BagType, CarriedItem, ManualStatus } from './types';
 
@@ -73,44 +73,50 @@ export function arrangeInventory(
   const capacity = HAND_SLOTS + BAG_SLOTS[bagType];
   const prio = new Map(items.map((e) => [e.uid, keepPriority(e, ascent)]));
   const byPriority = [...items].sort((a, b) => (prio.get(b.uid) ?? 0) - (prio.get(a.uid) ?? 0));
-  const keepSet = new Set(byPriority.slice(0, capacity).map((e) => e.uid));
-  const overflow: OverflowEntry[] = byPriority
-    .slice(capacity)
-    .map((entry) => ({ entry, reason: overflowReason(entry, bagType, capacity) }));
-  let pool = items.filter((e) => keepSet.has(e.uid));
+  let pool = byPriority;
   const take = (e: CarriedItem | null | undefined): CarriedItem | null => {
     if (!e) return null;
     pool = pool.filter((p) => p.uid !== e.uid);
     return e;
   };
 
-  // Slot 1: the heal for whatever hurts most right now, else the strongest heal.
-  let heal: CarriedItem | null = null;
-  const worst = [...FIXABLE].filter((k) => status[k] > 0).sort((a, b) => status[b] - status[a]);
-  for (const k of worst) {
-    const fix = bestFix(pool, k, status);
-    if (fix && isHealItem(fix.entry)) {
-      heal = fix.entry;
-      break;
+  // Reserve hand roles before using the remaining slots for spares.
+  const heals = pool.filter(isHealItem);
+  const bandages = heals.find((e) => e.itemId === 'bandages');
+  const firstAid = heals.find((e) => e.itemId === 'first-aid-kit');
+  const worst = FIXABLE.filter((k) => status[k] > 0).sort((a, b) => status[b] - status[a]);
+  const statusHeal = worst.map((k) => bestFix(heals, k, status)?.entry).find(Boolean);
+  const heal = take(bandages ?? firstAid ?? heals.find(canHealInjury) ?? statusHeal ?? heals[0]);
+
+  const food = take(bestFood(pool.filter((e) => !isHealItem(e)), Math.max(status.hunger, 15))
+    ?? bestFood(pool, Math.max(status.hunger, 15)));
+
+  // On Ascent 4+ the Flare is required to finish, so reserve it even with no bag.
+  const objective = ascent >= 4 ? take(pool.find((e) => getItem(e.itemId).tags.objective && usable(e))) : null;
+  const hasEmergencySlot = Number(!!heal) + Number(!!food) + Number(!!objective) < capacity;
+  const emergency = hasEmergencySlot
+    ? take(pool.find((e) => usable(e) && getItem(e.itemId).tags.climbingTool)
+      ?? bestBoost(pool.filter((e) => !isHealItem(e)), status.hunger, true)?.entry)
+    : null;
+
+  const rest = objective ? [objective] : [];
+  const overflow: OverflowEntry[] = [];
+  const spareKit = heal?.itemId === 'bandages' && firstAid && pool.includes(firstAid) ? take(firstAid) : null;
+  const candidates = spareKit ? [spareKit, ...pool] : pool;
+  const spareSlots = capacity - Number(!!heal) - Number(!!food) - Number(!!emergency);
+  let healCount = Number(!!heal) + Number(!!food && isHealItem(food));
+  for (const entry of candidates) {
+    const healing = isHealItem(entry);
+    if (healing && healCount >= 2) {
+      overflow.push({ entry, reason: 'Already carrying two healing items. Leave space for food and climbing gear.' });
+    } else if (rest.length >= spareSlots) {
+      overflow.push({ entry, reason: overflowReason(entry, bagType, capacity) });
+    } else {
+      rest.push(entry);
+      if (healing) healCount++;
     }
   }
-  if (!heal) {
-    const heals = pool.filter(isHealItem).sort((a, b) => healPower(b) - healPower(a));
-    heal = heals[0] ?? null;
-  }
-  heal = take(heal);
 
-  // Slot 2: the next thing to eat.
-  const food = take(bestFood(pool, Math.max(status.hunger, 15)));
-
-  // Slot 3: a climbing tool, or the best stamina boost.
-  const tools = pool
-    .filter((e) => usable(e) && getItem(e.itemId).tags.climbingTool)
-    .sort((a, b) => (prio.get(b.uid) ?? 0) - (prio.get(a.uid) ?? 0));
-  let emergency = take(tools[0] ?? null);
-  if (!emergency) emergency = take(bestBoost(pool, status.hunger, true)?.entry ?? null);
-
-  const rest = [...pool].sort((a, b) => (prio.get(b.uid) ?? 0) - (prio.get(a.uid) ?? 0));
   const hands: (ArrangedSlot | null)[] = [
     heal ? { entry: heal, role: 'heal' } : null,
     food ? { entry: food, role: 'food' } : null,

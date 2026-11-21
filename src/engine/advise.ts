@@ -236,10 +236,10 @@ export function advise(state: GameState): Advice {
       itemName: name(o.entry),
       uid: o.entry.uid,
       reason: o.reason,
-      result: `${name(o.entry)}: frees your hands, Weight stays ${fmt(bar.weight)}`,
+      result: `${name(o.entry)}: Weight stays ${fmt(bar.weight)}`,
       priority: 8,
     });
-    warnings.push({ kind: 'overflow', message: `${name(o.entry)} does not fit. ${o.reason}`, itemId: o.entry.itemId });
+    warnings.push({ kind: 'overflow', message: `${name(o.entry)} is outside your recommended pack. ${o.reason}`, itemId: o.entry.itemId });
   }
 
   for (const e of carried) {
@@ -310,8 +310,9 @@ export function advise(state: GameState): Advice {
 
   if (bar.weight >= HEAVY_WEIGHT) {
     const droppedAlready = new Set(actions.filter((a) => a.action === 'drop').map((a) => a.uid));
+    const coreItems = new Set(arrangement.hands.filter((slot) => slot && slot.role !== 'free').map((slot) => slot?.entry.uid));
     const heavy = carried
-      .filter((e) => !droppedAlready.has(e.uid) && !usedUids.has(e.uid))
+      .filter((e) => !droppedAlready.has(e.uid) && !usedUids.has(e.uid) && !coreItems.has(e.uid))
       .map((e) => ({ e, w: itemWeight(getItem(e.itemId), state.ascent), p: keepPriority(e, state.ascent) }))
       // Only suggest dropping things that are really heavy, junk, or broken.
       .filter((x) => x.w >= 10 || (x.w >= 5 && x.p <= 25))

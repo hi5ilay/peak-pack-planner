@@ -82,7 +82,7 @@ export function Inventory({ arrangement, bagType, send }: Props) {
 
       {arrangement.overflow.length > 0 && (
         <div className={styles.overflow} role="status">
-          <h3>Does not fit</h3>
+          <h3>Leave behind</h3>
           <ul>
             {arrangement.overflow.map((o) => (
               <li key={o.entry.uid}>
