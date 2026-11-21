@@ -41,9 +41,13 @@ export function keepPriority(entry: CarriedItem, ascent = 0): number {
   if (item.tags.junk) return 5;
   if (getAmulet(item.id)) return 92;
   if (isHealItem(entry)) return 70 + Math.min(20, healPower(entry) / 10);
-  // Reserve the emergency tool below, then favor strong climbing boosts over spare tools.
+  // For solo climbs, charged Rescue Claws take priority over consumable boosts.
+  if (item.id === 'rescue-claw') {
+    const charges = entry.usesLeft ?? item.uses ?? 0;
+    return charges > 0 ? 76 + charges : 0;
+  }
+  // Strong boosts still outrank spare tools such as Pitons.
   if (item.id === 'big-lollipop' || (item.id === 'energy-drink' && entry.cookLevel === 0)) return 75;
-  if (item.id === 'rescue-claw') return 66 + (entry.usesLeft ?? item.uses ?? 0);
   if (item.id === 'piton') return 64;
   if (item.tags.climbingTool) return 66;
   if (isEdible(entry)) return 55 + Math.min(20, hungerFill(entry) / 4) + Math.min(10, extraOf(entry) / 5);
@@ -108,7 +112,7 @@ export function arrangeInventory(
   const amulet = reserved < capacity ? take(pool.find((e) => getAmulet(e.itemId))) : null;
   const hasEmergencySlot = !(food && amulet) && reserved + Number(!!amulet) < capacity;
   const emergency = hasEmergencySlot
-    ? take(pool.find((e) => usable(e) && getItem(e.itemId).tags.climbingTool)
+    ? take(pool.find((e) => usable(e) && getItem(e.itemId).tags.climbingTool && (prio.get(e.uid) ?? 0) > 0)
       ?? bestBoost(pool.filter((e) => !isHealItem(e)), status.hunger, true)?.entry)
     : null;
 
@@ -124,7 +128,12 @@ export function arrangeInventory(
     if (healing && healCount >= 2) {
       overflow.push({ entry, reason: 'Already carrying two dedicated heals. Leave space for food and climbing gear.' });
     } else if (rest.length >= spareSlots) {
-      overflow.push({ entry, reason: overflowReason(entry, bagType, capacity) });
+      const keepingClaw = entry.itemId === 'energy-drink'
+        && [emergency, ...rest].some((e) => e?.itemId === 'rescue-claw' && (prio.get(e.uid) ?? 0) > 0);
+      const reason = keepingClaw
+        ? 'Your pack is full. Save the slot for a charged Rescue Claw on this solo climb.'
+        : overflowReason(entry, bagType, capacity);
+      overflow.push({ entry, reason });
     } else {
       rest.push(entry);
       if (healing) healCount++;
