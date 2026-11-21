@@ -5,6 +5,7 @@ import { computeBar } from './bar';
 import { getItem, ITEMS } from './data';
 import { computeWeight, defaultCookLevel, effectiveStats, emptyStatus } from './stats';
 import type { BagType, CarriedItem, CookLevel, GameState, ManualStatus } from './types';
+import { step } from '../state';
 
 let n = 0;
 function c(itemId: string, cookLevel?: CookLevel): CarriedItem {
@@ -28,6 +29,32 @@ function state(partial: Partial<Omit<GameState, 'status'>> & { status?: Partial<
 
 const top = (a: Advice) => a.actions[0];
 const has = (a: Advice, kind: string) => a.warnings.some((w) => w.kind === kind);
+
+describe('amulet activation', () => {
+  it.each([
+    ['scouts-initiative', false, 7],
+    ['scouts-tenacity', false, 20],
+    ['scouts-generosity', false, 25],
+    ['scouts-generosity', true, 45],
+    ['scouts-ambition', false, 30],
+  ] as const)('keeps %s in the pack and records its Petrify', (id, mysticalTarget, cost) => {
+    const entry = c(id);
+    const after = step(state({
+      inventory: [entry], status: { injury: 40, poison: 40, petrify: 10 }, extraStamina: 100,
+    }), { type: 'use', uid: entry.uid, mysticalTarget });
+    expect(after.inventory).toEqual([entry]);
+    expect(after.status.petrify).toBe(10 + cost);
+    expect(after.extraStamina).toBe(90 - cost);
+    if (id === 'scouts-tenacity') expect(after.status).toMatchObject({ injury: 0, poison: 20 });
+  });
+
+  it('limits only the bonus bar with Petrify', () => {
+    const bar = computeBar({ ...emptyStatus(), petrify: 65, hunger: 10 }, 50, []);
+    expect(bar.maxStamina).toBe(90);
+    expect(bar.extraStamina).toBe(35);
+    expect(bar.petrify).toBe(65);
+  });
+});
 
 describe('data', () => {
   it('has more than 100 items with unique ids and a source link each', () => {
@@ -122,6 +149,16 @@ describe('cooking stats', () => {
 });
 
 describe('arrangeInventory', () => {
+  it('keeps reusable Tenacity as backup for Bandages in a full pack', () => {
+    const inventory = [
+      c('bandages'), c('first-aid-kit'), c('fortified-milk'), c('chain-launcher'),
+      c('medicinal-root'), c('rescue-claw'), c('rope-cannon'), c('scouts-tenacity'),
+    ];
+    const a = advise(state({ inventory }));
+    expect(a.arrangement.kept.map((entry) => entry.itemId)).toContain('scouts-tenacity');
+    expect(a.arrangement.overflow.map(({ entry }) => entry.itemId)).toEqual(['first-aid-kit']);
+  });
+
   it.each([false, true])('keeps Big Lollipop over a spare Piton (Energy Drink: %s)', (withDrink) => {
     const inventory = [
       c('piton'), c('first-aid-kit'), c('fortified-milk'), c('chain-launcher'),
@@ -227,6 +264,15 @@ describe('arrangeInventory', () => {
 });
 
 describe('advise', () => {
+  it('models Tenacity as 60 total relief and avoids a lethal activation', () => {
+    const inventory = [c('scouts-tenacity')];
+    const a = advise(state({ inventory, status: { injury: 40, poison: 40 } }));
+    expect(top(a).result).toContain('Poison 40 to 20');
+    expect(top(a).reason).toContain('Adds 20 Petrify');
+    const dangerous = advise(state({ inventory, status: { injury: 40, poison: 40, petrify: 80 } }));
+    expect(dangerous.actions.some((action) => action.action === 'use')).toBe(false);
+  });
+
   it.each([0, 1] as const)('saves Medicinal Root for status relief at 12.5 Hunger (cook level %s)', (cookLevel) => {
     const a = advise(state({ inventory: [c('medicinal-root', cookLevel), c('first-aid-kit')], status: { hunger: 12.5 }, hardClimb: true }));
     expect(top(a)).toMatchObject({ action: 'keep', itemId: 'medicinal-root' });

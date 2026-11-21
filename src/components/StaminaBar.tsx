@@ -14,6 +14,7 @@ const LABELS: Record<StatusKey, string> = {
   spores: 'Spores',
   curse: 'Curse',
   thorns: 'Thorns',
+  petrify: 'Petrify',
   weight: 'Weight',
 };
 
@@ -23,7 +24,7 @@ interface Props {
   send: (m: Msg) => void;
 }
 
-function Range({ label, value, max = 100, onChange, color }: { label: string; value: number; max?: number; onChange: (v: number) => void; color?: string }) {
+function Range({ label, value, max = 100, step = 2.5, onChange, color }: { label: string; value: number; max?: number; step?: number; onChange: (v: number) => void; color?: string }) {
   const id = `r-${label.replace(/\s+/g, '-').toLowerCase()}`;
   return (
     <div className={styles.range}>
@@ -36,7 +37,7 @@ function Range({ label, value, max = 100, onChange, color }: { label: string; va
         type="range"
         min={0}
         max={max}
-        step={2.5}
+        step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
         style={color ? ({ accentColor: color } as CSSProperties) : undefined}
@@ -72,8 +73,9 @@ export function StaminaBar({ bar, state, send }: Props) {
             ) : null,
           )}
         </div>
-        <div className={styles.extraTrack} title="Extra (bonus) stamina is a separate reserve under the main bar">
-          <div className={styles.extra} style={{ width: `${Math.min(100, bar.extraStamina)}%` }} />
+        <div className={styles.extraTrack} title={`Bonus stamina reserve · Petrify ${fmt(bar.petrify)}`}>
+          <div className={styles.extra} style={{ width: `${bar.extraStamina}%` }} />
+          <div className={styles.petrify} style={{ width: `${bar.petrify}%` }} />
         </div>
       </div>
       <p className={styles.caption}>{bar.caption}</p>
@@ -101,7 +103,8 @@ export function StaminaBar({ bar, state, send }: Props) {
             key={k}
             label={LABELS[k]}
             value={state.status[k]}
-            color={STATUS_COLORS[k]}
+            step={k === 'petrify' ? 1 : 2.5}
+            color={k === 'petrify' ? '#a984df' : STATUS_COLORS[k]}
             onChange={(v) => send({ type: 'status', key: k, value: v })}
           />
         ))}

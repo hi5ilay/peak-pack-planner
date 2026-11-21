@@ -1,6 +1,7 @@
+import { applyAmulet, getAmulet } from './amulets';
 import { arrangeInventory, keepPriority, type Arrangement } from './arrange';
 import { computeBar, type BarResult } from './bar';
-import { bestBoost, bestFix, bestFood, canHealInjury, FIXABLE, HUNGRY, isPoisonousNow, totalFreed } from './choose';
+import { bestBoost, bestFix, bestFood, canHealInjury, FIXABLE, HUNGRY, isPoisonousNow } from './choose';
 import { getItem } from './data';
 import {
   canCook,
@@ -38,7 +39,8 @@ export type WarningKind =
   | 'no_food'
   | 'heavy'
   | 'overflow'
-  | 'passed_out';
+  | 'passed_out'
+  | 'petrify';
 
 export interface Warning {
   kind: WarningKind;
@@ -72,6 +74,7 @@ const STATUS_LABEL: Record<ManualStatusKey, string> = {
   spores: 'Spores',
   curse: 'Curse',
   thorns: 'Thorns',
+  petrify: 'Petrify',
 };
 
 function name(entry: CarriedItem): string {
@@ -87,6 +90,7 @@ function verbFor(entry: CarriedItem): ActionType {
 
 /** Apply an entry's effects to a status copy (what the bar looks like after using it). */
 function applyUse(entry: CarriedItem, status: ManualStatus): ManualStatus {
+  if (getAmulet(entry.itemId)) return applyAmulet(entry.itemId, status);
   const next = { ...status };
   for (const k of FIXABLE) next[k] = Math.max(0, next[k] - removes(entry, k));
   next.hunger = Math.max(0, next.hunger - hungerFill(entry));
@@ -94,7 +98,7 @@ function applyUse(entry: CarriedItem, status: ManualStatus): ManualStatus {
 }
 
 function sumStatus(s: ManualStatus): number {
-  return (Object.keys(s) as ManualStatusKey[]).reduce((a, k) => a + s[k], 0);
+  return (Object.keys(s) as ManualStatusKey[]).reduce((a, k) => a + (k === 'petrify' ? 0 : s[k]), 0);
 }
 
 /**
@@ -112,6 +116,7 @@ export function advise(state: GameState): Advice {
   const weightNow = bar.weight;
   const maxNow = () => Math.max(0, 100 - Math.min(200, sumStatus(sim) + weightNow));
 
+  if (bar.petrify >= 100) warnings.push({ kind: 'petrify', message: 'Petrify has filled the bonus bar. Your scout will crystallize.' });
   if (bar.passedOut) {
     warnings.push({ kind: 'passed_out', message: 'Statuses fill the whole bar: you pass out. A teammate has to help, or wait for statuses that decay.' });
   }
@@ -125,8 +130,8 @@ export function advise(state: GameState): Advice {
     if (!fix) continue;
     const before = { ...sim };
     const maxBefore = maxNow();
-    const freed = totalFreed(fix.entry, sim);
     sim = applyUse(fix.entry, sim);
+    const freed = FIXABLE.reduce((total, k) => total + before[k] - sim[k], 0);
     usedUids.add(fix.entry.uid);
     const item = getItem(fix.entry.itemId);
     const parts = FIXABLE.filter((k) => before[k] !== sim[k]).map(
@@ -141,6 +146,7 @@ export function advise(state: GameState): Advice {
     if (key === 'poison' || key === 'spores' || key === 'heat' || key === 'drowsy' || key === 'cold') {
       reason += ` ${STATUS_LABEL[key]} also fades on its own over time.`;
     }
+    if (fix.entry.itemId === 'scouts-tenacity') reason += ` Adds ${fmt(sim.petrify - before.petrify)} Petrify and grants 10 s of invincibility.`;
     const fill = hungerFill(fix.entry);
     if (fill > 0 && before.hunger < fill) reason += ` Wastes ${fmt(fill - before.hunger)} Hunger fill.`;
     actions.push({
@@ -210,7 +216,7 @@ export function advise(state: GameState): Advice {
   const staminaAfter = Math.min(bar.stamina, maxNow());
   if (state.hardClimb || bar.stamina <= LOW_STAMINA) {
     const pool = carried.filter((e) => !usedUids.has(e.uid));
-    const boost = bestBoost(pool, sim.hunger, state.hardClimb);
+    const boost = bestBoost(pool.filter((e) => e.itemId !== 'scouts-ambition' || sim.petrify + 30 < 100), sim.hunger, state.hardClimb);
     if (boost) {
       const item = getItem(boost.entry.itemId);
       const why = state.hardClimb ? 'Hard climb ahead.' : `Stamina is low (${fmt(bar.stamina)}%).`;
@@ -222,6 +228,7 @@ export function advise(state: GameState): Advice {
       if (boost.infinite > 0) bits.push(`${fmt(boost.infinite)} s of infinite stamina`);
       if (item.special.speedBoostSeconds) bits.push(`${fmt(item.special.speedBoostSeconds)} s of faster climbing`);
       let reason = why + food;
+      if (item.id === 'scouts-ambition') reason += ' Adds 30 Petrify and limits your bonus stamina reserve.';
       if (item.id === 'big-lollipop' && boost.entry.cookLevel === 0) reason += ' Raw lollipop gives Drowsy 32.5 afterwards; cook it at the next fire if you can wait.';
       if (item.id === 'energy-drink' && boost.entry.cookLevel === 0) reason += ' Drowsy 25 hits when it wears off.';
       if (item.id === 'energy-drink' && boost.entry.cookLevel > 0) reason += ' Cooked: it explodes and knocks back everyone within 9.6 m. Only drink it on flat ground away from friends.';

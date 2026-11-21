@@ -1,4 +1,4 @@
-import { canCook, COOK_LEVEL_NAMES, effectiveStats, fmt, getItem, isBroken, ROLE_LABELS } from '../engine';
+import { getAmulet, canCook, COOK_LEVEL_NAMES, effectiveStats, fmt, getItem, isBroken, ROLE_LABELS } from '../engine';
 import type { ArrangedSlot } from '../engine';
 import type { Msg } from '../state';
 import { ItemIcon } from './ItemIcon';
@@ -29,6 +29,7 @@ export function Slot({ slot, label, hotkey, big, send }: Props) {
   if (stats.hunger) bits.push(`${fmt(stats.hunger)} food`);
   if (stats.extraStamina) bits.push(`+${fmt(stats.extraStamina)} extra`);
   const cookable = canCook(item);
+  const amulet = getAmulet(item.id);
   return (
     <div
       className={`${styles.slot} ${big ? styles.big : ''} ${broken ? styles.broken : ''}`}
@@ -48,7 +49,7 @@ export function Slot({ slot, label, hotkey, big, send }: Props) {
           <span className={entry.cookLevel >= 3 ? styles.burnt : styles.cooked}>{COOK_LEVEL_NAMES[entry.cookLevel]}</span>
         )}
         {broken && <span className={styles.burnt}>Unusable</span>}
-        {bits.join(', ')}
+        {amulet ? `Unlimited uses · +${amulet.cost} Petrify · ${amulet.effect}` : bits.join(', ')}
         {entry.usesLeft !== null && entry.usesLeft > 1 && ` (${entry.usesLeft} uses)`}
       </span>
       <span className={styles.buttons}>
@@ -64,9 +65,16 @@ export function Slot({ slot, label, hotkey, big, send }: Props) {
             )}
           </>
         )}
-        <button type="button" onClick={() => send({ type: 'use', uid: entry.uid })} aria-label={`Mark ${item.name} as used`}>
-          Used
-        </button>
+        {item.id === 'scouts-generosity' ? (
+          <>
+            <button type="button" onClick={() => send({ type: 'use', uid: entry.uid })}>Used on regular (+25)</button>
+            <button type="button" onClick={() => send({ type: 'use', uid: entry.uid, mysticalTarget: true })}>Used on mystical (+45)</button>
+          </>
+        ) : (
+          <button type="button" onClick={() => send({ type: 'use', uid: entry.uid })} aria-label={`Mark ${item.name} as used`}>
+            Used
+          </button>
+        )}
         <button type="button" className={styles.drop} onClick={() => send({ type: 'remove', uid: entry.uid })} aria-label={`Drop ${item.name}`}>
           Drop
         </button>

@@ -22,6 +22,7 @@ export interface BarResult {
   stamina: number;
   /** Bonus stamina in its own reserve bar. */
   extraStamina: number;
+  petrify: number;
   weight: number;
   passedOut: boolean;
   caption: string;
@@ -50,7 +51,7 @@ export function computeBar(
 ): BarResult {
   const weight = computeWeight(inventory, options.ascent ?? 0);
   const amounts: [StatusKey, number][] = [
-    ...MANUAL_STATUS_KEYS.map((k) => [k, Math.max(0, status[k] ?? 0)] as [StatusKey, number]),
+    ...MANUAL_STATUS_KEYS.filter((k) => k !== 'petrify').map((k) => [k, Math.max(0, status[k] ?? 0)] as [StatusKey, number]),
     ['weight', weight],
   ];
   const segments: BarSegment[] = [];
@@ -65,7 +66,8 @@ export function computeBar(
   const maxStamina = Math.max(0, BAR - blocked);
   const requested = options.stamina ?? maxStamina;
   const stamina = Math.max(0, Math.min(requested, maxStamina));
-  const extra = Math.max(0, extraStamina);
+  const petrify = Math.max(0, Math.min(100, status.petrify ?? 0));
+  const extra = Math.max(0, Math.min(100 - petrify, extraStamina));
   const parts = [`${fmt(Math.min(blocked, BAR))}% blocked`, `${fmt(stamina)}% stamina`];
   if (extra > 0) parts.push(`+${fmt(extra)} extra`);
   if (blocked > BAR) parts.push(`${fmt(blocked - BAR)}% of statuses past the end of the bar`);
@@ -75,6 +77,7 @@ export function computeBar(
     maxStamina,
     stamina,
     extraStamina: extra,
+    petrify,
     weight,
     passedOut: maxStamina <= 0,
     caption: parts.join(', '),

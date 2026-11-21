@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { fmt, GROUPS, ITEMS } from '../engine';
+import { getAmulet, fmt, GROUPS, ITEMS } from '../engine';
 import type { FoodStats, Item } from '../engine';
 import type { Msg } from '../state';
 import { ItemIcon } from './ItemIcon';
@@ -8,7 +8,7 @@ import styles from './ItemPicker.module.css';
 const PICKABLE = ITEMS.filter((i) => !i.hidden);
 const STATUS_SHORT: Record<string, string> = {
   injury: 'Injury', poison: 'Poison', cold: 'Cold', heat: 'Heat', drowsy: 'Drowsy',
-  spores: 'Spores', curse: 'Curse', thorns: 'Thorns', hunger: 'Hunger',
+  spores: 'Spores', curse: 'Curse', thorns: 'Thorns', hunger: 'Hunger', petrify: 'Petrify',
 };
 
 function statsFor(item: Item, cooked: boolean): FoodStats {
@@ -17,6 +17,8 @@ function statsFor(item: Item, cooked: boolean): FoodStats {
 }
 
 function keyNumbers(item: Item, cooked: boolean): string[] {
+  const amulet = getAmulet(item.id);
+  if (amulet) return ['Unlimited uses', `+${amulet.cost} Petrify`, amulet.effect, `${item.weight} wt`];
   const s = statsFor(item, cooked);
   const out: string[] = [];
   if (s.hunger === null) out.push('food ?');
