@@ -33,6 +33,7 @@ function ManualPlanner() {
           </div>
         </div>
         <div className={styles.tools}>
+          <a href="http://127.0.0.1:47831/?live">Live inventory</a>
           <button type="button" onClick={() => send({ type: 'undo' })} disabled={!canUndo}>
             Undo
           </button>
