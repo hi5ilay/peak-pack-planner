@@ -149,6 +149,16 @@ describe('cooking stats', () => {
 });
 
 describe('arrangeInventory', () => {
+  it('keeps cooked Marshmallow over raw Trail Mix in the reported full pack', () => {
+    const inventory = [
+      c('bandages'), c('first-aid-kit'), c('medicinal-root', 1), c('chain-launcher'),
+      c('rescue-claw'), c('scouts-tenacity'), c('marshmallow', 1), c('trail-mix'),
+    ];
+    const a = advise(state({ inventory, ascent: 1, extraStamina: 25 }));
+    expect(a.arrangement.hands[1]?.entry.itemId).toBe('marshmallow');
+    expect(a.arrangement.overflow.map(({ entry }) => entry.itemId)).toEqual(['trail-mix']);
+  });
+
   it('puts Tenacity in the open hand slot and keeps both dedicated heals', () => {
     const inventory = [
       c('bandages'), c('first-aid-kit'), c('chain-launcher'),
