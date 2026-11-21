@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { arrangeInventory, defaultCookLevel, emptyStatus, getItem, ITEMS, type BagType, type CarriedItem, type CookLevel, type ManualStatus } from '../engine';
+import { advise, arrangeInventory, defaultCookLevel, emptyStatus, getItem, ITEMS, type BagType, type CarriedItem, type CookLevel, type ManualStatus } from '../engine';
 import styles from './LiveInventory.module.css';
 
 interface LiveItem {
@@ -16,6 +16,8 @@ interface LiveRun {
   marked: LiveItem | null;
   bagType: string;
   ascent: number;
+  stamina: number;
+  extraStamina: number;
   status: ManualStatus;
 }
 
@@ -41,9 +43,16 @@ function recommendation(run: LiveRun, bagType: BagType): string {
   const known = entries.filter((item): item is CarriedItem => item !== null);
   const status = { ...emptyStatus(), ...run.status };
   const before = arrangeInventory(known, bagType, status, run.ascent);
-  const after = arrangeInventory([...known, candidate], bagType, status, run.ascent);
+  const proposed = advise({
+    inventory: [...known, candidate], bagType, status, ascent: run.ascent,
+    stamina: run.stamina, extraStamina: run.extraStamina, hardClimb: false, atCampfire: false,
+  });
+  const after = proposed.arrangement;
   const rejected = after.overflow.find(({ entry }) => entry.uid === candidate.uid);
-  if (rejected) return 'Leave it. ' + rejected.reason;
+  if (rejected) {
+    const snack = proposed.actions.find((action) => action.uid === candidate.uid && action.action === 'eat');
+    return snack ? 'Eat it before moving on. ' + snack.result + '.' : 'Leave it. ' + rejected.reason;
+  }
   const priorOverflow = new Set(before.overflow.map(({ entry }) => entry.uid));
   const displaced = after.overflow.find(({ entry }) => !priorOverflow.has(entry.uid));
   const slots = run.hands.length + (bagType === 'backpack' ? 4 : bagType === 'fannypack' ? 2 : 0);
