@@ -104,11 +104,13 @@ export function arrangeInventory(
   const spareKit = heal?.itemId === 'bandages' && firstAid && pool.includes(firstAid) ? take(firstAid) : null;
   const candidates = spareKit ? [spareKit, ...pool] : pool;
   const spareSlots = capacity - Number(!!heal) - Number(!!food) - Number(!!emergency);
-  let healCount = Number(!!heal) + Number(!!food && isHealItem(food));
+  // Foods such as Medicinal Root cover Hunger as well as treating statuses.
+  // Only dedicated heals count toward the two-item limit.
+  let healCount = Number(!!heal && !isEdible(heal));
   for (const entry of candidates) {
-    const healing = isHealItem(entry);
+    const healing = isHealItem(entry) && !isEdible(entry);
     if (healing && healCount >= 2) {
-      overflow.push({ entry, reason: 'Already carrying two healing items. Leave space for food and climbing gear.' });
+      overflow.push({ entry, reason: 'Already carrying two dedicated heals. Leave space for food and climbing gear.' });
     } else if (rest.length >= spareSlots) {
       overflow.push({ entry, reason: overflowReason(entry, bagType, capacity) });
     } else {

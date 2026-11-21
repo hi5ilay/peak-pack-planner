@@ -122,6 +122,21 @@ describe('cooking stats', () => {
 });
 
 describe('arrangeInventory', () => {
+  it.each([false, true])('keeps Medicinal Root alongside Bandages and First Aid Kit (other food: %s)', (otherFood) => {
+    const inventory = [
+      c('bandages'), c('medicinal-root'), c('first-aid-kit'),
+      c('chain-launcher'), c('rescue-claw'), c('rope-cannon'),
+    ];
+    if (otherFood) inventory.push(c('trail-mix'));
+    const a = advise(state({ inventory, status: { poison: 20 } }));
+
+    expect(a.arrangement.hands[0]?.entry.itemId).toBe('bandages');
+    expect(a.arrangement.hands[1]?.entry.itemId).toBe(otherFood ? 'trail-mix' : 'medicinal-root');
+    expect(a.arrangement.bag.map((slot) => slot?.entry.itemId)).toContain('first-aid-kit');
+    expect(a.arrangement.overflow).toEqual([]);
+    expect(a.actions.find((action) => action.action === 'eat')?.itemId).toBe('medicinal-root');
+  });
+
   it('keeps quick Bandages, one First Aid Kit, food and climbing gear in a crowded pack', () => {
     const inventory = [
       c('first-aid-kit'), c('first-aid-kit'), c('bandages'), c('bandages'),
