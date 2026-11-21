@@ -292,6 +292,20 @@ describe('arrangeInventory', () => {
 });
 
 describe('advise', () => {
+  it('keeps cooked Marshmallow and eats surplus Granola Bar for bonus stamina', () => {
+    const granola = c('granola-bar');
+    const s = state({ inventory: [
+      c('bandages'), c('first-aid-kit'), c('medicinal-root', 1), c('rescue-claw'),
+      c('rescue-claw'), c('scouts-tenacity'), c('marshmallow', 1), granola,
+    ], extraStamina: 25, ascent: 1 });
+    const a = advise(s);
+    expect(a.arrangement.hands[1]?.entry.itemId).toBe('marshmallow');
+    expect(top(a)).toMatchObject({ action: 'eat', uid: granola.uid, result: '+20 bonus stamina, 25 to 45' });
+    expect(step(s, { type: 'eat-surplus', uid: granola.uid }).extraStamina).toBe(45);
+    const full = advise({ ...s, extraStamina: 100 });
+    expect(top(full)).toMatchObject({ action: 'drop', uid: granola.uid });
+  });
+
   it('models Tenacity as 60 total relief and avoids a lethal activation', () => {
     const inventory = [c('scouts-tenacity')];
     const a = advise(state({ inventory, status: { injury: 40, poison: 40 } }));

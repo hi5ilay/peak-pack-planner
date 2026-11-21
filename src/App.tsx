@@ -47,7 +47,7 @@ function ManualPlanner() {
 
       <main className={styles.layout}>
         <div className={styles.inv}>
-          <Inventory arrangement={advice.arrangement} bagType={state.bagType} send={send} />
+          <Inventory arrangement={advice.arrangement} actions={advice.actions} bagType={state.bagType} send={send} />
         </div>
         <div className={styles.side}>
           <StaminaBar bar={advice.bar} state={state} send={send} />
