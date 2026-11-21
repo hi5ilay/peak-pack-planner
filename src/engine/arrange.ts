@@ -1,3 +1,4 @@
+import { getAmulet } from './amulets';
 import { getItem } from './data';
 import { bestBoost, bestFix, bestFood, canHealInjury, FIXABLE, healPower, isHealItem, usable } from './choose';
 import { BAG_NAMES, BAG_SLOTS, extraOf, HAND_SLOTS, hungerFill, isBroken, isEdible } from './stats';
@@ -37,6 +38,7 @@ export function keepPriority(entry: CarriedItem, ascent = 0): number {
   if (isBroken(entry)) return 0;
   if (item.tags.objective) return ascent >= 4 ? 95 : 45;
   if (item.tags.junk) return 5;
+  if (getAmulet(item.id)) return 92;
   if (isHealItem(entry)) return 70 + Math.min(20, healPower(entry) / 10);
   // Reserve the emergency tool below, then favor strong climbing boosts over spare tools.
   if (item.id === 'big-lollipop' || (item.id === 'energy-drink' && entry.cookLevel === 0)) return 75;
@@ -106,7 +108,7 @@ export function arrangeInventory(
     : null;
 
   const rest = objective ? [objective] : [];
-  const spareKit = heal?.itemId === 'bandages' && firstAid && pool.includes(firstAid) ? take(firstAid) : null;
+  const spareKit = heal?.itemId === 'bandages' && firstAid && pool.includes(firstAid) && ((status.petrify ?? 0) >= 90 || !pool.some((e) => e.itemId === 'scouts-tenacity')) ? take(firstAid) : null;
   const candidates = spareKit ? [spareKit, ...pool] : pool;
   const spareSlots = capacity - Number(!!heal) - Number(!!food) - Number(!!emergency);
   // Foods such as Medicinal Root cover Hunger as well as treating statuses.

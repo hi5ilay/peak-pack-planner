@@ -10,6 +10,7 @@ export const STATUS_KEYS = [
   'spores',
   'curse',
   'thorns',
+  'petrify',
   'weight',
 ] as const;
 export type StatusKey = (typeof STATUS_KEYS)[number];

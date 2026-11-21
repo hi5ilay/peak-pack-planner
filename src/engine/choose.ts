@@ -1,4 +1,5 @@
 // Item choice helpers shared by arrangeInventory and advise.
+import { applyAmulet } from './amulets';
 import { getItem } from './data';
 import { adds, extraOf, hungerFill, isBroken, isEdible, removes } from './stats';
 import type { CarriedItem, ManualStatus, ManualStatusKey } from './types';
@@ -35,8 +36,15 @@ export function bestFix(inventory: CarriedItem[], key: ManualStatusKey, status: 
   if (amount <= 0) return null;
   let cands = inventory
     .filter(usable)
-    .map((entry) => ({ entry, capacity: removes(entry, key), covered: Math.min(removes(entry, key), amount) }))
-    .filter((c) => c.capacity > 0)
+    .map((entry) => {
+      if (entry.itemId === 'scouts-tenacity') {
+        const next = applyAmulet(entry.itemId, status);
+        return { entry, capacity: removes(entry, key), covered: next.petrify < 100 ? amount - next[key] : 0 };
+      }
+      const capacity = removes(entry, key);
+      return { entry, capacity, covered: Math.min(capacity, amount) };
+    })
+    .filter((c) => c.covered > 0)
     // Do not "fix" a status with an item that adds more of it.
     .filter((c) => adds(c.entry, key) < c.capacity);
   if (key === 'heat') {

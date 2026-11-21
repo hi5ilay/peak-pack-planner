@@ -95,7 +95,7 @@ export function computeWeight(inventory: CarriedItem[], ascent = 0): number {
 }
 
 export function emptyStatus(): ManualStatus {
-  return { hunger: 0, injury: 0, poison: 0, cold: 0, heat: 0, drowsy: 0, spores: 0, curse: 0, thorns: 0 };
+  return { hunger: 0, injury: 0, poison: 0, cold: 0, heat: 0, drowsy: 0, spores: 0, curse: 0, thorns: 0, petrify: 0 };
 }
 
 export function fmt(n: number): string {

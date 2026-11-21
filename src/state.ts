@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useReducer } from 'react';
-import { canCook, defaultCookLevel, emptyStatus, getItem, ITEM_BY_ID } from './engine';
+import { applyAmulet, getAmulet, canCook, defaultCookLevel, emptyStatus, getItem, ITEM_BY_ID } from './engine';
 import type { BagType, CarriedItem, CookLevel, GameState, ManualStatusKey } from './engine';
 
 const STORAGE_KEY = 'peak-pack-planner/v1';
@@ -22,7 +22,7 @@ export function initialState(): GameState {
 export type Msg =
   | { type: 'add'; itemId: string; cooked: boolean }
   | { type: 'remove'; uid: string }
-  | { type: 'use'; uid: string }
+  | { type: 'use'; uid: string; mysticalTarget?: boolean }
   | { type: 'cook'; uid: string; delta: 1 | -1 }
   | { type: 'bag'; bagType: BagType }
   | { type: 'status'; key: ManualStatusKey; value: number }
@@ -56,7 +56,12 @@ export function step(s: GameState, m: Msg): GameState {
     }
     case 'remove':
       return { ...s, inventory: s.inventory.filter((e) => e.uid !== m.uid) };
-    case 'use':
+    case 'use': {
+      const used = s.inventory.find((e) => e.uid === m.uid);
+      if (used && getAmulet(used.itemId)) {
+        const status = applyAmulet(used.itemId, s.status, m.mysticalTarget);
+        return { ...s, status, extraStamina: Math.min(s.extraStamina, 100 - status.petrify) };
+      }
       return {
         ...s,
         inventory: s.inventory.flatMap((e) => {
@@ -65,6 +70,7 @@ export function step(s: GameState, m: Msg): GameState {
           return [];
         }),
       };
+    }
     case 'cook':
       return {
         ...s,
