@@ -4,7 +4,7 @@ import { bestBoost, bestFix, bestFood, canHealInjury, FIXABLE, healPower, isHeal
 import { BAG_NAMES, BAG_SLOTS, extraOf, HAND_SLOTS, hungerFill, isBroken, isEdible } from './stats';
 import type { BagType, CarriedItem, ManualStatus } from './types';
 
-export type SlotRole = 'heal' | 'food' | 'emergency' | 'bag' | 'free';
+export type SlotRole = 'heal' | 'food' | 'amulet' | 'emergency' | 'bag' | 'free';
 
 export interface ArrangedSlot {
   entry: CarriedItem;
@@ -27,6 +27,7 @@ export interface Arrangement {
 export const ROLE_LABELS: Record<SlotRole, string> = {
   heal: 'Heal',
   food: 'Main food',
+  amulet: 'Amulet',
   emergency: 'Emergency',
   bag: 'Bag',
   free: 'Spare',
@@ -65,7 +66,8 @@ function overflowReason(entry: CarriedItem, bagType: BagType, capacity: number):
 /**
  * Puts items into fixed slot roles:
  * slot 1 Heal, slot 2 Main food (next thing to eat), slot 3 Emergency
- * (climbing tool, or a stamina boost when there is no tool). The bag holds the
+ * (climbing tool, or a stamina boost when there is no tool). An amulet takes
+ * an empty hand slot or replaces the emergency tool in hand. The bag holds the
  * rest in priority order. A role with no candidate is filled with the next
  * best item (role "free"). What does not fit goes to overflow with a reason.
  */
@@ -89,7 +91,7 @@ export function arrangeInventory(
   };
 
   // Reserve hand roles before using the remaining slots for spares.
-  const heals = pool.filter(isHealItem);
+  const heals = pool.filter((entry) => !getAmulet(entry.itemId) && isHealItem(entry));
   const bandages = heals.find((e) => e.itemId === 'bandages');
   const firstAid = heals.find((e) => e.itemId === 'first-aid-kit');
   const worst = FIXABLE.filter((k) => status[k] > 0).sort((a, b) => status[b] - status[a]);
@@ -101,21 +103,23 @@ export function arrangeInventory(
 
   // On Ascent 4+ the Flare is required to finish, so reserve it even with no bag.
   const objective = ascent >= 4 ? take(pool.find((e) => getItem(e.itemId).tags.objective && usable(e))) : null;
-  const hasEmergencySlot = Number(!!heal) + Number(!!food) + Number(!!objective) < capacity;
+  const reserved = Number(!!heal) + Number(!!food) + Number(!!objective);
+  const amulet = reserved < capacity ? take(pool.find((e) => getAmulet(e.itemId))) : null;
+  const hasEmergencySlot = !(food && amulet) && reserved + Number(!!amulet) < capacity;
   const emergency = hasEmergencySlot
     ? take(pool.find((e) => usable(e) && getItem(e.itemId).tags.climbingTool)
       ?? bestBoost(pool.filter((e) => !isHealItem(e)), status.hunger, true)?.entry)
     : null;
 
   const rest = objective ? [objective] : [];
-  const spareKit = heal?.itemId === 'bandages' && firstAid && pool.includes(firstAid) && ((status.petrify ?? 0) >= 90 || !pool.some((e) => e.itemId === 'scouts-tenacity')) ? take(firstAid) : null;
+  const spareKit = heal?.itemId === 'bandages' ? take(firstAid) : null;
   const candidates = spareKit ? [spareKit, ...pool] : pool;
-  const spareSlots = capacity - Number(!!heal) - Number(!!food) - Number(!!emergency);
+  const spareSlots = capacity - Number(!!heal) - Number(!!food) - Number(!!amulet) - Number(!!emergency);
   // Foods such as Medicinal Root cover Hunger as well as treating statuses.
   // Only dedicated heals count toward the two-item limit.
   let healCount = Number(!!heal && !isEdible(heal));
   for (const entry of candidates) {
-    const healing = isHealItem(entry) && !isEdible(entry);
+    const healing = !getAmulet(entry.itemId) && isHealItem(entry) && !isEdible(entry);
     if (healing && healCount >= 2) {
       overflow.push({ entry, reason: 'Already carrying two dedicated heals. Leave space for food and climbing gear.' });
     } else if (rest.length >= spareSlots) {
@@ -126,10 +130,11 @@ export function arrangeInventory(
     }
   }
 
+  const amuletSlot: ArrangedSlot | null = amulet ? { entry: amulet, role: 'amulet' } : null;
   const hands: (ArrangedSlot | null)[] = [
     heal ? { entry: heal, role: 'heal' } : null,
-    food ? { entry: food, role: 'food' } : null,
-    emergency ? { entry: emergency, role: 'emergency' } : null,
+    food ? { entry: food, role: 'food' } : amuletSlot,
+    emergency ? { entry: emergency, role: 'emergency' } : food ? amuletSlot : null,
   ];
   const bagSlots = BAG_SLOTS[bagType];
   // With no bag, empty hand roles take the next items so nothing that fits is lost.

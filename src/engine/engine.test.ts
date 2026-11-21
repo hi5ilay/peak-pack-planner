@@ -149,14 +149,22 @@ describe('cooking stats', () => {
 });
 
 describe('arrangeInventory', () => {
-  it('keeps reusable Tenacity as backup for Bandages in a full pack', () => {
+  it('puts Tenacity in the open hand slot and keeps both dedicated heals', () => {
     const inventory = [
-      c('bandages'), c('first-aid-kit'), c('fortified-milk'), c('chain-launcher'),
+      c('bandages'), c('first-aid-kit'), c('chain-launcher'),
       c('medicinal-root'), c('rescue-claw'), c('rope-cannon'), c('scouts-tenacity'),
     ];
-    const a = advise(state({ inventory }));
-    expect(a.arrangement.kept.map((entry) => entry.itemId)).toContain('scouts-tenacity');
-    expect(a.arrangement.overflow.map(({ entry }) => entry.itemId)).toEqual(['first-aid-kit']);
+    const a = arrangeInventory(inventory, 'backpack', emptyStatus());
+    expect(a.hands.map((slot) => slot?.entry.itemId)).toEqual(['bandages', 'scouts-tenacity', 'chain-launcher']);
+    expect(a.bag.map((slot) => slot?.entry.itemId)).toContain('first-aid-kit');
+    expect(a.overflow).toEqual([]);
+  });
+
+  it('keeps food in hand and puts an amulet in the emergency slot', () => {
+    const inventory = [c('bandages'), c('trail-mix'), c('piton'), c('scouts-initiative')];
+    const a = arrangeInventory(inventory, 'backpack', emptyStatus());
+    expect(a.hands.map((slot) => slot?.entry.itemId)).toEqual(['bandages', 'trail-mix', 'scouts-initiative']);
+    expect(a.bag[0]?.entry.itemId).toBe('piton');
   });
 
   it.each([false, true])('keeps Big Lollipop over a spare Piton (Energy Drink: %s)', (withDrink) => {
