@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { advise, arrangeInventory, defaultCookLevel, emptyStatus, getItem, ITEMS, type BagType, type CarriedItem, type CookLevel, type ManualStatus } from '../engine';
+import { advise, arrangeInventory, BAG_SLOTS, defaultCookLevel, emptyStatus, getItem, itemWeight, ITEMS, type Arrangement, type BagType, type CarriedItem, type CookLevel, type ManualStatus } from '../engine';
 import { comparePacks } from '../engine/comparePacks';
 
 export interface LiveItem {
@@ -34,11 +34,30 @@ export function toEntry(item: LiveItem): CarriedItem | null {
   return { uid: item.uid, itemId: match.id, cookLevel, usesLeft: item.usesLeft };
 }
 
+function placement(run: LiveRun, bagType: BagType, entry: CarriedItem, plan: Arrangement, swapUid?: string): string | undefined {
+  const item = getItem(entry.itemId);
+  const hand = plan.hands.findIndex((slot) => slot?.entry.uid === entry.uid);
+  const store = (item.tags.alwaysCook && entry.cookLevel === 0) || itemWeight(item, run.ascent) < 0;
+  const available = (slot: LiveItem | null | undefined) => !slot || slot.uid === swapUid;
+  const pocket = Array.from({ length: BAG_SLOTS[bagType] }, (_, index) => run.pockets[index]).findIndex(available);
+  const freeHand = hand >= 0 && available(run.hands[hand]) ? hand : run.hands.findIndex(available);
+  const currentHand = run.hands.findIndex((slot) => slot?.uid === entry.uid);
+  const inPocket = run.pockets.some((slot) => slot?.uid === entry.uid);
+
+  if (store || hand < 0) {
+    if (inPocket) return;
+    if (pocket >= 0) return `backpack pocket ${pocket + 1}`;
+  }
+  if (currentHand >= 0 && (hand === currentHand || freeHand !== hand)) return;
+  if (freeHand >= 0) return `hand slot ${freeHand + 1}`;
+  if (!inPocket && pocket >= 0) return `backpack pocket ${pocket + 1}`;
+}
+
 export function pickupAdvice(run: LiveRun, bagType: BagType): { text: string; action?: "take" | "leave" | "eat" | "swap"; swapUid?: string } {
   const marked = run.marked;
   if (!marked) return { text: 'Look at a highlighted item in PEAK and press T.' };
   const carried = [...run.hands, ...run.pockets].filter((item): item is LiveItem => item !== null);
-  if (carried.some((item) => item.uid === marked.uid)) return { text: 'You already picked this up.' };
+  const held = carried.find((item) => item.uid === marked.uid);
   const candidate = toEntry(marked);
   if (!candidate) return { text: 'This item has no matching entry in the planner catalog.' };
   const entries = carried.map(toEntry);
@@ -46,6 +65,11 @@ export function pickupAdvice(run: LiveRun, bagType: BagType): { text: string; ac
   const known = entries.filter((item): item is CarriedItem => item !== null);
   const status = { ...emptyStatus(), ...run.status };
   const before = arrangeInventory(known, bagType, status, run.ascent);
+  if (held) {
+    const entry = toEntry(held);
+    const destination = entry && placement(run, bagType, entry, before);
+    return { text: destination ? `Move it to ${destination}.` : `Already in your pack (${held.slot}).` };
+  }
   const proposed = advise({
     inventory: [...known, candidate], bagType, status, ascent: run.ascent,
     stamina: run.stamina, extraStamina: run.extraStamina, hardClimb: false, atCampfire: false,
@@ -63,11 +87,15 @@ export function pickupAdvice(run: LiveRun, bagType: BagType): { text: string; ac
   const swap = displaced ?? (carried.length >= slots ? after.overflow[0] : undefined);
   if (!swap) {
     const trade = comparePacks(known, [...known, candidate], run.ascent);
-    return { action: 'take', text: ['Pick it up. You have room.', trade.details].filter(Boolean).join(' ') };
+    const destination = placement(run, bagType, candidate, after);
+    const instruction = destination ? `Pick it up and put it in ${destination}.` : 'Pick it up. You have room.';
+    return { action: 'take', text: [instruction, trade.details].filter(Boolean).join(' ') };
   }
   const item = carried.find((entry) => entry.uid === swap.entry.uid);
   const trade = comparePacks(known, known.map((entry) => entry.uid === swap.entry.uid ? candidate : entry), run.ascent);
-  const instruction = 'Swap out ' + getItem(swap.entry.itemId).name + (item ? ' (' + item.slot + ')' : '') + '.';
+  const destination = placement(run, bagType, candidate, after, swap.entry.uid);
+  const instruction = 'Swap out ' + getItem(swap.entry.itemId).name + (item ? ' (' + item.slot + ')' : '') + '.'
+    + (destination ? ` Put the marked item in ${destination}.` : '');
   return { action: 'swap', swapUid: swap.entry.uid, text: [instruction, trade.details || swap.reason].join(' ') };
 }
 
