@@ -247,7 +247,22 @@ export function advise(state: GameState): Advice {
   }
 
   // 4. Inventory problems.
+  let reserve = bar.extraStamina;
   for (const o of arrangement.overflow) {
+    const gain = Math.min(extraOf(o.entry), 100 - bar.petrify - reserve);
+    if (o.entry.itemId === 'granola-bar' && o.entry.cookLevel < 3 && gain > 0) {
+      reserve += gain;
+      actions.push({
+        action: 'eat',
+        itemId: o.entry.itemId,
+        itemName: name(o.entry),
+        uid: o.entry.uid,
+        reason: 'It won’t fit in your pack. Eat it for bonus stamina before moving on.',
+        result: `+${fmt(gain)} bonus stamina, ${fmt(reserve - gain)} to ${fmt(reserve)}`,
+        priority: 9,
+      });
+      continue;
+    }
     actions.push({
       action: 'drop',
       itemId: o.entry.itemId,

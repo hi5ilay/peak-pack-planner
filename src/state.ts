@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useReducer } from 'react';
-import { applyAmulet, getAmulet, canCook, defaultCookLevel, emptyStatus, getItem, ITEM_BY_ID } from './engine';
+import { applyAmulet, getAmulet, canCook, defaultCookLevel, emptyStatus, extraOf, getItem, hungerFill, ITEM_BY_ID } from './engine';
 import type { BagType, CarriedItem, CookLevel, GameState, ManualStatusKey } from './engine';
 
 const STORAGE_KEY = 'peak-pack-planner/v1';
@@ -23,6 +23,7 @@ export type Msg =
   | { type: 'add'; itemId: string; cooked: boolean }
   | { type: 'remove'; uid: string }
   | { type: 'use'; uid: string; mysticalTarget?: boolean }
+  | { type: 'eat-surplus'; uid: string }
   | { type: 'cook'; uid: string; delta: 1 | -1 }
   | { type: 'bag'; bagType: BagType }
   | { type: 'status'; key: ManualStatusKey; value: number }
@@ -56,6 +57,16 @@ export function step(s: GameState, m: Msg): GameState {
     }
     case 'remove':
       return { ...s, inventory: s.inventory.filter((e) => e.uid !== m.uid) };
+    case 'eat-surplus': {
+      const item = s.inventory.find((entry) => entry.uid === m.uid);
+      if (!item || item.itemId !== 'granola-bar' || item.cookLevel >= 3) return s;
+      return {
+        ...s,
+        inventory: s.inventory.filter((entry) => entry.uid !== m.uid),
+        status: { ...s.status, hunger: Math.max(0, s.status.hunger - hungerFill(item)) },
+        extraStamina: Math.min(100 - s.status.petrify, s.extraStamina + extraOf(item)),
+      };
+    }
     case 'use': {
       const used = s.inventory.find((e) => e.uid === m.uid);
       if (used && getAmulet(used.itemId)) {
