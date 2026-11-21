@@ -149,6 +149,17 @@ describe('cooking stats', () => {
 });
 
 describe('arrangeInventory', () => {
+  it('keeps both charged Rescue Claws over Energy Drink in the reported solo pack', () => {
+    const inventory = [
+      c('bandages'), c('first-aid-kit'), c('medicinal-root', 1), c('energy-drink'),
+      c('rescue-claw'), c('scouts-tenacity'), c('marshmallow', 1), c('rescue-claw'),
+    ];
+    const a = advise(state({ inventory, ascent: 1, extraStamina: 75 }));
+    expect(a.arrangement.kept.filter((entry) => entry.itemId === 'rescue-claw')).toHaveLength(2);
+    expect(a.arrangement.overflow.map(({ entry }) => entry.itemId)).toEqual(['energy-drink']);
+    expect(top(a).reason).toMatch(/charged Rescue Claw/);
+  });
+
   it('keeps both Rescue Claws over Chain Launcher in the reported solo pack', () => {
     const inventory = [
       c('bandages'), c('first-aid-kit'), c('medicinal-root', 1), c('chain-launcher'),
