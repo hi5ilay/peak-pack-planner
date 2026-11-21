@@ -51,13 +51,23 @@
   gap: 6px;
 }
 
-.tools button {
+.tools button,
+.tools a {
   border: 2px solid var(--line);
   background: var(--surface);
   border-radius: 999px;
   padding: 6px 14px;
   font-weight: 800;
   box-shadow: var(--shadow);
+}
+
+.tools a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.tools a:hover {
+  text-decoration: underline;
 }
 
 .tools button:disabled {
