@@ -2,17 +2,18 @@ import { useMemo, useState } from 'react';
 import { advise, computeBar, emptyStatus, type Arrangement, type BagType } from './engine';
 import { exampleState, usePlanner } from './state';
 import { AdviceList } from './components/AdviceList';
+import { DecisionHistory } from './components/DecisionHistory';
 import { Footer } from './components/Footer';
 import { Inventory } from './components/Inventory';
 import { ItemPicker } from './components/ItemPicker';
-import { LIVE_URL, recommendation, toEntry, useLiveInventory } from './components/liveInventory';
+import { LIVE_URL, pickupAdvice, toEntry, useLiveInventory } from './components/liveInventory';
 import { StaminaBar } from './components/StaminaBar';
 import styles from './App.module.css';
 
 export default function App() {
   const manual = usePlanner();
   const [live, setLive] = useState(() => new URLSearchParams(window.location.search).has('live'));
-  const { run, connection } = useLiveInventory(live);
+  const { run, connection, sampleTime } = useLiveInventory(live);
   const bagType: BagType = run?.bagType === 'backpack' || run?.bagType === 'fannypack' ? run.bagType : 'none';
   const livePack = useMemo<Arrangement>(() => {
     const hands = (run?.hands ?? [null, null, null]).map((item) => {
@@ -36,6 +37,7 @@ export default function App() {
   const empty = state.inventory.length === 0;
   const unknown = run ? [...run.hands, ...run.pockets].filter((item) => item && !toEntry(item)) : [];
   const supportedBag = run?.bagType === bagType;
+  const markedAdvice = useMemo(() => run && supportedBag ? pickupAdvice(run, bagType) : undefined, [run, supportedBag, bagType]);
   const toggleLive = () => {
     const url = new URL(window.location.href);
     if (live) url.searchParams.delete('live');
@@ -86,8 +88,9 @@ export default function App() {
             <section className={styles.livePanel} aria-label="Marked item">
               <h2>{run?.marked?.name ?? 'Marked item'}</h2>
               <p role="status">{connection}</p>
-              {run ? <p>{supportedBag ? recommendation(run, bagType) : 'Swap advice is unavailable for this bag type.'}</p>
+              {run ? <p>{markedAdvice?.text ?? 'Swap advice is unavailable for this bag type.'}</p>
                 : window.location.hostname !== '127.0.0.1' && <a href={LIVE_URL}>Open the local planner if this browser blocks the connection</a>}
+              <DecisionHistory run={run} time={sampleTime} advice={markedAdvice} />
             </section>
           )}
           {(!live || (run && supportedBag && unknown.length === 0)) && (

@@ -109,3 +109,5 @@ node companion/serve.mjs "$bepInEx/peak-pack-planner.json"
 ```
 
 Here `$managed` is the path to `PEAK_Data/Managed` and `$bepInEx` is the path to the profile's `BepInEx` directory. Launch PEAK using the profile's **Modded** button and open [the live planner](http://127.0.0.1:47831/?live) on the same PC. The browser tab refreshes while you play. The companion matches English in-game item names against the planner catalog and shows unsupported items by name.
+
+In Live inventory, open **Decision log** to review marked pickups, estimated time carried, transfers, and confirmed consumption or charge changes. Recommendations and pack snapshots stay in the current browser. **Download log** exports them as JSON.
