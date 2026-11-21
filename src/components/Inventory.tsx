@@ -1,20 +1,22 @@
 import { useState } from 'react';
 import { BAG_NAMES, BAG_SLOTS, getItem } from '../engine';
-import type { Arrangement, BagType } from '../engine';
+import type { Action, Arrangement, BagType } from '../engine';
 import type { Msg } from '../state';
 import { Slot } from './Slot';
 import styles from './Inventory.module.css';
 
 interface Props {
   arrangement: Arrangement;
+  actions: Action[];
   bagType: BagType;
   send: (m: Msg) => void;
 }
 
 const HAND_LABELS = ['Heal', 'Main food', 'Emergency'];
 
-export function Inventory({ arrangement, bagType, send }: Props) {
+export function Inventory({ arrangement, actions, bagType, send }: Props) {
   const [over, setOver] = useState(false);
+  const eat = new Set(actions.filter((action) => action.action === 'eat').map((action) => action.uid));
   return (
     <section
       className={`${styles.panel} ${over ? styles.over : ''}`}
@@ -82,14 +84,16 @@ export function Inventory({ arrangement, bagType, send }: Props) {
 
       {arrangement.overflow.length > 0 && (
         <div className={styles.overflow} role="status">
-          <h3>Leave behind</h3>
+          <h3>{arrangement.overflow.some((o) => eat.has(o.entry.uid)) ? 'Outside your pack' : 'Leave behind'}</h3>
           <ul>
             {arrangement.overflow.map((o) => (
               <li key={o.entry.uid}>
-                <strong>{getItem(o.entry.itemId).name}</strong>: {o.reason}{' '}
-                <button type="button" onClick={() => send({ type: 'remove', uid: o.entry.uid })}>
-                  Drop it
-                </button>
+                <strong>{getItem(o.entry.itemId).name}</strong>: {eat.has(o.entry.uid) ? 'Eat for bonus stamina before moving on.' : o.reason}{' '}
+                {eat.has(o.entry.uid) ? (
+                  <button type="button" onClick={() => send({ type: 'eat-surplus', uid: o.entry.uid })}>Mark eaten</button>
+                ) : (
+                  <button type="button" onClick={() => send({ type: 'remove', uid: o.entry.uid })}>Drop it</button>
+                )}
               </li>
             ))}
           </ul>
