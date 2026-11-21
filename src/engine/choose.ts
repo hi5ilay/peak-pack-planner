@@ -88,7 +88,7 @@ export function isPoisonousNow(entry: CarriedItem): boolean {
  * and "always cook first" items when something else works.
  */
 export function bestFood(inventory: CarriedItem[], hunger: number): CarriedItem | null {
-  let foods = inventory.filter(isEdible);
+  let foods = inventory.filter((entry) => entry.itemId !== 'medicinal-root' && isEdible(entry));
   if (!foods.length) return null;
   const safe = foods.filter((e) => !isPoisonousNow(e));
   if (safe.length) foods = safe;
@@ -121,7 +121,7 @@ export interface BoostChoice {
 export function boostCandidates(inventory: CarriedItem[], hunger: number, hardClimb: boolean): BoostChoice[] {
   const out: BoostChoice[] = [];
   for (const entry of inventory) {
-    if (!usable(entry)) continue;
+    if (!usable(entry) || entry.itemId === 'medicinal-root') continue;
     const item = getItem(entry.itemId);
     const extra = extraOf(entry);
     const infinite = item.special.infiniteStaminaSeconds ?? 0;
