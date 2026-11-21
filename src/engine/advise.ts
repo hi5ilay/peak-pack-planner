@@ -47,8 +47,8 @@ export interface Warning {
 }
 
 export interface CampfirePlan {
-  cook: { itemId: string; itemName: string; why: string }[];
-  dontCook: { itemId: string; itemName: string; why: string }[];
+  cook: { uid: string; itemId: string; itemName: string; why: string }[];
+  dontCook: { uid: string; itemId: string; itemName: string; why: string }[];
 }
 
 export interface Advice {
@@ -236,10 +236,10 @@ export function advise(state: GameState): Advice {
       itemName: name(o.entry),
       uid: o.entry.uid,
       reason: o.reason,
-      result: `${name(o.entry)}: frees your hands, Weight stays ${fmt(bar.weight)}`,
+      result: `${name(o.entry)}: Weight stays ${fmt(bar.weight)}`,
       priority: 8,
     });
-    warnings.push({ kind: 'overflow', message: `${name(o.entry)} does not fit. ${o.reason}`, itemId: o.entry.itemId });
+    warnings.push({ kind: 'overflow', message: `${name(o.entry)} is outside your recommended pack. ${o.reason}`, itemId: o.entry.itemId });
   }
 
   for (const e of carried) {
@@ -310,8 +310,9 @@ export function advise(state: GameState): Advice {
 
   if (bar.weight >= HEAVY_WEIGHT) {
     const droppedAlready = new Set(actions.filter((a) => a.action === 'drop').map((a) => a.uid));
+    const coreItems = new Set(arrangement.hands.filter((slot) => slot && slot.role !== 'free').map((slot) => slot?.entry.uid));
     const heavy = carried
-      .filter((e) => !droppedAlready.has(e.uid) && !usedUids.has(e.uid))
+      .filter((e) => !droppedAlready.has(e.uid) && !usedUids.has(e.uid) && !coreItems.has(e.uid))
       .map((e) => ({ e, w: itemWeight(getItem(e.itemId), state.ascent), p: keepPriority(e, state.ascent) }))
       // Only suggest dropping things that are really heavy, junk, or broken.
       .filter((x) => x.w >= 10 || (x.w >= 5 && x.p <= 25))
@@ -348,66 +349,74 @@ export function advise(state: GameState): Advice {
   }
 
   // 5. Campfire plan.
-  let campfire: CampfirePlan | null = null;
-  if (state.atCampfire) {
-    campfire = { cook: [], dontCook: [] };
-    for (const e of carried) {
-      const item = getItem(e.itemId);
-      const nm = name(e);
-      if (item.cookResult === 'cooked_only') continue;
-      if (item.cookResult === 'no_change') {
-        if (item.tags.edible || item.id === 'sports-drink') {
-          campfire.dontCook.push({ itemId: item.id, itemName: nm, why: item.cookNote ?? 'Cooking changes nothing.' });
-        }
-        continue;
+  const campfire: CampfirePlan = { cook: [], dontCook: [] };
+  const dropUids = new Set(actions.filter((a) => a.action === 'drop').map((a) => a.uid));
+  for (const e of carried) {
+    if (!state.atCampfire && (usedUids.has(e.uid) || dropUids.has(e.uid))) continue;
+    const item = getItem(e.itemId);
+    const nm = name(e);
+    if (item.cookResult === 'cooked_only') continue;
+    if (item.cookResult === 'no_change') {
+      if (item.tags.edible || item.id === 'sports-drink') {
+        campfire.dontCook.push({ uid: e.uid, itemId: item.id, itemName: nm, why: item.cookNote ?? 'Cooking changes nothing.' });
       }
-      if (item.cookResult === 'explodes') {
-        campfire.dontCook.push({
-          itemId: item.id,
-          itemName: nm,
-          why: item.id === 'energy-drink' ? (item.cookNote ?? 'Explodes when used.') : 'Explodes or shatters when cooked.',
-        });
-        continue;
-      }
-      if (item.cookResult === 'burns') {
-        campfire.dontCook.push({ itemId: item.id, itemName: nm, why: 'Cooking incinerates it and it stops working.' });
-        continue;
-      }
-      if (e.cookLevel >= 1) {
-        campfire.dontCook.push({
-          itemId: item.id,
-          itemName: nm,
-          why: e.cookLevel >= 2 ? 'Already Well-Done: one more cook burns it (-5 Hunger).' : 'Already cooked: cooking again changes nothing, and a third time burns it.',
-        });
-        continue;
-      }
-      const raw = { ...e, cookLevel: 0 as const };
-      const cookedE = { ...e, cookLevel: 1 as const };
-      const gainH = hungerFill(cookedE) - hungerFill(raw);
-      const gainX = extraOf(cookedE) - extraOf(raw);
-      const bits: string[] = [];
-      if (gainH > 0) bits.push(`Hunger ${fmt(hungerFill(raw))} to ${fmt(hungerFill(cookedE))}`);
-      if (gainX > 0) bits.push(`extra stamina ${fmt(extraOf(raw))} to ${fmt(extraOf(cookedE))}`);
-      if (item.poisonousRaw && isPoisonousNow(raw) && !isPoisonousNow(cookedE)) bits.push('removes the poison');
-      if (item.id === 'big-lollipop') bits.push('no Drowsy crash');
-      if (item.id === 'mandrake') bits.push('stops screaming, removes Curse 25');
-      if (item.id === 'fortified-milk') bits.push('+10 s invincibility');
-      if (!bits.length) continue;
-      const why = (item.tags.alwaysCook ? 'Always cook it. ' : '') + bits.join(', ') + '.';
-      campfire.cook.push({ itemId: item.id, itemName: nm, why });
-      actions.push({
-        action: 'cook',
+      continue;
+    }
+    if (item.cookResult === 'explodes') {
+      campfire.dontCook.push({
+        uid: e.uid,
         itemId: item.id,
         itemName: nm,
-        uid: e.uid,
-        reason: `You are at a campfire. Cook it once (cooking twice is the same, the third time burns).${item.tags.alwaysCook ? ' Always cook this one.' : ''}`,
-        result: `${item.name}: ${bits.join(', ')}`,
-        priority: 30 + gainH / 2 + gainX / 2 + (item.tags.alwaysCook ? 10 : 0),
+        why: item.id === 'energy-drink' ? (item.cookNote ?? 'Explodes when used.') : 'Explodes or shatters when cooked.',
       });
+      continue;
     }
+    if (item.cookResult === 'burns') {
+      campfire.dontCook.push({ uid: e.uid, itemId: item.id, itemName: nm, why: 'Cooking incinerates it and it stops working.' });
+      continue;
+    }
+    if (e.cookLevel >= 1) {
+      campfire.dontCook.push({
+        uid: e.uid,
+        itemId: item.id,
+        itemName: nm,
+        why: e.cookLevel >= 2 ? 'Already Well-Done: one more cook burns it (-5 Hunger).' : 'Already cooked: cooking again changes nothing, and a third time burns it.',
+      });
+      continue;
+    }
+    const raw = { ...e, cookLevel: 0 as const };
+    const cookedE = { ...e, cookLevel: 1 as const };
+    const gainH = hungerFill(cookedE) - hungerFill(raw);
+    const gainX = extraOf(cookedE) - extraOf(raw);
+    const bits: string[] = [];
+    if (gainH > 0) bits.push(`Hunger ${fmt(hungerFill(raw))} to ${fmt(hungerFill(cookedE))}`);
+    if (gainX > 0) bits.push(`extra stamina ${fmt(extraOf(raw))} to ${fmt(extraOf(cookedE))}`);
+    if (item.poisonousRaw && isPoisonousNow(raw) && !isPoisonousNow(cookedE)) bits.push('removes the poison');
+    if (item.id === 'big-lollipop') bits.push('no Drowsy crash');
+    if (item.id === 'mandrake') bits.push('stops screaming, removes Curse 25');
+    if (item.id === 'fortified-milk') bits.push('+10 s invincibility');
+    if (!bits.length) continue;
+    const why = (item.tags.alwaysCook ? 'Always cook it. ' : '') + bits.join(', ') + '.';
+    campfire.cook.push({ uid: e.uid, itemId: item.id, itemName: nm, why });
+    if (!state.atCampfire) continue;
+    actions.push({
+      action: 'cook',
+      itemId: item.id,
+      itemName: nm,
+      uid: e.uid,
+      reason: `You are at a campfire. Cook it once (cooking twice is the same, the third time burns).${item.tags.alwaysCook ? ' Always cook this one.' : ''}`,
+      result: `${item.name}: ${bits.join(', ')}`,
+      priority: 30 + gainH / 2 + gainX / 2 + (item.tags.alwaysCook ? 10 : 0),
+    });
   }
 
   // Cook actions for raw food with an always-cook rule are reordered before eating it.
   actions.sort((a, b) => b.priority - a.priority);
-  return { actions, warnings, campfire, bar, arrangement };
+  return {
+    actions,
+    warnings,
+    campfire: state.atCampfire || campfire.cook.length > 0 ? campfire : null,
+    bar,
+    arrangement,
+  };
 }

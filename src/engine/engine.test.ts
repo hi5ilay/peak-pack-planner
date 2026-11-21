@@ -122,6 +122,32 @@ describe('cooking stats', () => {
 });
 
 describe('arrangeInventory', () => {
+  it('keeps quick Bandages, one First Aid Kit, food and climbing gear in a crowded pack', () => {
+    const inventory = [
+      c('first-aid-kit'), c('first-aid-kit'), c('bandages'), c('bandages'),
+      c('rope-cannon'), c('chain-launcher'), c('rescue-claw'), c('trail-mix', 1),
+    ];
+    const a = advise(state({ inventory }));
+    expect(a.arrangement.hands.map((slot) => slot?.entry.itemId)).toEqual([
+      'bandages', 'trail-mix', 'rope-cannon',
+    ]);
+    expect(a.arrangement.kept.filter((e) => e.itemId === 'first-aid-kit')).toHaveLength(1);
+    expect(a.arrangement.overflow.map((o) => o.entry.itemId).sort()).toEqual(['bandages', 'first-aid-kit']);
+    expect(a.actions.filter((x) => x.action === 'drop').map((x) => x.itemId)).not.toContain('trail-mix');
+  });
+
+  it('keeps a heal, food and a climbing tool with no bag', () => {
+    const inv = [c('first-aid-kit'), c('first-aid-kit'), c('bandages'), c('trail-mix'), c('piton')];
+    const a = arrangeInventory(inv, 'none', emptyStatus());
+    expect(a.kept.map((e) => e.itemId)).toEqual(['bandages', 'trail-mix', 'piton']);
+  });
+
+  it('reserves room for the required Flare at Ascent 4 even without a bag', () => {
+    const inv = [c('bandages'), c('trail-mix'), c('piton'), c('flare')];
+    const a = arrangeInventory(inv, 'none', emptyStatus(), 4);
+    expect(a.kept.map((e) => e.itemId)).toEqual(['bandages', 'trail-mix', 'flare']);
+  });
+
   it('full bag picking up Airline Food pushes the junk item to overflow', () => {
     const inv = [
       c('bandages'), c('granola-bar'), c('rope-spool'), c('sports-drink'),
@@ -236,6 +262,17 @@ describe('advise', () => {
   it('Airline Food away from a fire: eats something else first if possible', () => {
     const a = advise(state({ inventory: [c('airline-food'), c('granola-bar')], status: { hunger: 40 } }));
     expect(a.actions.find((x) => x.action === 'eat')?.itemId).toBe('granola-bar');
+  });
+
+  it('plans what to cook at the next campfire after eating now', () => {
+    const a = advise(state({
+      inventory: [c('airline-food'), c('granola-bar')],
+      status: { hunger: 40 },
+    }));
+    expect(a.actions.find((x) => x.action === 'eat')?.itemId).toBe('granola-bar');
+    expect(a.actions.some((x) => x.action === 'cook')).toBe(false);
+    expect(a.campfire?.cook.map((x) => x.itemId)).toEqual(['airline-food']);
+    expect(a.campfire?.cook[0].why).toContain('Hunger 40 to 80');
   });
 
   it('Airline Food as the only food, not very hungry: keep it for the campfire', () => {

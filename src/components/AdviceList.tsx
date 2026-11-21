@@ -3,7 +3,7 @@ import styles from './AdviceList.module.css';
 
 const VERB: Record<string, string> = { use: 'Use', eat: 'Eat', cook: 'Cook', drop: 'Drop', keep: 'Keep' };
 
-export function AdviceList({ advice, empty }: { advice: Advice; empty: boolean }) {
+export function AdviceList({ advice, empty, atCampfire }: { advice: Advice; empty: boolean; atCampfire: boolean }) {
   const { actions, warnings, campfire } = advice;
   return (
     <section className={styles.panel} aria-label="Do this now">
@@ -28,14 +28,14 @@ export function AdviceList({ advice, empty }: { advice: Advice; empty: boolean }
 
       {campfire && (
         <div className={styles.campfire}>
-          <h3>At the campfire</h3>
+          <h3>{atCampfire ? 'At the campfire' : 'At the next campfire'}</h3>
           {campfire.cook.length === 0 && campfire.dontCook.length === 0 && <p className={styles.muted}>Nothing to cook.</p>}
           {campfire.cook.length > 0 && (
             <>
-              <h4>Cook these</h4>
+              <h4>Cook these once</h4>
               <ul>
                 {campfire.cook.map((c) => (
-                  <li key={c.itemId + c.itemName}>
+                  <li key={c.uid}>
                     <strong>{c.itemName}</strong>: {c.why}
                   </li>
                 ))}
@@ -47,7 +47,7 @@ export function AdviceList({ advice, empty }: { advice: Advice; empty: boolean }
               <h4>Do not cook</h4>
               <ul>
                 {campfire.dontCook.map((c) => (
-                  <li key={c.itemId + c.itemName}>
+                  <li key={c.uid}>
                     <strong>{c.itemName}</strong>: {c.why}
                   </li>
                 ))}

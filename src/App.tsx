@@ -45,7 +45,7 @@ export default function App() {
         </div>
         <div className={styles.side}>
           <StaminaBar bar={advice.bar} state={state} send={send} />
-          <AdviceList advice={advice} empty={empty} />
+          <AdviceList advice={advice} empty={empty} atCampfire={state.atCampfire} />
         </div>
         <div className={styles.picker}>
           <ItemPicker send={send} />
