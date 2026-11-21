@@ -34,10 +34,23 @@ export function toEntry(item: LiveItem): CarriedItem | null {
   return { uid: item.uid, itemId: match.id, cookLevel, usesLeft: item.usesLeft };
 }
 
-function placement(run: LiveRun, bagType: BagType, entry: CarriedItem, plan: Arrangement, swapUid?: string): string | undefined {
+function prefersPocket(entry: CarriedItem, ascent: number): boolean {
   const item = getItem(entry.itemId);
+  return (item.tags.alwaysCook === true && entry.cookLevel === 0) || itemWeight(item, ascent) < 0;
+}
+
+function handOrder(run: LiveRun, entry: CarriedItem, plan: Arrangement, swapUid?: string): string | undefined {
+  const hand = plan.hands.findIndex((slot) => slot?.entry.uid === entry.uid && slot.role !== 'free');
+  if (hand < 0 || prefersPocket(entry, run.ascent)) return;
+  const occupant = run.hands[hand];
+  if (!occupant || occupant.uid === entry.uid || occupant.uid === swapUid) return;
+  const hands = plan.hands.flatMap((slot, index) => slot ? [`${index + 1}: ${getItem(slot.entry.itemId).name}`] : []);
+  return `Arrange hands after pickup — ${hands.join(' · ')}.`;
+}
+
+function placement(run: LiveRun, bagType: BagType, entry: CarriedItem, plan: Arrangement, swapUid?: string): string | undefined {
   const hand = plan.hands.findIndex((slot) => slot?.entry.uid === entry.uid);
-  const store = (item.tags.alwaysCook && entry.cookLevel === 0) || itemWeight(item, run.ascent) < 0;
+  const store = prefersPocket(entry, run.ascent);
   const available = (slot: LiveItem | null | undefined) => !slot || slot.uid === swapUid;
   const pocket = Array.from({ length: BAG_SLOTS[bagType] }, (_, index) => run.pockets[index]).findIndex(available);
   const freeHand = hand >= 0 && available(run.hands[hand]) ? hand : run.hands.findIndex(available);
@@ -67,6 +80,8 @@ export function pickupAdvice(run: LiveRun, bagType: BagType): { text: string; ac
   const before = arrangeInventory(known, bagType, status, run.ascent);
   if (held) {
     const entry = toEntry(held);
+    const order = entry && handOrder(run, entry, before);
+    if (order) return { text: order };
     const destination = entry && placement(run, bagType, entry, before);
     return { text: destination ? `Move it to ${destination}.` : `Already in your pack (${held.slot}).` };
   }
@@ -87,15 +102,17 @@ export function pickupAdvice(run: LiveRun, bagType: BagType): { text: string; ac
   const swap = displaced ?? (carried.length >= slots ? after.overflow[0] : undefined);
   if (!swap) {
     const trade = comparePacks(known, [...known, candidate], run.ascent);
+    const order = handOrder(run, candidate, after);
     const destination = placement(run, bagType, candidate, after);
-    const instruction = destination ? `Pick it up and put it in ${destination}.` : 'Pick it up. You have room.';
+    const instruction = order ? `Pick it up. ${order}` : destination ? `Pick it up and put it in ${destination}.` : 'Pick it up. You have room.';
     return { action: 'take', text: [instruction, trade.details].filter(Boolean).join(' ') };
   }
   const item = carried.find((entry) => entry.uid === swap.entry.uid);
   const trade = comparePacks(known, known.map((entry) => entry.uid === swap.entry.uid ? candidate : entry), run.ascent);
+  const order = handOrder(run, candidate, after, swap.entry.uid);
   const destination = placement(run, bagType, candidate, after, swap.entry.uid);
   const instruction = 'Swap out ' + getItem(swap.entry.itemId).name + (item ? ' (' + item.slot + ')' : '') + '.'
-    + (destination ? ` Put the marked item in ${destination}.` : '');
+    + (order ? ` ${order}` : destination ? ` Put the marked item in ${destination}.` : '');
   return { action: 'swap', swapUid: swap.entry.uid, text: [instruction, trade.details || swap.reason].join(' ') };
 }
 
