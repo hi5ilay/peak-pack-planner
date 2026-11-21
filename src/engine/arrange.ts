@@ -1,7 +1,8 @@
 import { getAmulet } from './amulets';
+import { comparePacks } from './comparePacks';
 import { getItem } from './data';
 import { bestBoost, bestFix, canHealInjury, FIXABLE, foodCandidates, healPower, isHealItem, usable } from './choose';
-import { BAG_NAMES, BAG_SLOTS, computeWeight, extraOf, fmt, HAND_SLOTS, hungerFill, isBroken, isEdible } from './stats';
+import { BAG_NAMES, BAG_SLOTS, extraOf, HAND_SLOTS, hungerFill, isBroken, isEdible } from './stats';
 import type { BagType, CarriedItem, ManualStatus } from './types';
 
 export type SlotRole = 'heal' | 'food' | 'amulet' | 'emergency' | 'bag' | 'free';
@@ -165,14 +166,13 @@ export function arrangeInventory(
   const spareClaw = usableClaws.slice(1).reverse().find((entry) => bag.some((slot) => slot?.entry === entry));
   if (balloonIndex >= 0 && spareClaw) {
     const balloon = overflow[balloonIndex].entry;
-    const before = computeWeight(equipped, ascent);
-    const after = computeWeight(equipped.map((entry) => entry === spareClaw ? balloon : entry), ascent);
-    if (before - after >= 10) {
+    const trade = comparePacks(equipped, equipped.map((entry) => entry === spareClaw ? balloon : entry), ascent);
+    if (trade.current.weight - trade.proposed.weight >= 10) {
       const pocket = bag.findIndex((slot) => slot?.entry === spareClaw);
       bag[pocket] = { entry: balloon, role: 'bag' };
       overflow[balloonIndex] = {
         entry: spareClaw,
-        reason: `Keep one Rescue Claw. Carry the Balloon Bunch in this pocket to lower Weight from ${fmt(before)} to ${fmt(after)}.`,
+        reason: `Carry the Balloon Bunch in this pocket. ${trade.details}.`,
       };
     }
   }
