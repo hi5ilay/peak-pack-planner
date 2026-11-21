@@ -73,7 +73,10 @@ export function arrangeInventory(
   const capacity = HAND_SLOTS + BAG_SLOTS[bagType];
   const prio = new Map(items.map((e) => [e.uid, keepPriority(e, ascent)]));
   const byPriority = [...items].sort((a, b) => (prio.get(b.uid) ?? 0) - (prio.get(a.uid) ?? 0));
-  let pool = byPriority;
+  const overflow: OverflowEntry[] = byPriority
+    .filter((entry) => entry.itemId === 'rope-spool')
+    .map((entry) => ({ entry, reason: 'Leave the Rope Spool behind on solo climbs. Save the slot for gear you can use.' }));
+  let pool = byPriority.filter((entry) => entry.itemId !== 'rope-spool');
   const take = (e: CarriedItem | null | undefined): CarriedItem | null => {
     if (!e) return null;
     pool = pool.filter((p) => p.uid !== e.uid);
@@ -100,7 +103,6 @@ export function arrangeInventory(
     : null;
 
   const rest = objective ? [objective] : [];
-  const overflow: OverflowEntry[] = [];
   const spareKit = heal?.itemId === 'bandages' && firstAid && pool.includes(firstAid) ? take(firstAid) : null;
   const candidates = spareKit ? [spareKit, ...pool] : pool;
   const spareSlots = capacity - Number(!!heal) - Number(!!food) - Number(!!emergency);

@@ -122,6 +122,15 @@ describe('cooking stats', () => {
 });
 
 describe('arrangeInventory', () => {
+  it('leaves Rope Spool behind on a solo climb even with open pockets', () => {
+    const inventory = [c('rope-spool'), c('rope-cannon'), c('bandages'), c('trail-mix')];
+    const a = advise(state({ inventory, atCampfire: true }));
+    expect(a.arrangement.hands[2]?.entry.itemId).toBe('rope-cannon');
+    expect(a.arrangement.overflow).toEqual([{ entry: inventory[0], reason: expect.stringContaining('solo') }]);
+    expect(a.actions).toContainEqual(expect.objectContaining({ action: 'drop', itemId: 'rope-spool' }));
+    expect(a.campfire?.dontCook.map((entry) => entry.itemId)).not.toContain('rope-spool');
+  });
+
   it.each([false, true])('keeps Medicinal Root alongside Bandages and First Aid Kit (other food: %s)', (otherFood) => {
     const inventory = [
       c('bandages'), c('medicinal-root'), c('first-aid-kit'),
@@ -165,7 +174,7 @@ describe('arrangeInventory', () => {
 
   it('full bag picking up Airline Food pushes the junk item to overflow', () => {
     const inv = [
-      c('bandages'), c('granola-bar'), c('rope-spool'), c('sports-drink'),
+      c('bandages'), c('granola-bar'), c('piton'), c('sports-drink'),
       c('bing-bong'), c('trail-mix'), c('lantern'), c('airline-food'),
     ];
     const a = arrangeInventory(inv, 'backpack', emptyStatus());
@@ -310,9 +319,9 @@ describe('advise', () => {
   });
 
   it('campfire: lists what not to cook (ropes, explosives, Sports Drink)', () => {
-    const a = advise(state({ inventory: [c('rope-spool'), c('dynamite'), c('sports-drink'), c('trail-mix')], atCampfire: true }));
+    const a = advise(state({ inventory: [c('rope-cannon'), c('dynamite'), c('sports-drink'), c('trail-mix')], atCampfire: true }));
     const dont = a.campfire?.dontCook.map((x) => x.itemId) ?? [];
-    expect(dont).toEqual(expect.arrayContaining(['rope-spool', 'dynamite', 'sports-drink']));
+    expect(dont).toEqual(expect.arrayContaining(['rope-cannon', 'dynamite', 'sports-drink']));
     expect(a.campfire?.cook.map((x) => x.itemId)).toEqual(['trail-mix']);
   });
 
@@ -393,7 +402,7 @@ describe('advise', () => {
   });
 
   it('flags burnt food and incinerated tools', () => {
-    const a = advise(state({ inventory: [c('granola-bar', 3), c('rope-spool', 1)] }));
+    const a = advise(state({ inventory: [c('granola-bar', 3), c('piton', 1)] }));
     expect(has(a, 'burnt')).toBe(true);
     expect(has(a, 'broken')).toBe(true);
   });
