@@ -1,0 +1,157 @@
+.panel {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  min-width: 0;
+}
+
+.over {
+  border-color: var(--danger);
+  border-style: dashed;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.head h2 {
+  font-size: 20px;
+  color: var(--pine-strong);
+}
+
+.mode {
+  display: inline-flex;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.mode button {
+  border: 0;
+  background: transparent;
+  padding: 4px 12px;
+  font-weight: 800;
+}
+
+.mode button[aria-pressed='true'] {
+  background: var(--orange);
+  color: #fff;
+}
+
+.search {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 6px 0 8px;
+}
+
+.group {
+  border-top: 1.5px dashed var(--line);
+}
+
+.groupHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 2px;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-display);
+  font-size: 14px;
+  text-align: left;
+  color: var(--text);
+}
+
+.chev {
+  color: var(--orange);
+  width: 14px;
+}
+
+.count {
+  margin-left: auto;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+  gap: 6px;
+  padding-bottom: 10px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 7px 9px;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-2);
+  text-align: left;
+  cursor: grab;
+}
+
+.card:hover {
+  border-color: var(--pine);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cardName {
+  font-weight: 800;
+  font-size: 13px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.nums {
+  font-size: 11px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.unverified,
+.override {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 5px;
+  padding: 0 4px;
+}
+
+.unverified {
+  background: var(--danger-soft);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+.override {
+  background: var(--orange-soft);
+  color: var(--orange-strong);
+  border: 1px solid var(--orange);
+}

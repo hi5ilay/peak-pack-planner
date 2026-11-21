@@ -1,0 +1,5195 @@
+[
+  {
+    "id": "airline-food",
+    "name": "Airline Food",
+    "category": "Food, Packaged food",
+    "group": "Packaged food",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 40,
+      "extraStamina": 40,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 80,
+      "extraStamina": 60,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Regular Luggage, Big Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Airline_Food",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "aloe-vera",
+    "name": "Aloe Vera",
+    "category": "Consumable",
+    "group": "Healing",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "heat",
+          "amount": -50,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "heat",
+          "amount": -50,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Mesa",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Aloe_Vera",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "ancient-idol",
+    "name": "Ancient Idol",
+    "category": "Mystical item",
+    "group": "Mystical and special",
+    "weight": 40,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Mesa; Tomb",
+    "notes": "Invincibility while held. Weight 40 (was 50 before 1.23.a).",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Ancient_Idol",
+    "verified": true,
+    "cookNote": "Cannot be cooked."
+  },
+  {
+    "id": "anti-rope-cannon",
+    "name": "Anti-Rope Cannon",
+    "category": "Deployable, Mystical item",
+    "group": "Climbing tools",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "burns",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Ancient Luggage, Ancient Statue",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Anti-Rope_Cannon",
+    "verified": true,
+    "cookNote": "Immediately incinerated."
+  },
+  {
+    "id": "anti-rope-spool",
+    "name": "Anti-Rope Spool",
+    "category": "Deployable, Mystical item",
+    "group": "Climbing tools",
+    "weight": -2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "burns",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Ancient Luggage, Ancient Statue",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Anti-Rope_Spool",
+    "verified": true,
+    "cookNote": "Immediately incinerated."
+  },
+  {
+    "id": "anti-zooka",
+    "name": "Anti-Zooka",
+    "category": "Deployable, Mystical item",
+    "group": "Climbing tools",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Ancient Luggage, Ancient Statue",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Anti-Zooka",
+    "verified": true,
+    "cookNote": "Explodes, creating an Anti-Sphere with twice the regular diameter."
+  },
+  {
+    "id": "antidote",
+    "name": "Antidote",
+    "category": "Consumable",
+    "group": "Healing",
+    "weight": 2.5,
+    "uses": 3,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "poison",
+          "amount": -35,
+          "timing": "instant"
+        },
+        {
+          "status": "heat",
+          "amount": -10,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -35,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "poison",
+          "amount": -35,
+          "timing": "instant"
+        },
+        {
+          "status": "heat",
+          "amount": -10,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -35,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Tropics, Roots; Regular Luggage, Big Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Antidote",
+    "verified": true,
+    "cookNote": "Explodes, removing up to Poison 20 from all players within 4.8m."
+  },
+  {
+    "id": "backpack",
+    "name": "Backpack",
+    "category": "Equipment",
+    "group": "Light and utility",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Crash Site, Campfires",
+    "notes": "Choose it with the bag selector.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Backpack",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect.",
+    "hidden": true,
+    "hiddenReason": "Choose it with the bag selector."
+  },
+  {
+    "id": "balloon",
+    "name": "Balloon",
+    "category": "Consumable",
+    "group": "Climbing tools",
+    "weight": -5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Regular Luggage, Big Luggage, Clown Luggage",
+    "notes": "Removes Weight 5 while carried. Lowers gravity by 18% per balloon.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Balloon",
+    "verified": true,
+    "cookNote": "Pops."
+  },
+  {
+    "id": "balloon-bunch",
+    "name": "Balloon Bunch",
+    "category": "Consumable",
+    "group": "Climbing tools",
+    "weight": -15,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Regular Luggage, Clown Luggage",
+    "notes": "Removes Weight 15 while carried. 3 balloons.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Balloon_Bunch",
+    "verified": true,
+    "cookNote": "Pops."
+  },
+  {
+    "id": "bandages",
+    "name": "Bandages",
+    "category": "Consumable",
+    "group": "Healing",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "injury",
+          "amount": -30,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "injury",
+          "amount": -30,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Regular Luggage, Big Luggage",
+    "notes": "Use time 4 s.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Bandages",
+    "verified": true,
+    "cookNote": "No effect."
+  },
+  {
+    "id": "basketball",
+    "name": "Basketball",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Airport",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Basketball",
+    "verified": true,
+    "cookNote": "Pops."
+  },
+  {
+    "id": "beehive",
+    "name": "Beehive",
+    "category": "Misc",
+    "group": "Natural food",
+    "weight": 10,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Tropics",
+    "notes": "Break it for 4 Honeycombs. Angry bees deal Poison 3 per second.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Beehive",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "big-egg",
+    "name": "Big Egg",
+    "category": "Misc",
+    "group": "Natural food",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Caldera",
+    "notes": "Crack it for an Egg (10% chance of a Cooked Bird).",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Big_Egg",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "big-lollipop",
+    "name": "Big Lollipop",
+    "category": "Food, Packaged food",
+    "group": "Stamina boosts",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 5,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "drowsy",
+          "amount": 32.5,
+          "timing": "after_effect",
+          "detail": "over 10 s after the effect ends"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 10,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "drowsy",
+          "amount": 32.5,
+          "timing": "after_effect",
+          "detail": "over 10 s after the effect ends"
+        }
+      ],
+      "removes": []
+    },
+    "special": {
+      "infiniteStaminaSeconds": 11
+    },
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Regular Luggage, Big Luggage, Explorer's Luggage, Clown Luggage",
+    "notes": "Infinite stamina for 11 s (8 s once you start climbing). Drowsy 32.5 over 10 s afterwards.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Big_Lollipop",
+    "verified": true,
+    "cookNote": "Cooked: no Drowsy crash afterwards.",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "bing-bong",
+    "name": "Bing Bong",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Airport, Shore; Photobooth, Crash Site",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Bing_Bong",
+    "verified": true,
+    "cookNote": "Lowers pitch and volume of voice lines."
+  },
+  {
+    "id": "binoculars",
+    "name": "Binoculars",
+    "category": "Equipment",
+    "group": "Light and utility",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Photobooth, Crash Site",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Binoculars",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "bishop",
+    "name": "Bishop",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Airport",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Bishop",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "black-clusterberry",
+    "name": "Black Clusterberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 20,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 40,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Tropics",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Black_Clusterberry",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "blowgun",
+    "name": "Blowgun",
+    "category": "Consumable",
+    "group": "Light and utility",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Regular Luggage, Big Luggage",
+    "notes": "Dart clears a target scout of all statuses except Curse but inflicts Drowsy 120. Not in solo.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Blowgun",
+    "verified": true,
+    "cookNote": "Replaces Drowsy 120 with Heat 150."
+  },
+  {
+    "id": "blue-berrynana",
+    "name": "Blue Berrynana",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 30,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 60,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Tropics",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Blue_Berrynana",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "blue-berrynana-peel",
+    "name": "Blue Berrynana Peel",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Tropics; Blue Berrynana",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Blue_Berrynana_Peel",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "blue-shroomberry",
+    "name": "Blue Shroomberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": null,
+      "effects": [
+        {
+          "status": "spores",
+          "amount": 5,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": null,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "spores",
+          "amount": 5,
+          "timing": "instant"
+        }
+      ],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Roots",
+    "notes": "Gives a random bad effect, Spores 5 and 0 to 15 bonus stamina (random per map).",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Blue_Shroomberry",
+    "verified": false,
+    "cookNote": "Removes Spores 5 effect.",
+    "unverifiedFields": [
+      "raw.extraStamina (random 0 to 15)"
+    ],
+    "derivedFields": [
+      "cooked.hunger"
+    ]
+  },
+  {
+    "id": "bounce-fungus",
+    "name": "Bounce Fungus",
+    "category": "Deployable",
+    "group": "Climbing tools",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Roots",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Bounce_Fungus",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "brown-berrynana",
+    "name": "Brown Berrynana",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 15,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 30,
+      "extraStamina": 15,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Tropics, Gloom",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Brown_Berrynana",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "brown-berrynana-peel",
+    "name": "Brown Berrynana Peel",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Tropics, Gloom; Brown Berrynana",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Brown_Berrynana_Peel",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "bugle",
+    "name": "Bugle",
+    "category": "Equipment",
+    "group": "Fun and collectibles",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Airport, Shore; Airport, Crash Site, Clown Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Bugle",
+    "verified": true,
+    "cookNote": "Adds a pitch modulation varying on times cooked."
+  },
+  {
+    "id": "bugle-of-friendship",
+    "name": "Bugle of Friendship",
+    "category": "Equipment",
+    "group": "Mystical and special",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {
+      "infiniteStaminaSeconds": 7.5
+    },
+    "tags": {},
+    "whereFound": "Ancient Luggage, Ancient Statue",
+    "notes": "Gives nearby scouts infinite stamina while played, 7.5 s total. Not in solo.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Bugle_of_Friendship",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "bugle-shroom",
+    "name": "Bugle Shroom",
+    "category": "Food, Mushroom",
+    "group": "Mushrooms",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 15,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 30,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Shore, Tropics, Roots, Mesa",
+    "notes": "Has a poisonous look-alike; this is the safe one.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Bugle_Shroom",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "bugle-shroom-poisonous",
+    "name": "Bugle Shroom (Poisonous)",
+    "category": "Food, Mushroom",
+    "group": "Mushrooms",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 15,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "poison",
+          "amount": 20,
+          "timing": "over_time",
+          "detail": "after 10 s, over 8 s"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 30,
+      "extraStamina": 10,
+      "effects": [
+        {
+          "status": "poison",
+          "amount": 20,
+          "timing": "over_time",
+          "detail": "after 10 s, over 8 s"
+        }
+      ]
+    },
+    "cookResult": "better",
+    "poisonousRaw": true,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "poison",
+          "amount": 20,
+          "timing": "over_time",
+          "detail": "after 10 s, over 8 s"
+        }
+      ],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Shore, Tropics, Roots, Mesa",
+    "notes": "Poisonous look-alike. Cooking does not remove mushroom poison (patch 1.40.a).",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Bugle_Shroom",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "bugle-question",
+    "name": "Bugle?",
+    "category": "Equipment",
+    "group": "Fun and collectibles",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Shore",
+    "notes": "Removed (time-limited event item).",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Bugle%3F",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect.",
+    "hidden": true,
+    "hiddenReason": "Removed (time-limited event item)."
+  },
+  {
+    "id": "button-shroom",
+    "name": "Button Shroom",
+    "category": "Food, Mushroom",
+    "group": "Mushrooms",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Shore, Tropics, Roots, Mesa",
+    "notes": "Has a poisonous look-alike; this is the safe one.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Button_Shroom",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "button-shroom-poisonous",
+    "name": "Button Shroom (Poisonous)",
+    "category": "Food, Mushroom",
+    "group": "Mushrooms",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "poison",
+          "amount": 30,
+          "timing": "over_time",
+          "detail": "after 10 s, over 12 s"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": 10,
+      "effects": [
+        {
+          "status": "poison",
+          "amount": 30,
+          "timing": "over_time",
+          "detail": "after 10 s, over 12 s"
+        }
+      ]
+    },
+    "cookResult": "better",
+    "poisonousRaw": true,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "poison",
+          "amount": 30,
+          "timing": "over_time",
+          "detail": "after 10 s, over 12 s"
+        }
+      ],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Shore, Tropics, Roots, Mesa",
+    "notes": "Poisonous look-alike. Cooking does not remove mushroom poison (patch 1.40.a).",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Button_Shroom",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "cactus",
+    "name": "Cactus",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Mesa",
+    "notes": "Sticks to you for Thorns 20 until thrown.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Cactus",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "candlestick",
+    "name": "Candlestick",
+    "category": "Equipment",
+    "group": "Light and utility",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Gloom, The Citadel; Luggage, Big Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Candlestick",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "chain-launcher",
+    "name": "Chain Launcher",
+    "category": "Deployable",
+    "group": "Climbing tools",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "burns",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Regular Luggage, Big Luggage, Explorer's Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Chain_Launcher",
+    "verified": true,
+    "cookNote": "Immediately incinerated."
+  },
+  {
+    "id": "checkpoint-flag",
+    "name": "Checkpoint Flag",
+    "category": "Deployable",
+    "group": "Light and utility",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Regular Luggage, Big Luggage, Explorer's Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Checkpoint_Flag",
+    "verified": true,
+    "cookNote": "Can only be cooked using explosives. Cooking stage increases by two when cooked."
+  },
+  {
+    "id": "chubby-shroom",
+    "name": "Chubby Shroom",
+    "category": "Food, Mushroom",
+    "group": "Mushrooms",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Shore, Tropics, Roots, Mesa",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Chubby_Shroom",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "cloud-fungus",
+    "name": "Cloud Fungus",
+    "category": "Deployable",
+    "group": "Climbing tools",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Roots",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Cloud_Fungus",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "cluster-shroom",
+    "name": "Cluster Shroom",
+    "category": "Food, Mushroom",
+    "group": "Mushrooms",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 5,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 10,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Shore, Tropics, Roots, Mesa",
+    "notes": "Has a poisonous look-alike; this is the safe one.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Cluster_Shroom",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "cluster-shroom-poisonous",
+    "name": "Cluster Shroom (Poisonous)",
+    "category": "Food, Mushroom",
+    "group": "Mushrooms",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 5,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "poison",
+          "amount": 40,
+          "timing": "over_time",
+          "detail": "after 10 s, over 16 s"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 10,
+      "extraStamina": 10,
+      "effects": [
+        {
+          "status": "poison",
+          "amount": 40,
+          "timing": "over_time",
+          "detail": "after 10 s, over 16 s"
+        }
+      ]
+    },
+    "cookResult": "better",
+    "poisonousRaw": true,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "poison",
+          "amount": 40,
+          "timing": "over_time",
+          "detail": "after 10 s, over 16 s"
+        }
+      ],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Shore, Tropics, Roots, Mesa",
+    "notes": "Poisonous look-alike. Cooking does not remove mushroom poison (patch 1.40.a).",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Cluster_Shroom",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "coconut",
+    "name": "Coconut",
+    "category": "Misc",
+    "group": "Natural food",
+    "weight": 12.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Shore, Tropics, Mesa",
+    "notes": "Break it to get 2 Half-Coconuts.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Coconut",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "compass",
+    "name": "Compass",
+    "category": "Equipment",
+    "group": "Light and utility",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Shore; Crash Site",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Compass",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "conch",
+    "name": "Conch",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Shore",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Conch",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "cooked-bird",
+    "name": "Cooked Bird",
+    "category": "Food",
+    "group": "Natural food",
+    "weight": 10,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 80,
+      "extraStamina": null,
+      "effects": []
+    },
+    "cookResult": "cooked_only",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Caldera, Gloom",
+    "notes": "Spawns precooked. Cooking again only makes it Well-Done.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Cooked_Bird",
+    "verified": false,
+    "unverifiedFields": [
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "cure-all",
+    "name": "Cure-All",
+    "category": "Consumable, Mystical item",
+    "group": "Mystical food",
+    "weight": 5,
+    "uses": 3,
+    "raw": {
+      "hunger": 20,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "injury",
+          "amount": -35,
+          "timing": "instant"
+        },
+        {
+          "status": "poison",
+          "amount": -35,
+          "timing": "instant"
+        },
+        {
+          "status": "cold",
+          "amount": -35,
+          "timing": "instant"
+        },
+        {
+          "status": "heat",
+          "amount": -35,
+          "timing": "instant"
+        },
+        {
+          "status": "drowsy",
+          "amount": -35,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -35,
+          "timing": "instant"
+        },
+        {
+          "status": "curse",
+          "amount": -5,
+          "timing": "instant"
+        },
+        {
+          "status": "thorns",
+          "amount": -25,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "injury",
+          "amount": -35,
+          "timing": "instant"
+        },
+        {
+          "status": "poison",
+          "amount": -35,
+          "timing": "instant"
+        },
+        {
+          "status": "cold",
+          "amount": -35,
+          "timing": "instant"
+        },
+        {
+          "status": "heat",
+          "amount": -35,
+          "timing": "instant"
+        },
+        {
+          "status": "drowsy",
+          "amount": -35,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -35,
+          "timing": "instant"
+        },
+        {
+          "status": "curse",
+          "amount": -5,
+          "timing": "instant"
+        },
+        {
+          "status": "thorns",
+          "amount": -25,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Ancient Luggage, Ancient Statue",
+    "notes": "3 uses. Wiki conflict: infobox Thorns -25, list note 35. The app uses 25.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Cure-All",
+    "verified": true,
+    "cookNote": "Explodes, removing up to Curse 5, Hunger 10, and 20 each of Poison, Cold, Heat, Drowsy, Thorns from all players within 4.8m."
+  },
+  {
+    "id": "cursed-skull",
+    "name": "Cursed Skull",
+    "category": "Consumable, Mystical item",
+    "group": "Mystical and special",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Ancient Luggage",
+    "notes": "Kills the user. Everyone else gets Bonus 100 and is cleared of all statuses except Curse. Not in solo.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Cursed_Skull",
+    "verified": true,
+    "cookNote": "Activates immediately, then explodes with a dynamite explosion."
+  },
+  {
+    "id": "dynamite",
+    "name": "Dynamite",
+    "category": "Consumable",
+    "group": "Light and utility",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Mesa; On ground, In Luggage; Regular Luggage, Big Luggage, Clown Luggage",
+    "notes": "Explodes 5 s after a scout comes within 8 m. Up to Injury 27.5 within 9.6 m, +25 if held.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Dynamite",
+    "verified": true,
+    "cookNote": "Immediately explodes."
+  },
+  {
+    "id": "egg",
+    "name": "Egg",
+    "category": "Food, Natural food",
+    "group": "Natural food",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 15,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 30,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Caldera, Gloom; Big Egg, Small Egg",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Egg",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "energy-drink",
+    "name": "Energy Drink",
+    "category": "Food, Packaged food",
+    "group": "Stamina boosts",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "heat",
+          "amount": -30,
+          "timing": "instant"
+        },
+        {
+          "status": "drowsy",
+          "amount": 25,
+          "timing": "after_effect",
+          "detail": "when the boost ends"
+        },
+        {
+          "status": "drowsy",
+          "amount": -50,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 0,
+      "extraStamina": 10,
+      "effects": [
+        {
+          "status": "heat",
+          "amount": -30,
+          "timing": "instant"
+        },
+        {
+          "status": "drowsy",
+          "amount": -50,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "drowsy",
+          "amount": 25,
+          "timing": "after_effect",
+          "detail": "when the boost ends"
+        }
+      ],
+      "removes": [
+        {
+          "status": "heat",
+          "amount": -30,
+          "timing": "instant"
+        },
+        {
+          "status": "drowsy",
+          "amount": -50,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {
+      "speedBoostSeconds": 11
+    },
+    "tags": {},
+    "whereFound": "Regular Luggage, Big Luggage, Explorer's Luggage",
+    "notes": "Removes Heat 30 and Drowsy 50, then 11 s of +50% run speed and +150% climb speed (8 s once you climb). Drowsy 25 hits when it wears off.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Energy_Drink",
+    "verified": true,
+    "cookNote": "Cooked: explodes when you drink it and knocks back everyone within 9.6 m (no Injury). Boost lasts 15 s and there is no Drowsy crash.",
+    "derivedFields": [
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "faerie-lantern",
+    "name": "Faerie Lantern",
+    "category": "Equipment, Mystical item",
+    "group": "Mystical and special",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "injury",
+          "amount": -75,
+          "timing": "instant"
+        },
+        {
+          "status": "poison",
+          "amount": -75,
+          "timing": "instant"
+        },
+        {
+          "status": "cold",
+          "amount": -150,
+          "timing": "instant"
+        },
+        {
+          "status": "heat",
+          "amount": -75,
+          "timing": "instant"
+        },
+        {
+          "status": "drowsy",
+          "amount": -150,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -75,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "injury",
+          "amount": -75,
+          "timing": "instant"
+        },
+        {
+          "status": "poison",
+          "amount": -75,
+          "timing": "instant"
+        },
+        {
+          "status": "cold",
+          "amount": -150,
+          "timing": "instant"
+        },
+        {
+          "status": "heat",
+          "amount": -75,
+          "timing": "instant"
+        },
+        {
+          "status": "drowsy",
+          "amount": -150,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -75,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Ancient Luggage, Ancient Statue",
+    "notes": "While lit, scouts within 7.2 m recover Heat 2.5, Cold 5, Poison 2.5, Drowsy 5, Injury 2.5 per second. 30 s of fuel.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Faerie_Lantern",
+    "verified": true,
+    "cookNote": "Explodes, removing up to 25 each of Poison, Cold, Heat, Drowsy, and Thorns from all players within 4.8m."
+  },
+  {
+    "id": "fanny-pack",
+    "name": "Fanny Pack",
+    "category": "Equipment",
+    "group": "Light and utility",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Regular Luggage, Explorer's Luggage",
+    "notes": "Choose it with the bag selector.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Fanny_Pack",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect.",
+    "hidden": true,
+    "hiddenReason": "Choose it with the bag selector."
+  },
+  {
+    "id": "first-aid-kit",
+    "name": "First Aid Kit",
+    "category": "Consumable",
+    "group": "Healing",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "injury",
+          "amount": -100,
+          "timing": "instant"
+        },
+        {
+          "status": "poison",
+          "amount": -100,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -100,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "injury",
+          "amount": -100,
+          "timing": "instant"
+        },
+        {
+          "status": "poison",
+          "amount": -100,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -100,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Regular Luggage, Big Luggage, Explorer's Luggage",
+    "notes": "Removes all Injury, Poison and Spores.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/First_Aid_Kit",
+    "verified": true,
+    "cookNote": "No effect."
+  },
+  {
+    "id": "flare",
+    "name": "Flare",
+    "category": "Consumable",
+    "group": "Light and utility",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "objective": true
+    },
+    "whereFound": "Crash Site, Peak; Regular Luggage, Big Luggage",
+    "notes": "Light it at the Peak to call the helicopter. On Ascent 4+ you must bring your own.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Flare",
+    "verified": true,
+    "cookNote": "Explodes, dealing up to Injury 20 to all players within 4.8m."
+  },
+  {
+    "id": "flying-disc",
+    "name": "Flying Disc",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Crash Site",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Flying_Disc",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "fortified-milk",
+    "name": "Fortified Milk",
+    "category": "Food, Packaged food",
+    "group": "Packaged food",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "heat",
+          "amount": -50,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 10,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "heat",
+          "amount": -50,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "heat",
+          "amount": -50,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {
+      "invincibilitySeconds": 15
+    },
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Regular Luggage, Big Luggage",
+    "notes": "Invincibility for 15 s: no new statuses except Weight, Curse and Petrify.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Fortified_Milk",
+    "verified": true,
+    "cookNote": "Cooked: +10 s of invincibility. No other cooking bonus."
+  },
+  {
+    "id": "frog",
+    "name": "Frog",
+    "category": "Enemy",
+    "group": "Natural food",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Gloom",
+    "notes": "Cook it to get Frog Legs.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Frog",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "frog-legs",
+    "name": "Frog Legs",
+    "category": "Food, Natural food",
+    "group": "Natural food",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 100,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "cooked_only",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Gloom",
+    "notes": "Only obtainable cooked (cook a Frog).",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Frog_Legs",
+    "verified": true,
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "glider",
+    "name": "Glider",
+    "category": "Misc",
+    "group": "Climbing tools",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Not stated",
+    "notes": "Gliding costs 20 stamina per second.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Glider",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "gold-prickleberry",
+    "name": "Gold Prickleberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 15,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "injury",
+          "amount": -10,
+          "timing": "instant"
+        },
+        {
+          "status": "heat",
+          "amount": -10,
+          "timing": "instant"
+        },
+        {
+          "status": "thorns",
+          "amount": 10,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 30,
+      "extraStamina": 10,
+      "effects": [
+        {
+          "status": "injury",
+          "amount": -10,
+          "timing": "instant"
+        },
+        {
+          "status": "heat",
+          "amount": -10,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "thorns",
+          "amount": 10,
+          "timing": "instant"
+        }
+      ],
+      "removes": [
+        {
+          "status": "injury",
+          "amount": -10,
+          "timing": "instant"
+        },
+        {
+          "status": "heat",
+          "amount": -10,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Mesa",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Gold_Prickleberry",
+    "verified": true,
+    "cookNote": "Removes Poison effect.",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "granola-bar",
+    "name": "Granola Bar",
+    "category": "Food, Packaged food",
+    "group": "Packaged food",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 15,
+      "extraStamina": 20,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 30,
+      "extraStamina": 30,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Regular Luggage, Big Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Granola_Bar",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "green-crispberry",
+    "name": "Green Crispberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 5,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "poison",
+          "amount": 10,
+          "timing": "over_time",
+          "detail": "after 2 s, over 4 s"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 10,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": true,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "poison",
+          "amount": 10,
+          "timing": "over_time",
+          "detail": "after 2 s, over 4 s"
+        }
+      ],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Shore, Tropics, Roots, Mesa, Alpine, Peak",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Green_Crispberry",
+    "verified": true,
+    "cookNote": "Removes Poison effect.",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "green-kingberry",
+    "name": "Green Kingberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 30,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "poison",
+          "amount": 5,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 60,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": true,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "poison",
+          "amount": 5,
+          "timing": "instant"
+        }
+      ],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Tropics",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Green_Kingberry",
+    "verified": true,
+    "cookNote": "Removes Poison effect.",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "green-shroomberry",
+    "name": "Green Shroomberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": null,
+      "effects": [
+        {
+          "status": "spores",
+          "amount": 5,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": null,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "spores",
+          "amount": 5,
+          "timing": "instant"
+        }
+      ],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Roots",
+    "notes": "Gives a random bad effect, Spores 5 and 0 to 15 bonus stamina (random per map).",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Green_Shroomberry",
+    "verified": false,
+    "cookNote": "Removes Spores 5 effect.",
+    "unverifiedFields": [
+      "raw.extraStamina (random 0 to 15)"
+    ],
+    "derivedFields": [
+      "cooked.hunger"
+    ]
+  },
+  {
+    "id": "guidebook",
+    "name": "Guidebook",
+    "category": "Equipment",
+    "group": "Light and utility",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "burns",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Shore; Crash Site",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Guidebook",
+    "verified": true,
+    "cookNote": "Immediately incinerated."
+  },
+  {
+    "id": "half-coconut",
+    "name": "Half-Coconut",
+    "category": "Food, Natural food",
+    "group": "Natural food",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "heat",
+          "amount": -30,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": 10,
+      "effects": [
+        {
+          "status": "heat",
+          "amount": -30,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "heat",
+          "amount": -30,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Shore, Tropics",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Half-Coconut",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "heat-pack",
+    "name": "Heat Pack",
+    "category": "Consumable",
+    "group": "Healing",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "cold",
+          "amount": -360,
+          "timing": "over_time",
+          "detail": "over 60s s"
+        }
+      ]
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "cold",
+          "amount": -360,
+          "timing": "over_time",
+          "detail": "over 60s s"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Alpine; Regular Luggage, Big Luggage",
+    "notes": "Removes Cold 6 per second for 60 s.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Heat_Pack",
+    "verified": true,
+    "cookNote": "Explodes, dealing up to Injury 20 to all players within 4.8m."
+  },
+  {
+    "id": "honeycomb",
+    "name": "Honeycomb",
+    "category": "Food, Natural food",
+    "group": "Natural food",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": 50,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": 75,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Tropics, Roots",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Honeycomb",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "hot-dog",
+    "name": "Hot Dog",
+    "category": "Food, Natural food",
+    "group": "Natural food",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 30,
+      "extraStamina": 20,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 60,
+      "extraStamina": 30,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Gloom; Campfires",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Hot_Dog",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "jetpack",
+    "name": "Jetpack",
+    "category": "Equipment",
+    "group": "Climbing tools",
+    "weight": 7.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Regular Luggage, Big Luggage, Explorer's Luggage",
+    "notes": "Worn in the 4th equipment slot, like a bag.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Jetpack",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect.",
+    "hidden": true,
+    "hiddenReason": "Worn in the 4th equipment slot, like a bag."
+  },
+  {
+    "id": "king",
+    "name": "King",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Airport",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/King",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "knight",
+    "name": "Knight",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Airport",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Knight",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "lantern",
+    "name": "Lantern",
+    "category": "Equipment",
+    "group": "Light and utility",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "cold",
+          "amount": -150,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "cold",
+          "amount": -150,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Tropics, Alpine; Crash Site, Regular Luggage, Big Luggage",
+    "notes": "While lit, scouts within 7.2 m recover Cold 2.5 per second. 60 s of fuel.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Lantern",
+    "verified": true,
+    "cookNote": "Explodes, dealing up to Injury 20 to all players within 4.8m."
+  },
+  {
+    "id": "magic-bean",
+    "name": "Magic Bean",
+    "category": "Deployable",
+    "group": "Climbing tools",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Shore, Tropics, Roots, Alpine, Mesa",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Magic_Bean",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "mandrake",
+    "name": "Mandrake",
+    "category": "Food, Natural food",
+    "group": "Natural food",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": 10,
+      "effects": [
+        {
+          "status": "curse",
+          "amount": -25,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Roots",
+    "notes": "Screams when uprooted (Drowsy 5 every quarter second within 16 m). Raw: Numb for 60 s.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Mandrake",
+    "verified": true,
+    "cookNote": "Cooked: stops screaming and removes Curse 25.",
+    "derivedFields": [
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "marshmallow",
+    "name": "Marshmallow",
+    "category": "Food, Natural food",
+    "group": "Natural food",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 15,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 30,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Campfires",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Marshmallow",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "medicinal-root",
+    "name": "Medicinal Root",
+    "category": "Food, Natural food",
+    "group": "Healing",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 5,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "injury",
+          "amount": -10,
+          "timing": "instant"
+        },
+        {
+          "status": "poison",
+          "amount": -25,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -25,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 10,
+      "extraStamina": 10,
+      "effects": [
+        {
+          "status": "injury",
+          "amount": -10,
+          "timing": "instant"
+        },
+        {
+          "status": "poison",
+          "amount": -45,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -45,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "injury",
+          "amount": -10,
+          "timing": "instant"
+        },
+        {
+          "status": "poison",
+          "amount": -25,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -25,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Shore, Tropics, Roots, Mesa",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Medicinal_Root",
+    "verified": true,
+    "cookNote": "Cooked: removes an extra Poison 20 and Spores 20.",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "napberry",
+    "name": "Napberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 100,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "drowsy",
+          "amount": 100,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 200,
+      "extraStamina": 10,
+      "effects": [
+        {
+          "status": "drowsy",
+          "amount": 100,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "drowsy",
+          "amount": 100,
+          "timing": "instant"
+        }
+      ],
+      "removes": []
+    },
+    "special": {
+      "clearsAllStatuses": true
+    },
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Alpine",
+    "notes": "Removes every status except Curse and Petrify, then fills the bar with Drowsy and knocks you out for a while.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Napberry",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "orange-winterberry",
+    "name": "Orange Winterberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 15,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "heat",
+          "amount": -30,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 30,
+      "extraStamina": 10,
+      "effects": [
+        {
+          "status": "heat",
+          "amount": -30,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "heat",
+          "amount": -30,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Alpine",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Orange_Winterberry",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "pandoras-lunchbox",
+    "name": "Pandora's Lunchbox",
+    "category": "Consumable, Mystical item",
+    "group": "Mystical food",
+    "weight": 2.5,
+    "uses": 3,
+    "raw": {
+      "hunger": null,
+      "extraStamina": null,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Ancient Luggage, Ancient Statue",
+    "notes": "Clears all statuses (except Petrify), then gives random amounts of many statuses and bonus stamina. 3 uses.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Pandora's_Lunchbox",
+    "verified": false,
+    "cookNote": "Explodes, applying its effects to all players within 4.8m.",
+    "unverifiedFields": [
+      "raw.hunger",
+      "raw.extraStamina",
+      "raw.injury",
+      "raw.poison",
+      "raw.cold",
+      "raw.heat",
+      "raw.drowsy",
+      "raw.spores",
+      "raw.curse"
+    ]
+  },
+  {
+    "id": "parasol",
+    "name": "Parasol",
+    "category": "Equipment",
+    "group": "Climbing tools",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Roots, Mesa; Regular Luggage, Big Luggage, Clown Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Parasol",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "passport",
+    "name": "Passport",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": -2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Airport",
+    "notes": "Airport only, cannot be dropped or taken on the climb.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Passport",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect.",
+    "hidden": true,
+    "hiddenReason": "Airport only, cannot be dropped or taken on the climb."
+  },
+  {
+    "id": "pawn",
+    "name": "Pawn",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Airport",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Pawn",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "pink-berrynana",
+    "name": "Pink Berrynana",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 15,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "poison",
+          "amount": 15,
+          "timing": "over_time",
+          "detail": "after 2 s, over 6 s"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 30,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": true,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "poison",
+          "amount": 15,
+          "timing": "over_time",
+          "detail": "after 2 s, over 6 s"
+        }
+      ],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Tropics",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Pink_Berrynana",
+    "verified": true,
+    "cookNote": "Removes Poison effect.",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "pink-berrynana-peel",
+    "name": "Pink Berrynana Peel",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Tropics; Pink Berrynana",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Pink_Berrynana_Peel",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "pirates-compass",
+    "name": "Pirate's Compass",
+    "category": "Equipment",
+    "group": "Light and utility",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Regular Luggage, Big Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Pirate's_Compass",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "piton",
+    "name": "Piton",
+    "category": "Deployable",
+    "group": "Climbing tools",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "burns",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Regular Luggage, Big Luggage, Explorer's Luggage",
+    "notes": "Place it while climbing to get a handhold where stamina regenerates.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Piton",
+    "verified": true,
+    "cookNote": "Immediately incinerated."
+  },
+  {
+    "id": "portable-stove",
+    "name": "Portable Stove",
+    "category": "Deployable",
+    "group": "Light and utility",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Roots, Tropics, Alpine, Mesa, Caldera, The Kiln; Regular Luggage, Big Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Portable_Stove",
+    "verified": true,
+    "cookNote": "Explodes, dealing up to Injury 20 to all players within 4.8m."
+  },
+  {
+    "id": "purple-kingberry",
+    "name": "Purple Kingberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 30,
+      "extraStamina": 35,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 60,
+      "extraStamina": 52.5,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Tropics",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Purple_Kingberry",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "purple-shroomberry",
+    "name": "Purple Shroomberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": null,
+      "effects": [
+        {
+          "status": "spores",
+          "amount": 5,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": null,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "spores",
+          "amount": 5,
+          "timing": "instant"
+        }
+      ],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Roots",
+    "notes": "Gives a random good or bad effect, Spores 5 and 0 to 15 bonus stamina (random per map).",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Purple_Shroomberry",
+    "verified": false,
+    "cookNote": "Removes Spores 5 effect.",
+    "unverifiedFields": [
+      "raw.extraStamina (random 0 to 15)"
+    ],
+    "derivedFields": [
+      "cooked.hunger"
+    ]
+  },
+  {
+    "id": "queen",
+    "name": "Queen",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Airport",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Queen",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "red-clusterberry",
+    "name": "Red Clusterberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "injury",
+          "amount": -20,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": 10,
+      "effects": [
+        {
+          "status": "injury",
+          "amount": -20,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "injury",
+          "amount": -20,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Tropics",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Red_Clusterberry",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "red-crispberry",
+    "name": "Red Crispberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 5,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 10,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Shore, Tropics, Roots, Mesa, Alpine, Peak",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Red_Crispberry",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "red-prickleberry",
+    "name": "Red Prickleberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 15,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "heat",
+          "amount": -10,
+          "timing": "instant"
+        },
+        {
+          "status": "thorns",
+          "amount": 10,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 30,
+      "extraStamina": 10,
+      "effects": [
+        {
+          "status": "heat",
+          "amount": -10,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "thorns",
+          "amount": 10,
+          "timing": "instant"
+        }
+      ],
+      "removes": [
+        {
+          "status": "heat",
+          "amount": -10,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Mesa",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Red_Prickleberry",
+    "verified": true,
+    "cookNote": "Removes Thorns effect.",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "red-shroomberry",
+    "name": "Red Shroomberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": null,
+      "effects": [
+        {
+          "status": "spores",
+          "amount": 5,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": null,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "spores",
+          "amount": 5,
+          "timing": "instant"
+        }
+      ],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Roots",
+    "notes": "Gives a random good effect, Spores 5 and 0 to 15 bonus stamina (random per map).",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Red_Shroomberry",
+    "verified": false,
+    "cookNote": "Removes Spores 5 effect.",
+    "unverifiedFields": [
+      "raw.extraStamina (random 0 to 15)"
+    ],
+    "derivedFields": [
+      "cooked.hunger"
+    ]
+  },
+  {
+    "id": "remedy-fungus",
+    "name": "Remedy Fungus",
+    "category": "Consumable",
+    "group": "Healing",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "injury",
+          "amount": -52.5,
+          "timing": "instant"
+        },
+        {
+          "status": "poison",
+          "amount": -35,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -35,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "injury",
+          "amount": -52.5,
+          "timing": "instant"
+        },
+        {
+          "status": "poison",
+          "amount": -35,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -35,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Not stated",
+    "notes": "Thrown or dropped: heals Injury 17.5 at once within 8 m, then Injury 35, Poison and Spores over 14 s.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Remedy_Fungus",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "rescue-claw",
+    "name": "Rescue Claw",
+    "category": "Consumable, Equipment",
+    "group": "Climbing tools",
+    "weight": 2.5,
+    "uses": 3,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "burns",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Regular Luggage, Big Luggage, Explorer's Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Rescue_Claw",
+    "verified": true,
+    "cookNote": "Immediately incinerated."
+  },
+  {
+    "id": "ritual-dagger",
+    "name": "Ritual Dagger",
+    "category": "Mystical item",
+    "group": "Mystical and special",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 100,
+      "extraStamina": 100,
+      "effects": [
+        {
+          "status": "injury",
+          "amount": -100,
+          "timing": "instant"
+        },
+        {
+          "status": "poison",
+          "amount": -100,
+          "timing": "instant"
+        },
+        {
+          "status": "cold",
+          "amount": -100,
+          "timing": "instant"
+        },
+        {
+          "status": "heat",
+          "amount": -100,
+          "timing": "instant"
+        },
+        {
+          "status": "drowsy",
+          "amount": -100,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -100,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "injury",
+          "amount": -100,
+          "timing": "instant"
+        },
+        {
+          "status": "poison",
+          "amount": -100,
+          "timing": "instant"
+        },
+        {
+          "status": "cold",
+          "amount": -100,
+          "timing": "instant"
+        },
+        {
+          "status": "heat",
+          "amount": -100,
+          "timing": "instant"
+        },
+        {
+          "status": "drowsy",
+          "amount": -100,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -100,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Ancient Luggage, Ancient Statue",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Ritual_Dagger",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "rocketpack",
+    "name": "Rocketpack",
+    "category": "Equipment",
+    "group": "Climbing tools",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Regular Luggage, Big Luggage, Clown Luggage",
+    "notes": "Worn in the 4th equipment slot, like a bag.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Rocketpack",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect.",
+    "hidden": true,
+    "hiddenReason": "Worn in the 4th equipment slot, like a bag."
+  },
+  {
+    "id": "rook",
+    "name": "Rook",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Airport",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Rook",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "rope-cannon",
+    "name": "Rope Cannon",
+    "category": "Deployable",
+    "group": "Climbing tools",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "burns",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Regular Luggage, Big Luggage, Explorer's Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Rope_Cannon",
+    "verified": true,
+    "cookNote": "Immediately incinerated."
+  },
+  {
+    "id": "rope-spool",
+    "name": "Rope Spool",
+    "category": "Deployable",
+    "group": "Climbing tools",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "burns",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Regular Luggage, Big Luggage, Explorer's Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Rope_Spool",
+    "verified": true,
+    "cookNote": "Immediately incinerated."
+  },
+  {
+    "id": "scorchberry",
+    "name": "Scorchberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "heat",
+          "amount": 25,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": 10,
+      "effects": [
+        {
+          "status": "heat",
+          "amount": 25,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "heat",
+          "amount": 25,
+          "timing": "instant"
+        }
+      ],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Tropics, Roots, Alpine",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Scorchberry",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "scorpion",
+    "name": "Scorpion",
+    "category": "Enemy, Food",
+    "group": "Natural food",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "cooked_only",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Mesa",
+    "notes": "Stings for Poison 2.5 then 50 to 100 over 15 s. Edible once cooked.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Scorpion",
+    "verified": true,
+    "derivedFields": [
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "scout-cannon",
+    "name": "Scout Cannon",
+    "category": "Deployable",
+    "group": "Climbing tools",
+    "weight": 10,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Regular Luggage, Big Luggage, Explorer's Luggage, Clown Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Scout_Cannon",
+    "verified": true,
+    "cookNote": "Explodes identically to Dynamite but does not apply the extra damage from being held."
+  },
+  {
+    "id": "scout-cookies",
+    "name": "Scout Cookies",
+    "category": "Food, Packaged food",
+    "group": "Packaged food",
+    "weight": 5,
+    "uses": 4,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": 15,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Regular Luggage, Big Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Scout_Cookies",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "scout-effigy",
+    "name": "Scout Effigy",
+    "category": "Consumable, Mystical item",
+    "group": "Mystical and special",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 0,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Ancient Luggage, Ancient Statue",
+    "notes": "Revives a random dead or unconscious scout.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Scout_Effigy",
+    "verified": true,
+    "cookNote": "Cooked: gives Bonus 10 when used."
+  },
+  {
+    "id": "scouts-ambition",
+    "name": "Scout's Ambition",
+    "category": "Amulet, Mystical item",
+    "group": "Mystical and special",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {
+      "infiniteStaminaSeconds": 8
+    },
+    "tags": {},
+    "whereFound": "Scout Statue",
+    "notes": "Amulet: 8 s infinite stamina bubble. Costs Petrify 30.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Scout's_Ambition",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "scouts-generosity",
+    "name": "Scout's Generosity",
+    "category": "Amulet, Mystical item",
+    "group": "Mystical and special",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Scout Statue",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Scout's_Generosity",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "scouts-honor",
+    "name": "Scout's Honor",
+    "category": "Mystical item",
+    "group": "Mystical and special",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Peak; Stone Scout",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Scout's_Honor",
+    "verified": true
+  },
+  {
+    "id": "scouts-initiative",
+    "name": "Scout's Initiative",
+    "category": "Amulet, Mystical item",
+    "group": "Mystical and special",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Scout Statue",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Scout's_Initiative",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "scouts-tenacity",
+    "name": "Scout's Tenacity",
+    "category": "Amulet, Mystical item",
+    "group": "Mystical and special",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "injury",
+          "amount": -60,
+          "timing": "instant"
+        },
+        {
+          "status": "poison",
+          "amount": -60,
+          "timing": "instant"
+        },
+        {
+          "status": "cold",
+          "amount": -60,
+          "timing": "instant"
+        },
+        {
+          "status": "heat",
+          "amount": -60,
+          "timing": "instant"
+        },
+        {
+          "status": "drowsy",
+          "amount": -60,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -60,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "injury",
+          "amount": -60,
+          "timing": "instant"
+        },
+        {
+          "status": "poison",
+          "amount": -60,
+          "timing": "instant"
+        },
+        {
+          "status": "cold",
+          "amount": -60,
+          "timing": "instant"
+        },
+        {
+          "status": "heat",
+          "amount": -60,
+          "timing": "instant"
+        },
+        {
+          "status": "drowsy",
+          "amount": -60,
+          "timing": "instant"
+        },
+        {
+          "status": "spores",
+          "amount": -60,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Scout Statue",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Scout's_Tenacity",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "scoutmasters-bugle",
+    "name": "Scoutmaster's Bugle",
+    "category": "Equipment, Mystical item, Consumable",
+    "group": "Mystical and special",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 100,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Ancient Luggage, Ancient Statue",
+    "notes": "One use: Morale Boost of Bonus 100 for every scout.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Scoutmaster's_Bugle",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "scroll",
+    "name": "Scroll",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Campfire",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Scroll",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "shelf-fungus",
+    "name": "Shelf Fungus",
+    "category": "Deployable",
+    "group": "Climbing tools",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Not stated",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Shelf_Fungus",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "small-egg",
+    "name": "Small Egg",
+    "category": "Misc",
+    "group": "Natural food",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Gloom",
+    "notes": "Crack it for an Egg (1% chance of a Cooked Bird).",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Small_Egg",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "snowball",
+    "name": "Snowball",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Alpine",
+    "notes": "Hits for Cold 5 to 10.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Snowball",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "sports-drink",
+    "name": "Sports Drink",
+    "category": "Food, Packaged food",
+    "group": "Stamina boosts",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 30,
+      "effects": [
+        {
+          "status": "heat",
+          "amount": -200,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 0,
+      "extraStamina": 45,
+      "effects": [
+        {
+          "status": "heat",
+          "amount": -200,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "heat",
+          "amount": -200,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Regular Luggage, Big Luggage",
+    "notes": "Removes Heat 200.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Sports_Drink",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "strange-gem",
+    "name": "Strange Gem",
+    "category": "Amulet, Mystical item",
+    "group": "Mystical and special",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Peak; Stone Scout",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Strange_Gem",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "sunscreen",
+    "name": "Sunscreen",
+    "category": "Consumable",
+    "group": "Healing",
+    "weight": 2.5,
+    "uses": 3,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "explodes",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Mesa; Regular Luggage, Big Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Sunscreen",
+    "verified": true,
+    "cookNote": "Explodes, applying the sunscreen effect to all players within 4.8m."
+  },
+  {
+    "id": "the-book-of-bones",
+    "name": "The Book of Bones",
+    "category": "Consumable, Mystical item",
+    "group": "Mystical and special",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "curse",
+          "amount": 25,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "curse",
+          "amount": 25,
+          "timing": "instant"
+        }
+      ],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Ancient Luggage, Ancient Statues",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/The_Book_of_Bones",
+    "verified": true,
+    "cookNote": "No effect."
+  },
+  {
+    "id": "the-early-worm",
+    "name": "The Early Worm",
+    "category": "Food, Natural food",
+    "group": "Natural food",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 5,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "drowsy",
+          "amount": -100,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "drowsy",
+          "amount": -100,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Gloom",
+    "notes": "Removes all Drowsy.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/The_Early_Worm",
+    "verified": true,
+    "cookNote": "No additional bonuses are gained and the worm stops moving."
+  },
+  {
+    "id": "tick",
+    "name": "Tick",
+    "category": "Food",
+    "group": "Natural food",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 20,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 40,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Tropics",
+    "notes": "Latches on and inflicts up to Poison 50. Edible once removed.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Tick",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "torch",
+    "name": "Torch",
+    "category": "Equipment",
+    "group": "Light and utility",
+    "weight": 0,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Mesa; Tomb",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Torch",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "trail-mix",
+    "name": "Trail Mix",
+    "category": "Food, Packaged food",
+    "group": "Packaged food",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": 15,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Regular Luggage, Big Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Trail_Mix",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "warp-compass",
+    "name": "Warp Compass",
+    "category": "Equipment, Mystical item",
+    "group": "Mystical and special",
+    "weight": 5,
+    "uses": 3,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {},
+    "whereFound": "Not stated",
+    "notes": "Removed from the game in patch 1.1.a.",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Warp_Compass",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect.",
+    "hidden": true,
+    "hiddenReason": "Removed from the game in patch 1.1.a."
+  },
+  {
+    "id": "warp-fungus",
+    "name": "Warp Fungus",
+    "category": "Consumable",
+    "group": "Climbing tools",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "climbingTool": true
+    },
+    "whereFound": "Shore, Tropics, Roots, Alpine, Mesa",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Warp_Fungus",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "yellow-berrynana",
+    "name": "Yellow Berrynana",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 15,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 30,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Tropics, Gloom",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Yellow_Berrynana",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "yellow-berrynana-peel",
+    "name": "Yellow Berrynana Peel",
+    "category": "Misc",
+    "group": "Fun and collectibles",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 0,
+      "extraStamina": 0,
+      "effects": []
+    },
+    "cooked": null,
+    "cookResult": "no_change",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "junk": true
+    },
+    "whereFound": "Tropics, Gloom; Yellow Berrynana, Clown Luggage",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Yellow_Berrynana_Peel",
+    "verified": true,
+    "cookNote": "Cooking has no useful effect."
+  },
+  {
+    "id": "yellow-clusterberry",
+    "name": "Yellow Clusterberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": 15,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Tropics",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Yellow_Clusterberry",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "yellow-crispberry",
+    "name": "Yellow Crispberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 5,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cooked": {
+      "hunger": 10,
+      "extraStamina": 15,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Shore, Tropics, Roots, Alpine, Mesa, Peak",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Yellow_Crispberry",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "yellow-kingberry",
+    "name": "Yellow Kingberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 5,
+    "uses": null,
+    "raw": {
+      "hunger": 30,
+      "extraStamina": 0,
+      "effects": [
+        {
+          "status": "poison",
+          "amount": 25,
+          "timing": "over_time",
+          "detail": "after 3 s, over 10 s"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 60,
+      "extraStamina": 10,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": true,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "poison",
+          "amount": 25,
+          "timing": "over_time",
+          "detail": "after 3 s, over 10 s"
+        }
+      ],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Tropics",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Yellow_Kingberry",
+    "verified": true,
+    "cookNote": "Removes Poison effect.",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  },
+  {
+    "id": "yellow-shroomberry",
+    "name": "Yellow Shroomberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 10,
+      "extraStamina": null,
+      "effects": [
+        {
+          "status": "spores",
+          "amount": 5,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 20,
+      "extraStamina": null,
+      "effects": []
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [
+        {
+          "status": "spores",
+          "amount": 5,
+          "timing": "instant"
+        }
+      ],
+      "removes": []
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Roots",
+    "notes": "Gives a random good effect, Spores 5 and 0 to 15 bonus stamina (random per map).",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Yellow_Shroomberry",
+    "verified": false,
+    "cookNote": "Removes Spores 5 effect.",
+    "unverifiedFields": [
+      "raw.extraStamina (random 0 to 15)"
+    ],
+    "derivedFields": [
+      "cooked.hunger"
+    ]
+  },
+  {
+    "id": "yellow-winterberry",
+    "name": "Yellow Winterberry",
+    "category": "Food, Natural food, Berry",
+    "group": "Berries",
+    "weight": 2.5,
+    "uses": null,
+    "raw": {
+      "hunger": 30,
+      "extraStamina": 35,
+      "effects": [
+        {
+          "status": "injury",
+          "amount": -20,
+          "timing": "instant"
+        },
+        {
+          "status": "heat",
+          "amount": -50,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cooked": {
+      "hunger": 60,
+      "extraStamina": 52.5,
+      "effects": [
+        {
+          "status": "injury",
+          "amount": -20,
+          "timing": "instant"
+        },
+        {
+          "status": "heat",
+          "amount": -50,
+          "timing": "instant"
+        }
+      ]
+    },
+    "cookResult": "better",
+    "poisonousRaw": false,
+    "statusEffects": {
+      "adds": [],
+      "removes": [
+        {
+          "status": "injury",
+          "amount": -20,
+          "timing": "instant"
+        },
+        {
+          "status": "heat",
+          "amount": -50,
+          "timing": "instant"
+        }
+      ]
+    },
+    "special": {},
+    "tags": {
+      "edible": true
+    },
+    "whereFound": "Alpine",
+    "notes": "",
+    "sourceUrl": "https://peak.wiki.gg/wiki/Yellow_Winterberry",
+    "verified": true,
+    "cookNote": "Cooked: Hunger doubled, bonus stamina x1.5 (or +10 if none).",
+    "derivedFields": [
+      "cooked.hunger",
+      "cooked.extraStamina"
+    ]
+  }
+]

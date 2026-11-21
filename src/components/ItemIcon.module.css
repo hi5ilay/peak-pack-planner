@@ -1,0 +1,18 @@
+.icon {
+  display: block;
+  object-fit: contain;
+  flex: none;
+}
+
+.placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  border-radius: 22%;
+  background: var(--pine-soft);
+  color: var(--pine-strong);
+  border: 2px solid var(--pine);
+  font-family: var(--font-display);
+  line-height: 1;
+}

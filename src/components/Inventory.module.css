@@ -1,0 +1,172 @@
+.panel {
+  background: var(--surface-2);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  min-width: 0;
+  transition: border-color 0.15s;
+}
+
+.over {
+  border-color: var(--orange);
+  border-style: dashed;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.head h2 {
+  font-size: 20px;
+  color: var(--pine-strong);
+}
+
+.bagPick {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.bagPick select {
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  padding: 4px 8px;
+  max-width: 100%;
+}
+
+.hint,
+.note {
+  margin: 6px 0 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.hands {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.bag {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.strap {
+  width: 46%;
+  height: 16px;
+  border: 5px solid #234a37;
+  border-bottom: 0;
+  border-radius: 30px 30px 0 0;
+}
+
+.bagBody {
+  width: 100%;
+  background: #2f5d46;
+  border-radius: 26px 26px 18px 18px;
+  padding: 0 10px 10px;
+  box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.15);
+}
+
+.fannypack .strap {
+  width: 100%;
+  height: 0;
+  border-width: 5px 0 0;
+  border-radius: 0;
+  margin-bottom: -4px;
+}
+
+.fannypack .bagBody {
+  width: min(100%, 420px);
+  border-radius: 40px;
+  padding: 0 18px 12px;
+}
+
+.flap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 6px;
+  margin: 0 -10px 10px;
+  background: #234a37;
+  border-radius: 26px 26px 50% 50% / 26px 26px 14px 14px;
+  color: #f4ecd4;
+  font-family: var(--font-display);
+  font-size: 13px;
+  padding-inline: 18px;
+}
+
+.fannypack .flap {
+  margin-inline: -18px;
+  border-radius: 40px 40px 50% 50% / 40px 40px 14px 14px;
+}
+
+.bagKey {
+  background: var(--orange);
+  color: #fff;
+  border-radius: 6px;
+  padding: 0 6px;
+}
+
+.pockets {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.noBag {
+  width: 100%;
+  padding: 16px;
+  text-align: center;
+  border: 2px dashed var(--line);
+  border-radius: 18px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.overflow {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--danger-soft);
+  border: 2px solid var(--danger);
+}
+
+.overflow h3 {
+  font-size: 14px;
+  color: var(--danger);
+}
+
+.overflow ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  font-size: 13px;
+}
+
+.overflow button {
+  border: 1.5px solid var(--danger);
+  background: transparent;
+  color: var(--danger);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 0 8px;
+}
+
+@media (min-width: 560px) {
+  .pockets {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .fannypack .pockets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

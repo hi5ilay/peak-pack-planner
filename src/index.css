@@ -1,0 +1,127 @@
+:root {
+  --bg: #ece3c9;
+  --bg-deep: #e0d4b2;
+  --surface: #f7f1e1;
+  --surface-2: #efe6cd;
+  --text: #2a2a22;
+  --muted: #6a6450;
+  --line: #c9b98f;
+  --pine: #2f5d46;
+  --pine-strong: #234a37;
+  --pine-soft: #d6e3d4;
+  --orange: #e8772e;
+  --orange-strong: #c95e17;
+  --orange-soft: #fde3cf;
+  --danger: #b03a2e;
+  --danger-soft: #f6d9d4;
+  --canvas: #3b3a30;
+  --shadow: 0 2px 0 rgba(60, 50, 20, 0.18);
+  --radius: 14px;
+  --font-display: 'Bungee', 'Arial Black', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #171c18;
+    --bg-deep: #111512;
+    --surface: #222a24;
+    --surface-2: #2b352e;
+    --text: #efe8d6;
+    --muted: #b3ab94;
+    --line: #3e4a41;
+    --pine: #6fb08d;
+    --pine-strong: #8fcaa9;
+    --pine-soft: #243b2f;
+    --orange: #f08a45;
+    --orange-strong: #ffa066;
+    --orange-soft: #43301f;
+    --danger: #ff8a7a;
+    --danger-soft: #45231f;
+    --canvas: #0d100e;
+    --shadow: 0 2px 0 rgba(0, 0, 0, 0.4);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #171c18;
+  --bg-deep: #111512;
+  --surface: #222a24;
+  --surface-2: #2b352e;
+  --text: #efe8d6;
+  --muted: #b3ab94;
+  --line: #3e4a41;
+  --pine: #6fb08d;
+  --pine-strong: #8fcaa9;
+  --pine-soft: #243b2f;
+  --orange: #f08a45;
+  --orange-strong: #ffa066;
+  --orange-soft: #43301f;
+  --danger: #ff8a7a;
+  --danger-soft: #45231f;
+  --canvas: #0d100e;
+  --shadow: 0 2px 0 rgba(0, 0, 0, 0.4);
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+a {
+  color: var(--pine-strong);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
