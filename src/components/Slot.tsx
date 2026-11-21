@@ -9,10 +9,11 @@ interface Props {
   label: string;
   hotkey?: string;
   big?: boolean;
+  readOnly?: boolean;
   send: (m: Msg) => void;
 }
 
-export function Slot({ slot, label, hotkey, big, send }: Props) {
+export function Slot({ slot, label, hotkey, big, send, readOnly = false }: Props) {
   if (!slot) {
     return (
       <div className={`${styles.slot} ${styles.empty} ${big ? styles.big : ''}`}>
@@ -33,15 +34,15 @@ export function Slot({ slot, label, hotkey, big, send }: Props) {
   return (
     <div
       className={`${styles.slot} ${big ? styles.big : ''} ${broken ? styles.broken : ''}`}
-      draggable
+      draggable={!readOnly}
       onDragStart={(e) => {
         e.dataTransfer.setData('text/plain', `remove:${entry.uid}`);
         e.dataTransfer.effectAllowed = 'move';
       }}
-      title={`${item.name}. Drag back to the item list to remove.`}
+      title={readOnly ? item.name : `${item.name}. Drag back to the item list to remove.`}
     >
       {hotkey && <span className={styles.key}>{hotkey}</span>}
-      <span className={styles.role}>{role === 'bag' ? '' : ROLE_LABELS[role]}</span>
+      <span className={styles.role}>{readOnly || role === 'bag' ? '' : ROLE_LABELS[role]}</span>
       <ItemIcon id={item.id} name={item.name} size={big ? 52 : 36} />
       <span className={styles.name}>{item.name}</span>
       <span className={styles.meta}>
@@ -52,7 +53,7 @@ export function Slot({ slot, label, hotkey, big, send }: Props) {
         {amulet ? `Unlimited uses · +${amulet.cost} Petrify · ${amulet.effect}` : bits.join(', ')}
         {entry.usesLeft !== null && entry.usesLeft > 1 && ` (${entry.usesLeft} uses)`}
       </span>
-      <span className={styles.buttons}>
+      {!readOnly && <span className={styles.buttons}>
         {cookable && (
           <>
             <button type="button" onClick={() => send({ type: 'cook', uid: entry.uid, delta: 1 })} disabled={entry.cookLevel >= 4} aria-label={`Cook ${item.name}`}>
@@ -78,7 +79,7 @@ export function Slot({ slot, label, hotkey, big, send }: Props) {
         <button type="button" className={styles.drop} onClick={() => send({ type: 'remove', uid: entry.uid })} aria-label={`Drop ${item.name}`}>
           Drop
         </button>
-      </span>
+      </span>}
     </div>
   );
 }

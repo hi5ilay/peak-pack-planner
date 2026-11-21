@@ -12,8 +12,18 @@ createServer(async (request, response) => {
     response.writeHead(status, {'Content-Type': type, 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff'});
     response.end(body);
   };
-  if (request.method !== 'GET' || request.headers.host !== host + ':' + port) return send(403, 'Forbidden');
+  if (request.headers.host !== host + ':' + port) return send(403, 'Forbidden');
   const path = request.url.split('?')[0];
+  if (path === '/snapshot' && request.headers.origin === 'https://hi5ilay.github.io') {
+    response.setHeader('Access-Control-Allow-Origin', 'https://hi5ilay.github.io');
+    response.setHeader('Vary', 'Origin');
+    if (request.method === 'OPTIONS') {
+      response.setHeader('Access-Control-Allow-Methods', 'GET');
+      response.setHeader('Access-Control-Allow-Private-Network', 'true');
+      return send(204, '');
+    }
+  }
+  if (request.method !== 'GET') return send(403, 'Forbidden');
   if (path === '/snapshot') {
     try {
       return send(200, await readFile(snapshot), 'application/json');

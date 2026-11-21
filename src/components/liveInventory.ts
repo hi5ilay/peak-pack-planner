@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { advise, arrangeInventory, defaultCookLevel, emptyStatus, getItem, ITEMS, type BagType, type CarriedItem, type CookLevel, type ManualStatus } from '../engine';
 import { comparePacks } from '../engine/comparePacks';
-import styles from './LiveInventory.module.css';
 
 interface LiveItem {
   uid: string;
@@ -25,14 +24,14 @@ interface LiveRun {
 const normalize = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, '');
 const catalog = new Map(ITEMS.map((item) => [normalize(item.name), item]));
 
-function toEntry(item: LiveItem): CarriedItem | null {
+export function toEntry(item: LiveItem): CarriedItem | null {
   const match = catalog.get(normalize(item.name));
   if (!match) return null;
   const cookLevel = (Math.max(defaultCookLevel(match), Math.min(4, item.cookLevel))) as CookLevel;
   return { uid: item.uid, itemId: match.id, cookLevel, usesLeft: item.usesLeft };
 }
 
-function recommendation(run: LiveRun, bagType: BagType): string {
+export function recommendation(run: LiveRun, bagType: BagType): string {
   const marked = run.marked;
   if (!marked) return 'Look at a highlighted item in PEAK and press T.';
   const carried = [...run.hands, ...run.pockets].filter((item): item is LiveItem => item !== null);
@@ -68,15 +67,20 @@ function recommendation(run: LiveRun, bagType: BagType): string {
   return [instruction, trade.details || swap.reason].join(' ');
 }
 
-export function LiveInventory() {
+export const LIVE_URL = 'http://127.0.0.1:47831/?live';
+
+export function useLiveInventory(enabled: boolean) {
   const [run, setRun] = useState<LiveRun | null>(null);
   const [connection, setConnection] = useState('Waiting for the PEAK mod');
   useEffect(() => {
+    if (!enabled) return;
     const controller = new AbortController();
     let timer: number;
     async function poll() {
       try {
-        const response = await fetch('/snapshot', {signal: controller.signal, cache:'no-store'});
+        const local = window.location.hostname === '127.0.0.1';
+        const url = local ? '/snapshot' : new URL('/snapshot', LIVE_URL);
+        const response = await fetch(url, {signal: controller.signal, cache: 'no-store', targetAddressSpace: 'loopback'} as RequestInit);
         if (!response.ok) throw new Error('Waiting');
         const data = await response.json();
         if (data.version !== 1 || Date.now() - data.time > 3000) throw new Error('Stale');
@@ -91,35 +95,6 @@ export function LiveInventory() {
     }
     void poll();
     return () => { controller.abort(); window.clearTimeout(timer); };
-  }, []);
-
-  const bag = run?.bagType;
-  const knownBag = bag === 'backpack' || bag === 'fannypack' || bag === 'none' ? bag : undefined;
-  return (
-    <main className={styles.page}>
-      <header className={styles.header}>
-        <h1>PEAK Live Pack</h1>
-        <a href="/">Manual planner</a>
-      </header>
-      <p role="status">{connection}</p>
-      {run && (
-        <>
-          <section className={styles.panel} aria-label="Marked item">
-            <h2>{run.marked?.name ?? 'Marked item'}</h2>
-            <p>{knownBag ? recommendation(run, knownBag) : 'Swap advice is unavailable for this bag type.'}</p>
-          </section>
-          <div className={styles.grid}>
-            <section className={styles.panel}>
-              <h2>Hands</h2>
-              <ol>{run.hands.map((item, index) => <li key={index}>{item?.name ?? 'Empty'}</li>)}</ol>
-            </section>
-            <section className={styles.panel}>
-              <h2>{bag === 'none' ? 'No bag equipped' : bag === 'fannypack' ? 'Fanny Pack' : 'Equipped ' + bag}</h2>
-              <ol>{run.pockets.map((item, index) => <li key={index}>{item?.name ?? 'Empty'}</li>)}</ol>
-            </section>
-          </div>
-        </>
-      )}
-    </main>
-  );
+  }, [enabled]);
+  return { run: enabled ? run : null, connection };
 }

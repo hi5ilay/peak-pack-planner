@@ -117,3 +117,8 @@
     align-items: start;
   }
 }
+
+.readOnly { border: 0; padding: 0; margin: 0; min-width: 0; }
+.livePanel { background: var(--surface); border: 2px solid var(--line); border-radius: 14px; padding: 14px; }
+.livePanel h2 { margin: 0; }
+.livePanel a { color: inherit; }
