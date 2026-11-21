@@ -1,0 +1,263 @@
+{
+  "_about": "Game rules used by the engine. Every rule lists the wiki page it came from. confirmed:false marks rules the wiki does not state; the engine uses the safest reading.",
+  "bar": {
+    "max": 100,
+    "tick": 2.5,
+    "statusCap": 200,
+    "confirmed": true,
+    "rule": "Every status takes points out of the 100 point bar. Max stamina = 100 minus the sum of all statuses (never below 0). If nothing is left, the scout passes out.",
+    "source": "https://peak.wiki.gg/wiki/Stamina_bar"
+  },
+  "regeneration": {
+    "perSecond": 20,
+    "groundedDelaySeconds": 0.2,
+    "afterUseSeconds": 1,
+    "afterEmptySeconds": 2,
+    "confirmed": true,
+    "source": "https://peak.wiki.gg/wiki/Stamina_bar"
+  },
+  "staminaCosts": {
+    "sprintPerSecond": 5,
+    "jump": 5,
+    "sprintJump": 15,
+    "ascent6Multiplier": 1.4,
+    "confirmed": true,
+    "source": "https://peak.wiki.gg/wiki/Stamina_bar"
+  },
+  "extraStamina": {
+    "separateBar": true,
+    "blockedByStatuses": false,
+    "onlyLimitedBy": "petrify",
+    "usedWhen": "Only after primary stamina reaches 0. Not used for sprinting or plain jumps.",
+    "regenerates": false,
+    "passiveDrain": null,
+    "passiveDrainConfirmed": false,
+    "max": null,
+    "maxNote": "A Talk:Food comment says it can reach 100. Not on the article.",
+    "resetsOnDeath": true,
+    "confirmed": true,
+    "rule": "Bonus stamina is a reserve in its own bar under the main bar. Statuses do not block it, so it works even when most of the main bar is blocked.",
+    "source": "https://peak.wiki.gg/wiki/Stamina_bar#Bonus_stamina"
+  },
+  "eatingWhenNotHungry": {
+    "leftoverBecomesExtraStamina": false,
+    "confirmed": false,
+    "rule": "Hunger fill beyond your current Hunger is treated as wasted. The wiki never says it converts into bonus stamina; the Ascent 2 tips call it wasting food.",
+    "source": "https://peak.wiki.gg/wiki/Ascents"
+  },
+  "statuses": {
+    "hunger": {
+      "color": "#d9a03a",
+      "decays": false,
+      "buildPerSecond": 0.05,
+      "tenderfootMultiplier": 0.7,
+      "ascent2Multiplier": 1.6,
+      "source": "https://peak.wiki.gg/wiki/Stamina_bar#Hunger"
+    },
+    "injury": {
+      "color": "#c0392b",
+      "decays": false,
+      "source": "https://peak.wiki.gg/wiki/Stamina_bar#Injury"
+    },
+    "poison": {
+      "color": "#7d3c98",
+      "decays": true,
+      "decayPerSecond": 0.4,
+      "decayDelaySeconds": 30,
+      "source": "https://peak.wiki.gg/wiki/Stamina_bar#Poison"
+    },
+    "cold": {
+      "color": "#5dade2",
+      "decays": true,
+      "decayNote": "Huddling removes 1.5 per second within 3.2 m",
+      "cancelsWith": "heat",
+      "source": "https://peak.wiki.gg/wiki/Stamina_bar#Cold"
+    },
+    "heat": {
+      "color": "#e67e22",
+      "decays": true,
+      "decayPerSecond": 1.3,
+      "decayDelaySeconds": 8,
+      "cancelsWith": "cold",
+      "source": "https://peak.wiki.gg/wiki/Stamina_bar#Heat"
+    },
+    "drowsy": {
+      "color": "#a569bd",
+      "decays": true,
+      "decayPerSecond": 1.5,
+      "decayDelaySeconds": 10,
+      "source": "https://peak.wiki.gg/wiki/Stamina_bar#Drowsy"
+    },
+    "spores": {
+      "color": "#8e6e53",
+      "decays": true,
+      "decayPerSecond": 0.5,
+      "decayDelaySeconds": 45,
+      "source": "https://peak.wiki.gg/wiki/Stamina_bar#Spores"
+    },
+    "curse": {
+      "color": "#34495e",
+      "decays": false,
+      "source": "https://peak.wiki.gg/wiki/Stamina_bar#Curse"
+    },
+    "thorns": {
+      "color": "#27ae60",
+      "decays": true,
+      "decayNote": "Physical thorns fall off after 30 s solo or 120 s multiplayer. 5 per thorn.",
+      "source": "https://peak.wiki.gg/wiki/Stamina_bar#Thorns"
+    },
+    "weight": {
+      "color": "#7f8c8d",
+      "decays": false,
+      "computed": true,
+      "source": "https://peak.wiki.gg/wiki/Stamina_bar#Weight"
+    },
+    "colorsConfirmed": false,
+    "colorsNote": "The wiki does not list segment colors. These are the app's own colors."
+  },
+  "weight": {
+    "rule": "Weight status = sum of the weights of every carried item (hands, pockets and the worn bag). Item weights are already in bar points. Negative weights subtract. The total is clamped at 0.",
+    "includesBagContents": true,
+    "ascent3FlatPerItem": 2.5,
+    "ascent3ExceptBackpack": true,
+    "ascent3AppliesToNegative": true,
+    "clampAtZeroConfirmed": false,
+    "confirmed": true,
+    "source": [
+      "https://peak.wiki.gg/wiki/Stamina_bar#Weight",
+      "https://peak.wiki.gg/wiki/Ascents",
+      "https://peak.wiki.gg/wiki/Balloon"
+    ]
+  },
+  "inventory": {
+    "handSlots": 3,
+    "handKeys": [
+      "1",
+      "2",
+      "3"
+    ],
+    "bagKey": "4",
+    "bags": {
+      "none": 0,
+      "backpack": 4,
+      "fannypack": 2
+    },
+    "canWearBackpackAndFannyPackTogether": false,
+    "bagSlotNote": "Backpack, Fanny Pack, Jetpack and Rocketpack all use the same 4th equipment slot.",
+    "ownBackpackMustBeDropped": true,
+    "ownBackpackHow": "Place it on the ground, look at it, hold E.",
+    "teammatesCanOpenWornBackpack": true,
+    "teammateKeyConfirmed": false,
+    "teammateNote": "The wiki says friends can use your backpack while you wear it. It does not name the key or say from behind.",
+    "fannyPackSolo": false,
+    "fullInventoryPickup": "Goes into your hands, but cannot be stored until you make room.",
+    "confirmed": true,
+    "source": [
+      "https://peak.wiki.gg/wiki/How_to_play",
+      "https://peak.wiki.gg/wiki/Backpack",
+      "https://peak.wiki.gg/wiki/Fanny_Pack",
+      "https://peak.wiki.gg/wiki/Jetpack"
+    ]
+  },
+  "cooking": {
+    "stages": [
+      {
+        "level": 1,
+        "name": "Cooked",
+        "hungerMultiplier": 2,
+        "extraStaminaMultiplier": 1.5,
+        "extraStaminaIfNone": 10,
+        "berries": "Remove Poison and Thorns, Spores -5"
+      },
+      {
+        "level": 2,
+        "name": "Well-Done",
+        "sameAs": 1
+      },
+      {
+        "level": 3,
+        "name": "Burnt",
+        "hungerDelta": -5
+      },
+      {
+        "level": 4,
+        "name": "Incinerated",
+        "addsPoisonPerTime": 10,
+        "maxPoison": 90,
+        "equipmentBreaks": true
+      }
+    ],
+    "cookTwice": "Same as cooking once (Well-Done). The 3rd stage burns.",
+    "mushroomPoisonStays": true,
+    "nonFoodNoBonus": true,
+    "backpackOnFireCooksContents": false,
+    "confirmed": true,
+    "source": "https://peak.wiki.gg/wiki/Cooking"
+  },
+  "campfire": {
+    "moraleBoostExtraStamina": 25,
+    "healsInjury": 20,
+    "clearsPetrify": 20,
+    "stopsHunger": true,
+    "radiusMeters": 19.2,
+    "confirmed": true,
+    "source": "https://peak.wiki.gg/wiki/Campfire"
+  },
+  "ascents": {
+    "list": [
+      {
+        "level": -1,
+        "name": "Tenderfoot",
+        "effect": "Climbing uses 30% less stamina. Hunger grows 30% slower."
+      },
+      {
+        "level": 0,
+        "name": "Peak",
+        "effect": "Default."
+      },
+      {
+        "level": 1,
+        "name": "Ascent 1",
+        "effect": "Fall damage x2."
+      },
+      {
+        "level": 2,
+        "name": "Ascent 2",
+        "effect": "Hunger grows 60% faster."
+      },
+      {
+        "level": 3,
+        "name": "Ascent 3",
+        "effect": "Items weigh +2.5 (except the Backpack)."
+      },
+      {
+        "level": 4,
+        "name": "Ascent 4",
+        "effect": "No Flares at the Peak."
+      },
+      {
+        "level": 5,
+        "name": "Ascent 5",
+        "effect": "Cold nights (about 100 Cold)."
+      },
+      {
+        "level": 6,
+        "name": "Ascent 6",
+        "effect": "Climbing uses 40% more stamina."
+      },
+      {
+        "level": 7,
+        "name": "Ascent 7",
+        "effect": "Start with 10 Curse, +15 per statue revive."
+      },
+      {
+        "level": 8,
+        "name": "Ascent 8",
+        "effect": "Free the Scoutmaster's soul."
+      }
+    ],
+    "cumulative": true,
+    "confirmed": true,
+    "source": "https://peak.wiki.gg/wiki/Ascents"
+  }
+}

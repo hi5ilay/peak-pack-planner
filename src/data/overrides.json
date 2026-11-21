@@ -1,0 +1,29 @@
+{
+  "_about": "Corrections from real gameplay. Anything here wins over the wiki data in items.json. See README, section Overrides.",
+  "sports-drink": {
+    "cookResult": "no_change",
+    "raw": { "extraStamina": 30 },
+    "cooked": { "hunger": 0, "extraStamina": 30, "effects": [{ "status": "heat", "amount": -200, "timing": "instant" }] },
+    "tags": { "staminaItem": true, "avoidForHeat": true },
+    "cookNote": "Cooking makes no difference in-game: still +30 extra stamina.",
+    "notes": "Stamina item: +30 extra stamina and nothing players rely on. It also removes Heat 200, but players keep it for stamina, so the planner only suggests it for Heat when nothing else can fix it.",
+    "source": "Real gameplay. The wiki says cooked gives 45 bonus stamina."
+  },
+  "energy-drink": {
+    "tags": { "neverCookByDefault": true },
+    "cookNote": "Cooking removes the Drowsy crash and extends the boost to 15 s, but the can explodes when you drink it and knocks back everyone nearby (including you). Fine solo on flat ground, dangerous on a wall or next to friends.",
+    "source": "Real gameplay, matches https://peak.wiki.gg/wiki/Energy_Drink"
+  },
+  "big-lollipop": {
+    "tags": { "alwaysCook": true },
+    "cookNote": "Always cook it: cooking removes the Drowsy crash after the infinite stamina ends.",
+    "source": "Real gameplay, matches https://peak.wiki.gg/wiki/Big_Lollipop"
+  },
+  "airline-food": {
+    "raw": { "hunger": 40 },
+    "cooked": { "hunger": 80 },
+    "tags": { "alwaysCook": true },
+    "cookNote": "Always cook it before eating: 40 Hunger raw, 80 cooked.",
+    "source": "Real gameplay"
+  }
+}
