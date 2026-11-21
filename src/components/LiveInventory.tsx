@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { advise, arrangeInventory, defaultCookLevel, emptyStatus, getItem, ITEMS, type BagType, type CarriedItem, type CookLevel, type ManualStatus } from '../engine';
+import { comparePacks } from '../engine/comparePacks';
 import styles from './LiveInventory.module.css';
 
 interface LiveItem {
@@ -57,9 +58,14 @@ function recommendation(run: LiveRun, bagType: BagType): string {
   const displaced = after.overflow.find(({ entry }) => !priorOverflow.has(entry.uid));
   const slots = run.hands.length + (bagType === 'backpack' ? 4 : bagType === 'fannypack' ? 2 : 0);
   const swap = displaced ?? (carried.length >= slots ? after.overflow[0] : undefined);
-  if (!swap) return 'Pick it up. You have room.';
+  if (!swap) {
+    const trade = comparePacks(known, [...known, candidate], run.ascent);
+    return ['Pick it up. You have room.', trade.details].filter(Boolean).join(' ');
+  }
   const item = carried.find((entry) => entry.uid === swap.entry.uid);
-  return 'Swap out ' + getItem(swap.entry.itemId).name + (item ? ' (' + item.slot + ')' : '') + '. ' + swap.reason;
+  const trade = comparePacks(known, known.map((entry) => entry.uid === swap.entry.uid ? candidate : entry), run.ascent);
+  const instruction = 'Swap out ' + getItem(swap.entry.itemId).name + (item ? ' (' + item.slot + ')' : '') + '.';
+  return [instruction, trade.details || swap.reason].join(' ');
 }
 
 export function LiveInventory() {
