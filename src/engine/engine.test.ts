@@ -149,6 +149,16 @@ describe('cooking stats', () => {
 });
 
 describe('arrangeInventory', () => {
+  it('keeps both Rescue Claws over Chain Launcher in the reported solo pack', () => {
+    const inventory = [
+      c('bandages'), c('first-aid-kit'), c('medicinal-root', 1), c('chain-launcher'),
+      c('rescue-claw'), c('scouts-tenacity'), c('marshmallow', 1), c('rescue-claw'),
+    ];
+    const a = advise(state({ inventory, ascent: 1 }));
+    expect(a.arrangement.kept.filter((entry) => entry.itemId === 'rescue-claw')).toHaveLength(2);
+    expect(a.arrangement.overflow.map(({ entry }) => entry.itemId)).toEqual(['chain-launcher']);
+  });
+
   it('keeps cooked Marshmallow over raw Trail Mix in the reported full pack', () => {
     const inventory = [
       c('bandages'), c('first-aid-kit'), c('medicinal-root', 1), c('chain-launcher'),
@@ -165,7 +175,7 @@ describe('arrangeInventory', () => {
       c('medicinal-root'), c('rescue-claw'), c('rope-cannon'), c('scouts-tenacity'),
     ];
     const a = arrangeInventory(inventory, 'backpack', emptyStatus());
-    expect(a.hands.map((slot) => slot?.entry.itemId)).toEqual(['bandages', 'scouts-tenacity', 'chain-launcher']);
+    expect(a.hands.map((slot) => slot?.entry.itemId)).toEqual(['bandages', 'scouts-tenacity', 'rescue-claw']);
     expect(a.bag.map((slot) => slot?.entry.itemId)).toContain('first-aid-kit');
     expect(a.overflow).toEqual([]);
   });
@@ -222,7 +232,7 @@ describe('arrangeInventory', () => {
     ];
     const a = advise(state({ inventory }));
     expect(a.arrangement.hands.map((slot) => slot?.entry.itemId)).toEqual([
-      'bandages', 'trail-mix', 'rope-cannon',
+      'bandages', 'trail-mix', 'rescue-claw',
     ]);
     expect(a.arrangement.kept.filter((e) => e.itemId === 'first-aid-kit')).toHaveLength(1);
     expect(a.arrangement.overflow.map((o) => o.entry.itemId).sort()).toEqual(['bandages', 'first-aid-kit']);
