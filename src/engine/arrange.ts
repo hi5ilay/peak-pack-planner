@@ -43,6 +43,7 @@ export function keepPriority(entry: CarriedItem, ascent = 0): number {
   if (isHealItem(entry)) return 70 + Math.min(20, healPower(entry) / 10);
   // Reserve the emergency tool below, then favor strong climbing boosts over spare tools.
   if (item.id === 'big-lollipop' || (item.id === 'energy-drink' && entry.cookLevel === 0)) return 75;
+  if (item.id === 'rescue-claw') return 66 + (entry.usesLeft ?? item.uses ?? 0);
   if (item.id === 'piton') return 64;
   if (item.tags.climbingTool) return 66;
   if (isEdible(entry)) return 55 + Math.min(20, hungerFill(entry) / 4) + Math.min(10, extraOf(entry) / 5);
