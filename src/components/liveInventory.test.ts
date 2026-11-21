@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { emptyStatus } from '../engine';
+import { comparePacks } from '../engine/comparePacks';
+import { toEntry } from './liveInventory';
 import { pickupAdvice, type LiveItem, type LiveRun } from './liveInventory';
 
 const food: LiveItem = {uid:'food', name:'Airline Food', slot:'Marked item', cookLevel:0, usesLeft:null};
@@ -9,6 +11,21 @@ const run: LiveRun = {
 };
 
 describe('live placement advice', () => {
+  it('leaves a second Energy Drink behind and counts all remaining cookie servings', () => {
+    const item = (uid: string, name: string, slot: string): LiveItem => ({...food,uid,name,slot});
+    const cookies = {...item('cookies', 'Scout Cookies', 'Hand 2'), usesLeft:4};
+    const packed = {
+      ...run, marked:item('extra-drink','Energy Drink','Marked item'),
+      hands:[item('bandages','Bandages','Hand 1'),cookies,item('claw','Rescue Claw','Hand 3')],
+      pockets:[item('kit','First Aid Kit','Pocket 1'),item('chain','Chain Launcher','Pocket 2'),
+        {...food, cookLevel:1, slot:'Pocket 3'},item('drink','Energy Drink','Pocket 4')],
+      extraStamina:99.6,
+    };
+    expect(pickupAdvice(packed, 'backpack')).toMatchObject({ action:'leave', text:expect.stringContaining('already have an Energy Drink') });
+    const entry = toEntry(cookies)!;
+    expect(comparePacks([entry], [], 1).details).toContain('Hunger recovery carried 40 to 0 · Bonus stamina carried 40 to 0');
+  });
+
   it('puts raw Airline Food in a free pocket before the campfire', () => {
     expect(pickupAdvice(run, 'backpack').text).toContain('put it in backpack pocket 1');
     expect(pickupAdvice({...run, hands:[{...food,slot:'Hand 1'},null,null]}, 'backpack').text)

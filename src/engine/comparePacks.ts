@@ -8,8 +8,8 @@ function summarize(pack: CarriedItem[], ascent: number) {
     weight: computeWeight(pack, ascent),
     clawUses: usable.reduce((total, entry) =>
       total + (entry.itemId === 'rescue-claw' ? entry.usesLeft ?? getItem(entry.itemId).uses ?? 0 : 0), 0),
-    hunger: usable.reduce((total, entry) => total + hungerFill(entry), 0),
-    bonus: usable.reduce((total, entry) => total + extraOf(entry), 0),
+    hunger: usable.reduce((total, entry) => total + hungerFill(entry) * (entry.usesLeft ?? getItem(entry.itemId).uses ?? 1), 0),
+    bonus: usable.reduce((total, entry) => total + extraOf(entry) * (entry.usesLeft ?? getItem(entry.itemId).uses ?? 1), 0),
   };
 }
 
