@@ -5,6 +5,7 @@
     <AssemblyName>PeakPackPlanner</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony" HintPath="$(BepInExCore)/0Harmony.dll" Private="false" />
     <Reference Include="BepInEx" HintPath="$(BepInExCore)/BepInEx.dll" Private="false" />
     <Reference Include="Assembly-CSharp" HintPath="$(PeakManaged)/Assembly-CSharp.dll" Private="false" />
     <Reference Include="UnityEngine" HintPath="$(PeakManaged)/UnityEngine.dll" Private="false" />

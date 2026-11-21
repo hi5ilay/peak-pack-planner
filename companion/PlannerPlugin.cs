@@ -1,15 +1,40 @@
 using System;
 using System.IO;
+using System.Collections.Generic;
 using System.Linq;
 using BepInEx;
 using BepInEx.Configuration;
+using HarmonyLib;
 using Newtonsoft.Json;
 using UnityEngine;
 using Status = CharacterAfflictions.STATUSTYPE;
 
-[BepInPlugin("hi5ilay.peakpackplanner", "PEAK Pack Planner", "0.1.0")]
+[BepInPlugin("hi5ilay.peakpackplanner", "PEAK Pack Planner", "0.2.0")]
 public sealed class PlannerPlugin : BaseUnityPlugin
 {
+    private sealed class ConsumedItem
+    {
+        public string uid;
+        public long time;
+    }
+
+    private static readonly List<ConsumedItem> consumed = new List<ConsumedItem>();
+    private string runId;
+    private long markId;
+
+    [HarmonyPatch(typeof(GlobalEvents), nameof(GlobalEvents.TriggerItemConsumed))]
+    private static class LocalConsumption
+    {
+        private static void Postfix(Item __0, Character __1)
+        {
+            if (__1 != Character.localCharacter || !__0 || __0.data == null || __0.data.guid == Guid.Empty) return;
+            consumed.Add(new ConsumedItem { uid = __0.data.guid.ToString(), time = Now() });
+            if (consumed.Count > 32) consumed.RemoveAt(0);
+        }
+    }
+
+    private static long Now() => DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
     private ConfigEntry<KeyCode> markKey;
     private string snapshotPath;
     private Character previousCharacter;
@@ -19,6 +44,7 @@ public sealed class PlannerPlugin : BaseUnityPlugin
 
     private void Awake()
     {
+        new Harmony("hi5ilay.peakpackplanner").PatchAll(typeof(PlannerPlugin).Assembly);
         markKey = Config.Bind("Controls", "Mark item", KeyCode.T, "Mark the highlighted item for comparison. Press with no item highlighted to clear.");
         snapshotPath = Path.Combine(Paths.BepInExRootPath, "peak-pack-planner.json");
         Logger.LogInfo("Live planner ready. Press " + markKey.Value + " over an item to compare it.");
@@ -30,12 +56,15 @@ public sealed class PlannerPlugin : BaseUnityPlugin
         if (character != previousCharacter)
         {
             previousCharacter = character;
+            runId = Guid.NewGuid().ToString();
+            consumed.Clear();
             marked = null;
         }
 
         if (Application.isFocused && Input.GetKeyDown(markKey.Value))
         {
             marked = Interaction.instance ? Interaction.instance.currentHovered as Item : null;
+            markId = Now();
             nextSnapshot = 0;
             Logger.LogInfo(marked ? "Marked " + marked.GetName() : "Cleared marked item");
         }
@@ -72,7 +101,7 @@ public sealed class PlannerPlugin : BaseUnityPlugin
         var player = character ? character.player : null;
         var snapshot = player && !character.inAirport ? ReadRun(character, player) : null;
         var payload = JsonConvert.SerializeObject(new {
-            version = 1, time = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), run = snapshot
+            version = 1, time = Now(), run = snapshot
         });
         var pending = snapshotPath + ".tmp";
         File.WriteAllText(pending, payload);
@@ -91,6 +120,7 @@ public sealed class PlannerPlugin : BaseUnityPlugin
         var afflictions = character.refs.afflictions;
         float StatusAmount(Status status) => afflictions.GetCurrentStatus(status) * 100;
         return new {
+            runId, markId, consumed,
             bagType, bagId = bag.data?.guid.ToString(),
             hands = player.itemSlots.Select((slot, i) => ReadItem(slot.prefab, slot.data, "Hand " + (i + 1))).ToArray(),
             pockets = bag.IsEmpty() ? Array.Empty<object>() : pockets,
