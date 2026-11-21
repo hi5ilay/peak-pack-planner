@@ -160,7 +160,7 @@ describe('arrangeInventory', () => {
     ]);
     expect(a.arrangement.overflow.map(({ entry }) => entry.itemId)).toEqual(['rescue-claw']);
     expect(a.bar.weight).toBe(5);
-    expect(top(a).reason).toContain('22.5 to 5');
+    expect(top(a).reason).toContain('Weight 22.5 to 5 · Rescue Claw uses 6 to 3');
   });
 
   it('keeps both charged Rescue Claws over Energy Drink in the reported solo pack', () => {
