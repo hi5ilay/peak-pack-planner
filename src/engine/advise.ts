@@ -158,8 +158,19 @@ export function advise(state: GameState): Advice {
   if (sim.hunger >= HUNGRY) {
     const pool = carried.filter((e) => !usedUids.has(e.uid));
     const food = bestFood(pool, sim.hunger);
+    const root = pool.find((e) => e.itemId === 'medicinal-root' && isEdible(e));
     const waitForFire = food && getItem(food.itemId).tags.alwaysCook && food.cookLevel === 0 && hungerFill(food) > sim.hunger;
-    if (food && waitForFire) {
+    if (!food && root) {
+      actions.push({
+        action: 'keep',
+        itemId: root.itemId,
+        itemName: name(root),
+        uid: root.uid,
+        reason: 'Save it for Poison, Spores, or Injury.',
+        result: `Eating it for Hunger alone would restore ${fmt(Math.min(sim.hunger, hungerFill(root)))} Hunger. Look for regular food.`,
+        priority: 4,
+      });
+    } else if (food && waitForFire) {
       const item = getItem(food.itemId);
       actions.push({
         action: 'keep',

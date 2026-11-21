@@ -131,7 +131,7 @@ describe('arrangeInventory', () => {
     const a = advise(state({ inventory, status: { poison: 20 } }));
 
     expect(a.arrangement.hands[0]?.entry.itemId).toBe('bandages');
-    expect(a.arrangement.hands[1]?.entry.itemId).toBe(otherFood ? 'trail-mix' : 'medicinal-root');
+    expect(a.arrangement.hands[1]?.entry.itemId).toBe(otherFood ? 'trail-mix' : undefined);
     expect(a.arrangement.bag.map((slot) => slot?.entry.itemId)).toContain('first-aid-kit');
     expect(a.arrangement.overflow).toEqual([]);
     expect(a.actions.find((action) => action.action === 'eat')?.itemId).toBe('medicinal-root');
@@ -204,6 +204,17 @@ describe('arrangeInventory', () => {
 });
 
 describe('advise', () => {
+  it.each([0, 1] as const)('saves Medicinal Root for status relief at 12.5 Hunger (cook level %s)', (cookLevel) => {
+    const a = advise(state({ inventory: [c('medicinal-root', cookLevel), c('first-aid-kit')], status: { hunger: 12.5 }, hardClimb: true }));
+    expect(top(a)).toMatchObject({ action: 'keep', itemId: 'medicinal-root' });
+    expect(a.actions.some((action) => action.action === 'eat' && action.itemId === 'medicinal-root')).toBe(false);
+  });
+
+  it('eats regular food for Hunger and saves Medicinal Root', () => {
+    const a = advise(state({ inventory: [c('medicinal-root'), c('trail-mix')], status: { hunger: 12.5 } }));
+    expect(top(a)).toMatchObject({ action: 'eat', itemId: 'trail-mix' });
+  });
+
   it('40% Injury with Bandage and First Aid Kit: uses the Bandage and saves the kit', () => {
     const a = advise(state({ inventory: [c('bandages'), c('first-aid-kit')], status: { injury: 40 } }));
     expect(top(a).action).toBe('use');
