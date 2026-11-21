@@ -1,0 +1,100 @@
+import { useEffect, useState } from 'react';
+import { advise, arrangeInventory, defaultCookLevel, emptyStatus, getItem, ITEMS, type BagType, type CarriedItem, type CookLevel, type ManualStatus } from '../engine';
+import { comparePacks } from '../engine/comparePacks';
+
+interface LiveItem {
+  uid: string;
+  name: string;
+  slot: string;
+  cookLevel: number;
+  usesLeft: number | null;
+}
+
+interface LiveRun {
+  hands: (LiveItem | null)[];
+  pockets: (LiveItem | null)[];
+  marked: LiveItem | null;
+  bagType: string;
+  ascent: number;
+  stamina: number;
+  extraStamina: number;
+  status: ManualStatus;
+}
+
+const normalize = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, '');
+const catalog = new Map(ITEMS.map((item) => [normalize(item.name), item]));
+
+export function toEntry(item: LiveItem): CarriedItem | null {
+  const match = catalog.get(normalize(item.name));
+  if (!match) return null;
+  const cookLevel = (Math.max(defaultCookLevel(match), Math.min(4, item.cookLevel))) as CookLevel;
+  return { uid: item.uid, itemId: match.id, cookLevel, usesLeft: item.usesLeft };
+}
+
+export function recommendation(run: LiveRun, bagType: BagType): string {
+  const marked = run.marked;
+  if (!marked) return 'Look at a highlighted item in PEAK and press T.';
+  const carried = [...run.hands, ...run.pockets].filter((item): item is LiveItem => item !== null);
+  if (carried.some((item) => item.uid === marked.uid)) return 'You already picked this up.';
+  const candidate = toEntry(marked);
+  if (!candidate) return 'This item has no matching entry in the planner catalog.';
+  const entries = carried.map(toEntry);
+  if (entries.some((item) => item === null)) return 'A carried item is unknown. Swap advice is paused until the whole pack can be evaluated.';
+  const known = entries.filter((item): item is CarriedItem => item !== null);
+  const status = { ...emptyStatus(), ...run.status };
+  const before = arrangeInventory(known, bagType, status, run.ascent);
+  const proposed = advise({
+    inventory: [...known, candidate], bagType, status, ascent: run.ascent,
+    stamina: run.stamina, extraStamina: run.extraStamina, hardClimb: false, atCampfire: false,
+  });
+  const after = proposed.arrangement;
+  const rejected = after.overflow.find(({ entry }) => entry.uid === candidate.uid);
+  if (rejected) {
+    const snack = proposed.actions.find((action) => action.uid === candidate.uid && action.action === 'eat');
+    return snack ? 'Eat it before moving on. ' + snack.result + '.' : 'Leave it. ' + rejected.reason;
+  }
+  const priorOverflow = new Set(before.overflow.map(({ entry }) => entry.uid));
+  const displaced = after.overflow.find(({ entry }) => !priorOverflow.has(entry.uid));
+  const slots = run.hands.length + (bagType === 'backpack' ? 4 : bagType === 'fannypack' ? 2 : 0);
+  const swap = displaced ?? (carried.length >= slots ? after.overflow[0] : undefined);
+  if (!swap) {
+    const trade = comparePacks(known, [...known, candidate], run.ascent);
+    return ['Pick it up. You have room.', trade.details].filter(Boolean).join(' ');
+  }
+  const item = carried.find((entry) => entry.uid === swap.entry.uid);
+  const trade = comparePacks(known, known.map((entry) => entry.uid === swap.entry.uid ? candidate : entry), run.ascent);
+  const instruction = 'Swap out ' + getItem(swap.entry.itemId).name + (item ? ' (' + item.slot + ')' : '') + '.';
+  return [instruction, trade.details || swap.reason].join(' ');
+}
+
+export const LIVE_URL = 'http://127.0.0.1:47831/?live';
+
+export function useLiveInventory(enabled: boolean) {
+  const [run, setRun] = useState<LiveRun | null>(null);
+  const [connection, setConnection] = useState('Waiting for the PEAK mod');
+  useEffect(() => {
+    if (!enabled) return;
+    const controller = new AbortController();
+    let timer: number;
+    async function poll() {
+      try {
+        const local = window.location.hostname === '127.0.0.1';
+        const url = local ? '/snapshot' : new URL('/snapshot', LIVE_URL);
+        const response = await fetch(url, {signal: controller.signal, cache: 'no-store', targetAddressSpace: 'loopback'} as RequestInit);
+        if (!response.ok) throw new Error('Waiting');
+        const data = await response.json();
+        if (data.version !== 1 || Date.now() - data.time > 3000) throw new Error('Stale');
+        setRun(data.run);
+        setConnection(data.run ? 'Connected to PEAK' : 'Connected · Start a climb');
+      } catch {
+        if (controller.signal.aborted) return;
+        setRun(null);
+        setConnection('Waiting for the PEAK mod');
+      }
+      timer = window.setTimeout(poll, 500);
+    }
+    void poll();
+    return () => { controller.abort(); window.clearTimeout(timer); };
+  }, [enabled]);
+  return { run: enabled ? run : null, connection };
+}

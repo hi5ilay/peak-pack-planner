@@ -93,3 +93,19 @@ Game data is credited to the [PEAK community wiki (peak.wiki.gg)](https://peak.w
 ## License
 
 The code is released under the [MIT license](LICENSE). **The MIT license covers the code only.** Game assets (names, logos, icons, artwork, screenshots and other material from PEAK) are excluded and belong to their owners.
+
+## Live inventory companion
+
+The Windows companion reads your hand slots, the bag you are wearing, and the item highlighted by PEAK. Press **T** over an item to compare it. Press **T** with no item highlighted to clear it. The planner shows which existing item and slot to swap out, when there is room, or when to leave the marked item behind. It never changes your inventory.
+
+Build the BepInEx 5 plugin against your installed PEAK managed assemblies and your Thunderstore profile's BepInEx core, then copy its DLL into that profile:
+
+```powershell
+dotnet build companion -c Release "-p:PeakManaged=$managed" "-p:BepInExCore=$bepInEx/core"
+Copy-Item companion/bin/Release/netstandard2.1/PeakPackPlanner.dll "$bepInEx/plugins/"
+npm ci
+npm run build -- --base /
+node companion/serve.mjs "$bepInEx/peak-pack-planner.json"
+```
+
+Here `$managed` is the path to `PEAK_Data/Managed` and `$bepInEx` is the path to the profile's `BepInEx` directory. Launch PEAK using the profile's **Modded** button and open [the live planner](http://127.0.0.1:47831/?live) on the same PC. The browser tab refreshes while you play. The companion matches English in-game item names against the planner catalog and shows unsupported items by name.

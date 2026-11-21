@@ -9,12 +9,13 @@ interface Props {
   arrangement: Arrangement;
   actions: Action[];
   bagType: BagType;
+  readOnly?: boolean;
   send: (m: Msg) => void;
 }
 
 const HAND_LABELS = ['Heal', 'Main food', 'Emergency'];
 
-export function Inventory({ arrangement, actions, bagType, send }: Props) {
+export function Inventory({ arrangement, actions, bagType, send, readOnly = false }: Props) {
   const [over, setOver] = useState(false);
   const eat = new Set(actions.filter((action) => action.action === 'eat').map((action) => action.uid));
   return (
@@ -29,6 +30,7 @@ export function Inventory({ arrangement, actions, bagType, send }: Props) {
       }}
       onDragLeave={() => setOver(false)}
       onDrop={(e) => {
+        if (readOnly) return;
         e.preventDefault();
         setOver(false);
         const data = e.dataTransfer.getData('text/plain');
@@ -40,7 +42,7 @@ export function Inventory({ arrangement, actions, bagType, send }: Props) {
         <h2>Your pack</h2>
         <label className={styles.bagPick}>
           <span>Bag</span>
-          <select value={bagType} onChange={(e) => send({ type: 'bag', bagType: e.target.value as BagType })}>
+          <select disabled={readOnly} value={bagType} onChange={(e) => send({ type: 'bag', bagType: e.target.value as BagType })}>
             {(Object.keys(BAG_NAMES) as BagType[]).map((b) => (
               <option key={b} value={b}>
                 {BAG_NAMES[b]} ({BAG_SLOTS[b]} slots)
@@ -49,16 +51,16 @@ export function Inventory({ arrangement, actions, bagType, send }: Props) {
           </select>
         </label>
       </div>
-      <p className={styles.hint}>Hands (keys 1, 2, 3). Items sort themselves into roles. Drag items here from the list below, or tap them.</p>
+      <p className={styles.hint}>{readOnly ? 'Actual hand and backpack slots from PEAK.' : 'Hands (keys 1, 2, 3). Items sort themselves into roles. Drag items here from the list below, or tap them.'}</p>
       <div className={styles.hands}>
         {arrangement.hands.map((s, i) => (
-          <Slot key={s?.entry.uid ?? `h${i}`} slot={s} label={HAND_LABELS[i]} hotkey={String(i + 1)} big send={send} />
+          <Slot key={s?.entry.uid ?? `h${i}`} slot={s} label={HAND_LABELS[i]} hotkey={String(i + 1)} big send={send} readOnly={readOnly} />
         ))}
       </div>
 
       <div className={`${styles.bag} ${styles[bagType]}`}>
         {bagType === 'none' ? (
-          <div className={styles.noBag}>No bag worn. Pick a Backpack or Fanny Pack above for more room.</div>
+          <div className={styles.noBag}>{readOnly ? 'No bag equipped in PEAK.' : 'No bag worn. Pick a Backpack or Fanny Pack above for more room.'}</div>
         ) : (
           <>
             <div className={styles.strap} aria-hidden="true" />
@@ -69,7 +71,7 @@ export function Inventory({ arrangement, actions, bagType, send }: Props) {
               </div>
               <div className={styles.pockets}>
                 {arrangement.bag.map((s, i) => (
-                  <Slot key={s?.entry.uid ?? `b${i}`} slot={s} label="Empty pocket" send={send} />
+                  <Slot key={s?.entry.uid ?? `b${i}`} slot={s} label="Empty pocket" send={send} readOnly={readOnly} />
                 ))}
               </div>
             </div>
